@@ -28,6 +28,7 @@
 </template>
 
 <script>
+
 export default {
     data:function(){
         return{
@@ -43,11 +44,7 @@ export default {
             complemento: ''
         }
     }, methods:{
-<<<<<<< HEAD
-        cadastrar:function(){
-=======
         voltarMenu:function(){
->>>>>>> ce643e98d9bc180c988cb9fb8adcad50be60cb0f
             this.$router.push("/")
         }
     }
