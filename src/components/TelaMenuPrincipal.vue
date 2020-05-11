@@ -19,7 +19,11 @@
             </div>
             <img src="../imagens/logo.png" id="logo"> 
             <button id="botao-logar" @click="logar">LOGAR</button>
+<<<<<<< HEAD
             <router-link to = "ViewTelaCadastro" id="cadastrar">Cadastre-se</router-link> 
+=======
+                <router-link to="ViewTelaCadastro" id="cadastrar">Cadastre-se</router-link> 
+>>>>>>> ce643e98d9bc180c988cb9fb8adcad50be60cb0f
         </div>
         <div id="sombra-menu"></div>
             <div id="menu-rodape"></div>
