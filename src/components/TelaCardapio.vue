@@ -1,5 +1,6 @@
 <template>
   <div>
+      <h1>Bem Vindo a Tela de Cardapio</h1>
       <button id="teste" @click="IrParaTelaPedidos">IrParaTelaPedidos</button>
       <button id="teste1" @click="IrParaTelaMenuPrincipal">IrParaTelaMenuPrincipal</button>
   </div>
@@ -13,9 +14,9 @@ data:function(){
   }
 }, methods:{
   IrParaTelaPedidos:function(){
-    this.$router.push('/ViewTelaPedidos')
+    this.$router.push("/ViewTelaPedidos")
   }, IrParaTelaMenuPrincipal:function(){
-    this.$router.push('/')
+    this.$router.push("/")
   }
 }
 }
@@ -33,8 +34,8 @@ data:function(){
 }
 
 #teste1{
-  border: 2px solid white;
-  color: white;
+  border: 2px solid black;
+  color: black;
   background-color: green;
   cursor: pointer;
 }

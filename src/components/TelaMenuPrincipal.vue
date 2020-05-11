@@ -9,6 +9,7 @@
                     <li @click="IrParaTelaCadastro">PERFIL</li>
                 </ul>
             </div>
+            <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link>
               <div id="caixa-login" v-if="ocultar == false">
                 <div id="menu-bar">
                 <input type="text" placeholder="E-mail" class="inputs" v-model="email">
@@ -167,5 +168,9 @@ data:function(){
     :-ms-input-placeholder {  
         color: black;
         font: 14px verdana, arial, sans-serif;
+    }
+
+    #botaoIrParaMenuAdmin{
+        color: pink;
     }
 </style>

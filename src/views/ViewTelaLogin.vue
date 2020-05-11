@@ -1,6 +1,5 @@
 <template>
   <div>
-      <h1>Bem Vindo a Tela de Login</h1>
       <TelaLogin/>
   </div>
 </template>

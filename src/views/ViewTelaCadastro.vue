@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>Bem Vindo a Tela de Cadastro</h1>
         <TelaCadastro/>
     </div>
 </template>

@@ -1,6 +1,7 @@
 <template>
   <div>
-      <button id="botãoLogin" @click="logar">Login</button>
+    <h1>Bem Vindo a Tela de Login</h1>
+    <button id="botãoLogin" @click="logar">Login</button>
   </div>
 </template>
 
