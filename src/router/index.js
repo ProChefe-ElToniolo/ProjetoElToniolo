@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import ViewTelaPrincipal from '../views/ViewTelaPrincipal.vue'
 import ViewTelaPedidos from '../views/ViewTelaPedidos.vue'
-import ViewTelaLogin from '../views/ViewTelaLogin.vue'
 import ViewTelaCadastro from '../views/ViewTelaCadastro.vue'
 import ViewTelaCardapio from '../views/ViewTelaCardapio.vue'
 import ViewTelaMenuAdmin from '../views/ViewTelaMenuAdmin.vue'
@@ -20,10 +19,6 @@ Vue.use(VueRouter)
     path: '/ViewTelaPedidos',
     name: 'ViewTelaPedidos',
     component: ViewTelaPedidos
-  },{
-    path: '/ViewTelaLogin',
-    name: 'ViewTelaLogin',
-    component: ViewTelaLogin
   },{
     path: '/ViewTelaCadastro',
     name: 'ViewTelaCadastro',

@@ -8,7 +8,9 @@
 import TelaCadastro from '../components/TelaCadastro.vue'
 
 export default {
+    components:{
     TelaCadastro
+    }
 }
 </script>
 

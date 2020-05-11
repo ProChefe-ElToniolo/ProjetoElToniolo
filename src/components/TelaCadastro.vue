@@ -13,7 +13,7 @@ export default {
         }
     }, methods:{
         cadastrar:function(){
-            this.$router.push("/ViewTelaPrincipal")
+            this.$router.push("/")
         }
     }
 }
