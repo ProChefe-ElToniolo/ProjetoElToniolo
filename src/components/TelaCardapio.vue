@@ -23,9 +23,6 @@ data:function(){
 </script>
 
 <style>
-#body,html{
-    background-color: rgb(64, 186, 131);
-}
 
 #teste{
   border: 2px solid black;
