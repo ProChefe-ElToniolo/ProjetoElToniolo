@@ -3,14 +3,18 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-// axios.require('axios')
+axios.require('axios')
+
 export default new Vuex.Store({
   state: {
+    clientes:[]
   },
   mutations: {
   },
   computed:{
 
+  }, mounted(){
+    axios.get("http://localhost:55537/api/Cliente").then(cliente => this.clientes = cliente.data)
   },
   actions: {
   },
