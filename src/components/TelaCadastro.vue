@@ -7,7 +7,7 @@
        <br>
        <input type="text" placeholder="E-mail" maxlength="50" v-model="email">
        <br>
-       <input type="text" placeholder="Senha" maxlength="20" v-model="senha">
+       <input type="password" placeholder="Senha" maxlength="20" v-model="senha">
        <br>
        <input type="number" placeholder="CPF" maxlength="11" v-model="CPF">
        <br>
@@ -22,7 +22,7 @@
        <input type="text" placeholder="Complemento" maxlength="50" v-model="complemento">
        <br>
        <button id="botãoCadastrar" @click="salvarCadastro">Cadastrar</button>
-      <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button>
+       <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button>
   </div>
   
 </template>
@@ -31,7 +31,16 @@
 export default {
     data:function(){
         return{
-
+            nome: '',
+            telefone: '',
+            email: '',
+            senha: '',
+            CPF: '',
+            CEP: '',
+            logradouro: '',
+            bairro: '',
+            UF: '',
+            complemento: ''
         }
     }, methods:{
         voltarMenu:function(){
