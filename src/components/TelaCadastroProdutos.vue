@@ -28,8 +28,10 @@
                </tr>
           </thead>
           <tbody>
-              <tr v-for="func in funcionarios" :key="func.id" @click="selecionar(func.id)">
-                  <td>{{func.nome}}</td>
+              <tr v-for="prod in listarProd" :key="prod.id">
+                  <td>{{prod.nome}}</td>
+                  <td>{{prod.descricao}}</td>
+                  <td>{{prod.preco}}</td>
             </tr>
           </tbody>
       </table>
@@ -43,18 +45,19 @@
 
 <script>
 export default {
-data:function(){
-    return{
-    }
-}, methods:{
-    IrParaTelaMenuAdmin:function(){
-        this.$router.push('/ViewTelaMenuAdmin')
+    data:function(){
+        return{
         }
-    }, computed:{
-        listarFunc: function(){
-            return this.$store.state.Produtos;
+    }, methods:{
+        IrParaTelaMenuAdmin:function(){
+            this.$router.push('/ViewTelaMenuAdmin')
+            }
+        }, computed:{
+            listarProd: function(){
+                console.log(this.$store.state.produtos);
+                return this.$store.state.produtos;
+            }
         }
-    }
 }
 </script>
 

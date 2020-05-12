@@ -9,13 +9,11 @@
        <br>
        <input type="password" placeholder="Senha" maxlength="20" v-model="senha">
        <br>
-<<<<<<< HEAD
-       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF" maxlength="11" >
-=======
        <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF" maxlength="11" v-model="cpf">
->>>>>>> 9c7a539ba2090aa055f027ac9abb0b90d41772c3
        <br>
        <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CEP" maxlength="8" v-model="cep">
+       <br>
+       <input type="text" placeholder="Cidade" maxlength="20" v-model="cidade"> 
        <br>
        <input type="text" placeholder="Logradouro" maxlength="50" v-model="logradouro">
        <br>
@@ -25,15 +23,9 @@
        <br>
        <input type="text" placeholder="Complemento" maxlength="50" v-model="complemento">
        <br>
-<<<<<<< HEAD
-       <!-- <button id="botãoCadastrar" @click="salvarCadastro">Cadastrar</button> -->
-       <br>
-       <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button>
-=======
-       <button id="botãoCadastrar" @click="salvarCadastro">Cadastrar</button>
+       <button id="botãoCadastrar" @click="salvarCadastro()">Cadastrar</button>
        <br>
        <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button> 
->>>>>>> 9c7a539ba2090aa055f027ac9abb0b90d41772c3
   </div>
   
 </template>
@@ -43,29 +35,17 @@ const axios = require('axios')
 export default {
     data:function(){
         return{
-<<<<<<< HEAD
-            nome: '',
-            telefone: '',
-            email: '',
-            senha: '',
-            CPF: '',
-            CEP: '',
-            logradouro: '',
-            bairro: '',
-            UF: '',
-            complemento: ''
-=======
         nome: '',
         telefone: '',
         email: '',
         senha: '',
         cpf: '',
         cep: '',
+        cidade: '',
         logradouro: '',
         bairro: '',
         uf: '',
-       // complemento: ''
->>>>>>> 9c7a539ba2090aa055f027ac9abb0b90d41772c3
+        complemento: ''
         }
     }, methods:{
         voltarMenu:function(){
@@ -90,6 +70,7 @@ export default {
             senha: this.senha,
             cpf: this.cpf,
             cep: this.cep,
+            cidade: this.cidade,
             logradouro: this.logradouro,
             bairro: this.bairro,
             uf: this.uf,
@@ -103,6 +84,7 @@ export default {
                 senha: this.senha,
                 cpf: this.cpf,
                 cep: this.cep,
+                cidade: this.cidade,
                 logradouro: this.logradouro,
                 bairro: this.bairro,
                 uf: this.uf,
