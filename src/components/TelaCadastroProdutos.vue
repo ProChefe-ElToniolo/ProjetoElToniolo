@@ -18,8 +18,23 @@
                 <option>g</option> 
                 <option>L</option> 
            </select><br>
-        <input type='file' accept='image/*' onchange='openFile(event)'><br>
-        <img id='output'>
+
+    <table border="1">
+          <thead>
+              <tr>
+                  <th>Nome</th>
+                  <th>Descrição</th>
+                  <th>Preço</th>
+               </tr>
+          </thead>
+          <tbody>
+              <tr v-for="func in funcionarios" :key="func.id" @click="selecionar(func.id)">
+                  <td>{{func.nome}}</td>
+            </tr>
+          </tbody>
+      </table>
+        <!-- <img id='imgProd' src="../imagens/cadastrarProd.png"><br>
+        <input type='file' accept='image/*' onchange='openFile()'> -->
   </div>
 
 
@@ -30,34 +45,21 @@
 export default {
 data:function(){
     return{
-        link: "../imagens/cadastrarProd.png"
     }
 }, methods:{
     IrParaTelaMenuAdmin:function(){
         this.$router.push('/ViewTelaMenuAdmin')
-    }, pegarImagem(){
-        alert('entrou')
-        this.link= this.getAttribute('src')
-        document.getElementById("img").src = this.link;
-    },  
-    openFile: function(event) {
-    var input = event.target;
-    alert(input);
-    var reader = new FileReader();
-    reader.onload = function(){
-      var dataURL = reader.result;
-      var output = document.getElementById('output');
-      output.src = dataURL;
-    }
-       alert(input);
-        reader.readAsDataURL(input.files[0])
+        }
+    }, computed:{
+        listarFunc: function(){
+            return this.$store.state.Produtos;
         }
     }
 }
 </script>
 
 <style>
- #img{
+ #imgProd{
      width: 80px;
      height: 80px;
  }
