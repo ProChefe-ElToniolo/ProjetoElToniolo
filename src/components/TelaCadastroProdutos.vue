@@ -45,7 +45,6 @@
 export default {
 data:function(){
     return{
-        listarFunc: ''
     }
 }, methods:{
     IrParaTelaMenuAdmin:function(){
