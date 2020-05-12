@@ -9,7 +9,7 @@
        <br>
        <input type="password" placeholder="Senha" maxlength="20" >
        <br>
-       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF" max="11" >
+       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF" maxlength="11" >
        <br>
        <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CEP" maxlength="8" >
        <br>
@@ -21,9 +21,9 @@
        <br>
        <input type="text" placeholder="Complemento" maxlength="50" >
        <br>
-       <!-- <button id="botãoCadastrar" @click="salvarCadastro">Cadastrar</button>
+       <!-- <button id="botãoCadastrar" @click="salvarCadastro">Cadastrar</button> -->
        <br>
-       <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button> -->
+       <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button>
   </div>
   
 </template>
@@ -33,16 +33,16 @@
 export default {
     data:function(){
         return{
-            // nome: '',
-            // telefone: '',
-            // email: '',
-            // senha: '',
-            // CPF: '',
-            // CEP: '',
-            // logradouro: '',
-            // bairro: '',
-            // UF: '',
-            // complemento: ''
+            nome: '',
+            telefone: '',
+            email: '',
+            senha: '',
+            CPF: '',
+            CEP: '',
+            logradouro: '',
+            bairro: '',
+            UF: '',
+            complemento: ''
         }
     }, methods:{
         voltarMenu:function(){
