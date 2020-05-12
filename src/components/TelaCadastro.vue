@@ -1,17 +1,17 @@
 <template>
   <div class="cadastro">
       <h1>CADASTRO</h1>
-       <!-- <input type="text" placeholder="Nome" maxlength="50" >
-       <br> -->
-       <input type="text" onkeypress="return onlynumber()" placeholder="Telefone" max="11">
+       <input type="text" placeholder="Nome" maxlength="50" >
+       <br>
+       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Telefone" maxlength="11">
        <br>
        <input type="text" placeholder="E-mail" maxlength="50">
        <br>
        <input type="password" placeholder="Senha" maxlength="20" >
        <br>
-       <input type="text" onkeypress="return onlynumber()" placeholder="CPF" max="11" >
+       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF" max="11" >
        <br>
-       <input type="text" onkeypress="return onlynumber()" placeholder="CEP" max="8" >
+       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CEP" maxlength="8" >
        <br>
        <input type="text" placeholder="Logradouro" maxlength="50">
        <br>
@@ -54,7 +54,7 @@ export default {
         var key = theEvent.keyCode || theEvent.which;
         key = String.fromCharCode( key );
         //var regex = /^[0-9.,]+$/;
-         var regex = /^[0-9.,]+$/;
+         var regex = /^[0-9.]+$/;
         if( !regex.test(key) ) {
         theEvent.returnValue = false;
         if(theEvent.preventDefault) theEvent.preventDefault();
@@ -73,7 +73,4 @@ export default {
   background-color: black;
   cursor: pointer;
 }
-/* input::-webkit-inner-spin-button {
-    -webkit-appearance: none; 
-} */
 </style>
