@@ -19,10 +19,12 @@
             </div>
             <img src="../imagens/logo.png" id="logo"> 
             <button id="botao-logar" @click="logar">LOGAR</button>
+            <router-link to = "ViewTelaCadastro" id="IrParaTelaCadastro">Cadastrar-se</router-link>
         </div>
         <div id="sombra-menu"></div>
             <div id="menu-rodape"></div>
     </div>
+        
 </template>
 
 <script>
