@@ -42,7 +42,7 @@ export default {
         logradouro: '',
         bairro: '',
         uf: '',
-        complemento: ''
+       // complemento: ''
         }
     }, methods:{
         voltarMenu:function(){
