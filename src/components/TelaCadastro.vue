@@ -1,33 +1,48 @@
 <template>
   <div class="cadastro">
       <h1>CADASTRO</h1>
-       <input type="text" placeholder="Nome" maxlength="50" v-model="nome">
+      <!-- VERIFICAR SE USAR OU NÃO PLACEHOLDER OU SÓ OS LABEL >-->
+        <label>Nome:</label>
+       <input type="text" placeholder="Digite seu nome Completo:" maxlength="50" v-model="nome">
        <br>
-       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Telefone" maxlength="11" v-model="telefone">
+       <label>Telefone:</label>
+       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Digite seu Telefone:" maxlength="11" v-model="telefone">
        <br>
-       <input type="text" placeholder="E-mail" maxlength="50" v-model="email">
+       <label>E-mail:</label>
+       <input type="text" placeholder="Digite seu e-mail:" maxlength="50" v-model="email">
        <br>
-       <input type="password" placeholder="Senha" maxlength="20" v-model="senha">
+       <label>Senha:</label>
+       <input type="password" placeholder="Digite uma senha:" maxlength="20" v-model="senha">
        <br>
-       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF" maxlength="11" v-model="cpf">
+       <label>CPF:</label>
+       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Digite seu CPF:" maxlength="11" v-model="cpf">
        <br>
-       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CEP" maxlength="8" v-model="cep">
+       <label>CEP:</label>
+       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Digite seu CEP:" maxlength="8" v-model="cep">
        <br>
+       <label>Cidade:</label>
        <input type="text" placeholder="Cidade" maxlength="20" v-model="cidade"> 
        <br>
+       <label>Logradouro:</label>
        <input type="text" placeholder="Logradouro" maxlength="50" v-model="logradouro">
        <br>
+       <label>Bairro:</label>
        <input type="text" placeholder="Bairro" maxlength="25" v-model="bairro" >
        <br>
+       <label>Número</label>
        <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Número" maxlength="5" v-model="numero">
        <br>
+       <label>UF::</label>
        <input type="text" placeholder="UF" maxlength="2" v-model="uf">
        <br>
-       <input type="text" placeholder="Complemento" maxlength="50" v-model="complemento">
+       <label>Complemento:</label>
+       <input type="text" placeholder="Complemento" maxlength="50" v-model="complemento"> 
        <br>
        <button id="botãoCadastrar" @click="salvarCadastro">Cadastrar</button>
        <br>
-       <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button> 
+       <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button>
+        
+       <!-- VERIFICAR SE USAR OU NÃO PLACEHOLDER OU SÓ OS LABEL >-->
   </div>
   
 </template>
@@ -54,18 +69,19 @@ export default {
         voltarMenu:function(){
             this.$router.push("/")
         }, 
-        onlynumber: function(evt){
-        var theEvent = evt || window.event;
-        var key = theEvent.keyCode || theEvent.which;
-        key = String.fromCharCode( key );
-        //var regex = /^[0-9.,]+$/;
-         var regex = /^[0-9.]+$/;
-        if( !regex.test(key) ) {
-        theEvent.returnValue = false;
-        if(theEvent.preventDefault) theEvent.preventDefault();
-        }
-    }, salvarCadastro: function(){
-        axios.post("http://localhost:55537/api/Cliente",{
+            onlynumber: function(evt){
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode( key );
+            //var regex = /^[0-9.,]+$/;
+            var regex = /^[0-9.]+$/;
+            if( !regex.test(key) ) {
+            theEvent.returnValue = false;
+            if(theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }, 
+            salvarCadastro: function(){
+            axios.post("http://localhost:55537/api/Cliente",{
             nome: this.nome,
             telefone: this.telefone,
             email: this.email,
@@ -96,7 +112,8 @@ export default {
                 })
             })
         }
-    },mounted(){
+    }, 
+    mounted(){
         axios.get("http://localhost:55537/api/Cliente").then(cliente => this.clientes = cliente.data)
     }
     

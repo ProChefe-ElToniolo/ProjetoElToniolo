@@ -6,7 +6,7 @@
                     <li @click="IrParaTelaPedidos">DELIVERY</li>
                     <li @click="IrParaTelaCardapio">CARDÁPIO</li>
                     <li @click="IrParaTelaLogin">SOBRE</li>
-                    <li @click="IrParaTelaCadastro">PERFIL</li>
+                    <li>PERFIL</li>
                 </ul>
             </div>
             <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link>
