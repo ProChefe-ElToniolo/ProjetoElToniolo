@@ -1,7 +1,6 @@
 <template>
   <div id="container">
         <div id="menu">
-<<<<<<< HEAD
             <div id="certo">
                 <nav> 
                     <ul class="list-menu">
@@ -11,7 +10,6 @@
                         <li @click="IrParaTelaCadastro">PERFIL</li>
                     </ul>                
                 </nav>
-                
                 <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
                 <div id="caixa-login" v-if="ocultar == false">
                     <div id="menu-bar">
@@ -19,29 +17,13 @@
                     <input type="password" placeholder="Senha" class="inputs" v-model="senha">
                     <button id="botao-entrar" @click="entrar">Entrar</button><br>
                     </div>
-=======
-            <div class="list-menu"> 
-                <ul>
-                    <li @click="IrParaTelaPedidos">DELIVERY</li>
-                    <li @click="IrParaTelaCardapio">CARDÁPIO</li>
-                    <li @click="IrParaTelaLogin">SOBRE</li>
-                    <li>PERFIL</li>
-                </ul>
-            </div>
-            <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link>
-              <div id="caixa-login" v-if="ocultar == false">
-                <div id="menu-bar">
-                <input type="text" placeholder="E-mail" class="inputs" v-model="email">
-                <input type="password" placeholder="Senha" class="inputs" v-model="senha">
-                <button id="botao-entrar" @click="entrar">Entrar</button><br>
->>>>>>> 9e9f0243df96bf2066a69c33a5fdbca9cdad6b35
-                </div>
+        </div>
                 <img src="../imagens/logo.png" id="logo"> 
                 <button id="botao-logar" @click="logar">LOGAR</button>
                 <img src="../imagens/comercial.png" id="userlogo">
                 <router-link to = "ViewTelaCadastro" id="IrParaTelaCadastro">Cadastrar-se</router-link>
             </div>
-        </div>
+    </div>
         <div id="sombra-menu"></div>
             <div id="menu-rodape"></div>
     </div>
