@@ -7,7 +7,8 @@ const axios = require('axios')
 
 export default new Vuex.Store({
   state: {
-    clientes:[]
+    clientes:[],
+    produtos:[]
   },
   mutations: {
   },
@@ -15,6 +16,7 @@ export default new Vuex.Store({
 
   }, mounted(){
     axios.get("http://localhost:55537/api/Cliente").then(cliente => this.clientes = cliente.data)
+    axios.get("http://localhost:55537/api/Produto").then(produto => this.produtos = produto.data)
   },
   actions: {
   },
