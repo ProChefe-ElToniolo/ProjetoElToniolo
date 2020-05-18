@@ -1,6 +1,8 @@
 <template>
     <div>
         <h1>Bem Vindo a Tela Cadastro Usuário</h1>
+        <label >nome</label>
+        <input type="text">
         <button @click="IrParaTelaMenuAdmin">IrParaTelaMenuAdmin</button>
     </div>
 </template>
