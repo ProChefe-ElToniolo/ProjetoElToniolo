@@ -6,10 +6,9 @@
 
 <script>
 import TelaCadastroProdutos from '../components/TelaCadastroProdutos.vue'
-
 export default {
     components:{
-    TelaCadastroProdutos
+      TelaCadastroProdutos,
     }
 }
 </script>
