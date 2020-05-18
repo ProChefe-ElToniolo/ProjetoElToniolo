@@ -19,7 +19,7 @@
                     </div>
         </div>
                 <img src="../imagens/logo.png" id="logo"> 
-                <button id="botao-logar" @click="logar">LOGAR</button>
+                <button id="botao-logar" @click="logar">FAZER LOGIN OU CADSTRA-SE</button>
                 <img src="../imagens/comercial.png" id="userlogo">
                 <router-link to = "ViewTelaCadastro" id="IrParaTelaCadastro">Cadastrar-se</router-link>
             </div>
@@ -123,10 +123,11 @@ data:function(){
         border: none;
         font-size: 14px;
         padding-right: 4%;
+        padding-left: 7%;
         text-align: right;
         margin: 0px 0px 0px 60%;
         outline: none;
-        width: 170px;
+        width: auto;
         background-color: #00567e7c;
         height: 70px;
     }
