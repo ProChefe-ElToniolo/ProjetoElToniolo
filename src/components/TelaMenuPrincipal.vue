@@ -25,6 +25,7 @@
                 <img src="../imagens/comercial.png" id="userlogo">
                 
             </div>
+                <router-link to = "/ViewTelaCadastroProdutos">Produtos</router-link>
     </div>
         <div id="sombra-menu"></div>
             <div id="menu-rodape"></div>
@@ -44,7 +45,12 @@ data:function(){
             logar: function(){
                 return this.ocultar = false;
             },entrar: function(){
-                return this.ocultar = true;
+                if(this.email == "1" && this.senha == ""){
+                    this.$router.push("/ViewTelaMenuAdmin")
+                }
+                else{
+                    return this.ocultar = true;
+                }
             },
             IrParaTelaCardapio:function(){
               this.$router.push("/ViewTelaCardapio")

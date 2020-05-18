@@ -19,7 +19,7 @@
        <br>
        <input type="text" placeholder="Bairro" maxlength="25" v-model="bairro" >
        <br>
-        <input type="text" placeholder="Numero" maxlength="55" v-model="numero" >
+       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Numero" maxlength="10" v-model="numero" >
        <br>
        <input type="text" placeholder="UF" maxlength="2" v-model="uf">
        <br>
@@ -49,6 +49,7 @@ export default {
             uf: '',
             complemento: '',
             numero: '',
+            endereco: [],
             sla: []
         }
     }, methods:{
@@ -66,6 +67,10 @@ export default {
             if(theEvent.preventDefault) theEvent.preventDefault();
             }
     },buscar: function(){
+
+        axios.get("viacep.com.br/ws/"+this.cep+"/json/").then(cep => this.endereco = cep.data)
+        console.log(this.endereco);
+        console.log(this.endereco.cidade)
         axios.get("viacep.com.br/ws/"+this.cep+"/json/").then(cep => this.sla = cep.data)
         console.log(this.sla)
     },
