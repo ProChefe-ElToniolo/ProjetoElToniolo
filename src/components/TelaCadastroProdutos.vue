@@ -2,11 +2,12 @@
   <div>
       <h1>Bem Vindo a Tela Cadastro Produtos</h1>
         <button @click="IrParaTelaMenuAdmin">IrParaTelaMenuAdmin</button><br>
-        
         <img id="img" src="cadastrarProd.png" alt=""><br>
         <!-- <button type="text" @click="pegarImagem()">Imagem</button><br> -->
+        <!-- <div v-for="(produto, index) in carregar" :key="index"> -->
         <label>Nome</label><br>
         <input type="text" v-model="nome"><br>
+        <!-- </div> -->
         <label>Descrição</label><br>
         <textarea id="inputMulti" rows="10" cols="38" v-model="descricao" maxlength="200"></textarea><br>
         <label>Preço</label><br>
@@ -17,15 +18,13 @@
             <option value="0" selected disabled>Categoria desejada</option>
             <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>  
         </select><br>
-        
         <label>Medidas</label><br>
            <select v-model="medida">
                 <option value="0" selected disabled>Unidade de Medida</option>
                 <option >Kg</option>  
+                <option>L</option>
                 <option>g</option> 
-                <option>L</option> 
            </select><br>
-
     <table border="1">
           <thead>
               <tr>
@@ -35,7 +34,8 @@
                </tr>
           </thead>
           <tbody>
-              <tr v-for="prod in produtos" :key="prod.id">
+              <tr v-for="(prod, index) in prods" :key="index"> 
+              <!-- @click="selecionar(func.id)"> -->
                   <td>{{prod.nome}}</td>
                   <td>{{prod.descricao}}</td>
                   <td>{{prod.preco}}</td>
@@ -54,18 +54,19 @@ const axios = require('axios')
 export default {
     data:function(){
         return{
-            produtos: [],
             categorias: [],
             nome: '',
             descricao: '',
             preco: '',
             idCat: 0,
             imagem: '',
-            medida: ''
+            medida: '',
+            prods: []
         }
     }, methods:{
         IrParaTelaMenuAdmin:function(){
             this.$router.push('/ViewTelaMenuAdmin')
+            console.log(this.$store.state.prods)
         },
         salvar:function(){
             axios.post("http://localhost:55537/api/Produto", {
@@ -77,11 +78,15 @@ export default {
                 imagem: this.imagem
             });
         }
-    },mounted(){
-        axios.get("http://localhost:55537/api/Produto").then(produto => this.produtos = produto.data)
+    },
+    computed:{
+    //   carregaProd: function(){
+    //     return this.$store.state.prods
+    //   }
+    },
+    mounted(){
         axios.get("http://localhost:55537/api/Categoria").then(categoria => this.categorias = categoria.data)
-        console.log(this.categorias)
-        
+        axios.get("http://localhost:55537/api/Produto").then(produto => this.prods = produto.data)
     }
 }
 </script>

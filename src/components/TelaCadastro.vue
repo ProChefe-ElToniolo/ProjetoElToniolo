@@ -48,7 +48,8 @@ export default {
             bairro: '',
             uf: '',
             complemento: '',
-            numero: ''
+            numero: '',
+            endereco: []
         }
     }, methods:{
         voltarMenu:function(){
@@ -65,7 +66,10 @@ export default {
             if(theEvent.preventDefault) theEvent.preventDefault();
             }
     },buscar: function(){
-            alert("entrou")
+        axios.get("viacep.com.br/ws/"+this.cep+"/json/").then(cep => this.endereco = cep.data)
+        console.log(this.endereco);
+        
+        console.log(this.endereco.cidade)
     },
     salvarCadastro: function(){
         axios.post("http://localhost:55537/api/Cliente",{
