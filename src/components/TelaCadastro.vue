@@ -19,7 +19,7 @@
        <br>
        <input type="text" placeholder="Bairro" maxlength="25" v-model="bairro" >
        <br>
-        <input type="text" placeholder="Numero" maxlength="55" v-model="numero" >
+       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Numero" maxlength="10" v-model="numero" >
        <br>
        <input type="text" placeholder="UF" maxlength="2" v-model="uf">
        <br>
@@ -49,11 +49,8 @@ export default {
             uf: '',
             complemento: '',
             numero: '',
-<<<<<<< HEAD
-            endereco: []
-=======
+            endereco: [],
             sla: []
->>>>>>> c756131852baa142195dbb5236c278f856df5263
         }
     }, methods:{
         voltarMenu:function(){
@@ -70,15 +67,12 @@ export default {
             if(theEvent.preventDefault) theEvent.preventDefault();
             }
     },buscar: function(){
-<<<<<<< HEAD
+
         axios.get("viacep.com.br/ws/"+this.cep+"/json/").then(cep => this.endereco = cep.data)
         console.log(this.endereco);
-        
         console.log(this.endereco.cidade)
-=======
         axios.get("viacep.com.br/ws/"+this.cep+"/json/").then(cep => this.sla = cep.data)
         console.log(this.sla)
->>>>>>> c756131852baa142195dbb5236c278f856df5263
     },
     salvarCadastro: function(){
         axios.post("http://localhost:55537/api/Cliente",{
