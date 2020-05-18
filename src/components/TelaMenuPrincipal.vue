@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+      <img src="../imagens/transferir.jpg" id="imgFundo">
         <div id="menu">
             <div id="certo">
                 <nav> 
@@ -22,6 +23,7 @@
                     <input type="text" placeholder="E-mail" class="inputs" v-model="email">
                     <input type="password" placeholder="Senha" class="inputs" v-model="senha">
                     <button id="botao-entrar" @click="entrar">Entrar</button><br>
+                    <router-link to = "ViewTelaCadastro" id="IrParaTelaCadastro">Cadastre-se caso ainda não possua uma conta</router-link>
                     </div>
         </div>
                 <img src="../imagens/logo.png" id="logo"> 
@@ -101,7 +103,20 @@ data:function(){
         width: 100%;
         padding: 0px;
         margin: 0px;
-        background-color: #f6f6f6;
+        background-color: #f6f6f6;        
+    }
+
+    @media (max-width: 900px){
+    #menu{
+        display: none;
+    }
+}
+
+    #imgFundo{
+        width: 100%;
+        height: 800px;
+        position:absolute;
+        opacity: 0.9;
     }
 
     #container{
@@ -115,10 +130,11 @@ data:function(){
         margin: 0px 0px 0px 0px;
         width: 100%;
         height: 70px;
-        background-color: #006491;
-       -webkit-box-shadow: 0px 7px 5px rgba(145, 145, 145, 0.77);
-        -moz-box-shadow:    0px 7px 5px rgba(145, 145, 145, 0.77);
-        box-shadow:         0px 7px 5px rgba(145, 145, 145, 0.77);
+        /* background-color: #006491; */
+        background-color: #1f2023;
+       -webkit-box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
+        -moz-box-shadow:    0px 7px 5px rgba(0, 0, 0, 0.77);
+        box-shadow:         0px 7px 5px rgba(0, 0, 0, 0.77);
     }
 
     #certo{
@@ -141,19 +157,20 @@ data:function(){
 
     .list-menu li{
         text-align: center;
-        width: 100px;
+        padding: 0 8% 0 8%;
+        width: 120%;
         height: 70px;
     }
 
     .list-menu li:hover{            
-        background-color: #00567e7c;
+        /* background-color: #00567e7c; */
+        background-color: black;
     }
 
     #botao-logar{
         font-family: One Dot Condensed Bold,Arial Narrow,Arial,Helvetica,sans-serif;
         letter-spacing: .05rem;
         font-weight: 700;
-        position: absolute;
         color: white;
         border: none;
         font-size: 14px;
@@ -163,7 +180,8 @@ data:function(){
         margin: 0px 0px 0px 60%;
         outline: none;
         width: auto;
-        background-color: #00567e7c;
+        /* background-color: #00567e7c; */
+        background-color: black;
         height: 70px;
     }
  
@@ -191,7 +209,8 @@ data:function(){
         margin: 800px 0px 0px 0px;
         width: 100%;
         height: 200px;
-        background-color:  rgb(0, 81, 119);
+        /* background-color:  rgb(0, 81, 119); */
+        background-color: rgb(24, 24, 24);
     }
     #cadastrar{
         margin: 3px 5px 0px 0px 80px;
@@ -201,7 +220,7 @@ data:function(){
         text-decoration-color: rgba(0, 0, 0, 0.568);
     }
     .inputs{
-        margin: 40px 0px 0px 0px;
+        margin: 40px 30px 0px 30px;
         padding: 7px;
         width: 230px;
         height: 30px; 
@@ -211,7 +230,7 @@ data:function(){
         outline: none;
     }
     #botao-entrar{
-        margin: 80px 0px 0px 39px;
+        margin: 40px 0px 10px 0px ;
         width: 110px;
         height: 40px;        
         border-radius: 20px;
@@ -220,22 +239,30 @@ data:function(){
         outline: none;
     }
     #menu-bar{
+        text-align: center;
         position: absolute;
         margin: 17px 0px 0px 50px;
         width: 396px;
         height: 420px;
-        border: 1px rgba(209, 49, 49, 0.103) solid;
+        border: 1px rgb(0, 0, 0) solid;
         border-radius: 10px;
-        background-color: rgba(187, 63, 31, 0.295);
+        background-color: rgba(0, 0, 0, 0.877);
     }
     #caixa-login{
+        text-align: center;
         position: absolute; 
-        /* display: flex; */
+        display: flex; 
         margin: 110px 0px 0px 440px;
         width: 380px;
         height: 440px;
     }
+
+    #IrParaTelaCadastro{
+        color: rgba(255, 255, 255, 0.555);
+    }
+
     ::-webkit-input-placeholder {
+        
         color: black;
         font: 14px verdana, arial, sans-serif;
     }
