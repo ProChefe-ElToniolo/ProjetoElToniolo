@@ -19,7 +19,7 @@
        <br>
        <input type="text" placeholder="Bairro" maxlength="25" v-model="bairro" >
        <br>
-        <input type="text" placeholder="Numero" maxlength="55" v-model="numero" >
+       <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Numero" maxlength="10" v-model="numero" >
        <br>
        <input type="text" placeholder="UF" maxlength="2" v-model="uf">
        <br>

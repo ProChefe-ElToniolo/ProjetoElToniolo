@@ -5,6 +5,7 @@
       <button @click="IrParaCadastroProdutos">IrParaCadastroProdutos</button>
       <button @click="IrParaCadastroCategoria">IrParaCadastroCategoria</button>
       <button @click="IrParaCadastroUsuario">IrParaCadastroUsuario</button>
+      <button @click="IrParaTelaEntregador">IrParaTelaEntregador</button>
   </div>
 </template>
 
@@ -23,6 +24,8 @@ data:function(){
     this.$router.push("/ViewTelaCadastroCategoria")
   }, IrParaCadastroUsuario:function(){
     this.$router.push("/ViewTelaCadastroUsuario")
+  }, IrParaTelaEntregador:function(){
+    this.$router.push("/ViewTelaEntregador")
   }
 }
 }

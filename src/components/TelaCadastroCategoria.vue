@@ -3,20 +3,13 @@
       <h1>Bem Vindo a Tela Cadastro Categoria</h1>
       <button @click="IrParaTelaMenuAdmin">IrParaTelaMenuAdmin</button>
       <input type="text" placeholder="Digite o nome da Categoria" id="txtCategoria" v-model="nome">
-      <span v-if="verificado">O seu arrombadinho de merda, digita algo na txt PORRAAAA</span>
+      <span v-if="verificado">Digite algo!</span>
       <input type="file">  
         <ul>
             <li v-for="cat in categorias" :key="cat.id">
                 {{cat.nome}}
             </li>
         </ul>
-        
-        <select v-model="catId">
-            <option value="0" selected disabled>Selecione o ID da categoria</option>
-            <option v-for="cat in categorias" :key="cat.id" :value="cat.id">
-                {{cat.id}} -- {{cat.nome}}
-            </option>
-        </select>
 
         <button @click="SalvarCategoria">Salvar Categoria</button>
         <button @click="ExcluirCategoria">Excluir Categoria</button>
@@ -93,7 +86,7 @@ data:function(){
     
     ExcluirCategoria:function(){
         console.log(this.catId)
-        axios.delete("http://localhost:55537/api/Categoria/" + this.catId).then(resp => console.log(resp.data))
+        axios.delete("http://localhost:55537/api/Categoria/" + this.categoriasAlterar.id).then(resp => console.log(resp.data))
         window.location.reload()
     }
 }, 
