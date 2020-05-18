@@ -8,21 +8,30 @@
                         <li @click="IrParaTelaCardapio">CARDÁPIO</li>
                         <li @click="IrParaTelaLogin">SOBRE</li>
                         <li @click="IrParaTelaCadastro">PERFIL</li>
+                        <li @click="IrParaTelaEntregador">Menu Admin</li>
                     </ul>                
                 </nav>
                 <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
-                <div id="caixa-login" v-if="ocultar == false">
+                <div id="caixa-login" v-if="ocultarMenuLogin == false">
                     <div id="menu-bar">
+                        <ul>
+                            <li v-for="cli in clientes" :key="cli.id">
+                                {{cli.email}} - {{cli.senha}}
+                            </li>
+                        </ul>
                     <input type="text" placeholder="E-mail" class="inputs" v-model="email">
                     <input type="password" placeholder="Senha" class="inputs" v-model="senha">
                     <button id="botao-entrar" @click="entrar">Entrar</button><br>
                     </div>
         </div>
                 <img src="../imagens/logo.png" id="logo"> 
-                <button id="botao-logar" @click="logar">FAZER LOGIN OU CADSTRA-SE</button>
+                <button id="botao-logar" @click="logar" v-if="ocultarBotaoLogin">FAZER LOGIN OU CADASTRAR-SE</button>
+                <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
                 <img src="../imagens/comercial.png" id="userlogo">
-                <router-link to = "ViewTelaCadastro" id="IrParaTelaCadastro">Cadastrar-se</router-link>
+                <router-link to = "/ViewTelaCadastro" id="IrParaTelaCadastro">Cadastrar-se</router-link>
+                <label id="labelLogado" v-if="logado">Logado:{{NomePessoaLogada}}</label>
             </div>
+               
                 <router-link to = "/ViewTelaCadastroProdutos">Produtos</router-link>
     </div>
         <div id="sombra-menu"></div>
@@ -32,23 +41,39 @@
 </template>
 
 <script>
+const axios = require('axios')
+
 export default {
 data:function(){
           return{
             email: '',
             senha: '',
-            ocultar: true
+            clientes:[],
+            ocultarMenuLogin: true,
+            logado:false,
+            NomePessoaLogada:'',
+            ocultarBotaoLogin: true,
+            botaoSair: false
           } 
         }, methods:{
             logar: function(){
-                return this.ocultar = false;
+                return this.ocultarMenuLogin = false;
             },entrar: function(){
-                if(this.email == "1" && this.senha == ""){
-                    this.$router.push("/ViewTelaMenuAdmin")
-                }
-                else{
-                    return this.ocultar = true;
-                }
+                this.clientes.filter(e => {
+                    if (e.email == this.email && e.senha == this.senha) {
+                        alert("Logado")
+                        this.logado = true
+                        this.NomePessoaLogada = e.nome
+                        this.ocultarMenuLogin = true
+                        this.ocultarBotaoLogin = false
+                        this.botaoSair = true
+                    }
+                })
+            }, sair:function(){
+                this.NomePessoaLogada = ''
+                this.ocultarBotaoLogin = true
+                this.logado = false
+                this.botaoSair = false
             },
             IrParaTelaCardapio:function(){
               this.$router.push("/ViewTelaCardapio")
@@ -58,7 +83,11 @@ data:function(){
               this.$router.push("/ViewTelaLogin")
             }, IrParaTelaCadastro:function(){
               this.$router.push("/ViewTelaCadastro")
+            },  IrParaTelaEntregador:function(){
+              this.$router.push("/ViewTelaMenuAdmin")
             }
+          }, mounted(){
+              axios.get("http://localhost:55537/api/Cliente").then(cliente => this.clientes = cliente.data)
           }
         }
 </script>
@@ -228,5 +257,41 @@ data:function(){
 
     #botaoIrParaMenuAdmin{
         color: pink;
+    }
+
+    #labelLogado{
+        font-family: One Dot Condensed Bold,Arial Narrow,Arial,Helvetica,sans-serif;
+        letter-spacing: .05rem;
+        font-weight: 700;
+        position: absolute;
+        color: red;
+        border: none;
+        font-size: 18px;
+        padding-right: 4%;
+        padding-left: 7%;
+        text-align: right;
+        margin: 25px 0px 0px 60%;
+        outline: none;
+        width: auto;
+        height: 70px;
+    }
+
+    #botaoSair{
+        font-family: One Dot Condensed Bold,Arial Narrow,Arial,Helvetica,sans-serif;
+        letter-spacing: .05rem;
+        font-weight: 700;
+        position: absolute;
+        color: red;
+        border: none;
+        font-size: 18px;
+        padding-right: 3%;
+        padding-left: 3%;
+        text-align: right;
+        margin: 0px 0px 0px 75%;
+        outline: none;
+        width: auto;
+        height: 70px;
+        background-color: #006491;
+        cursor: pointer;
     }
 </style>
