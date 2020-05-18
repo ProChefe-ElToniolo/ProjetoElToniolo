@@ -17,7 +17,7 @@
                     <input type="password" placeholder="Senha" class="inputs" v-model="senha">
                     <button id="botao-entrar" @click="entrar">Entrar</button><br>
                     </div>
-        </div>
+                </div>
                 <img src="../imagens/logo.png" id="logo"> 
                 <button id="botao-logar" @click="logar">FAZER LOGIN OU CADSTRA-SE</button>
                 <img src="../imagens/comercial.png" id="userlogo">

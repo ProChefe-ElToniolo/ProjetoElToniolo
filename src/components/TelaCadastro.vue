@@ -49,11 +49,8 @@ export default {
             uf: '',
             complemento: '',
             numero: '',
-<<<<<<< HEAD
-            endereco: []
-=======
+            endereco: [],
             sla: []
->>>>>>> c756131852baa142195dbb5236c278f856df5263
         }
     }, methods:{
         voltarMenu:function(){
@@ -70,15 +67,8 @@ export default {
             if(theEvent.preventDefault) theEvent.preventDefault();
             }
     },buscar: function(){
-<<<<<<< HEAD
-        axios.get("viacep.com.br/ws/"+this.cep+"/json/").then(cep => this.endereco = cep.data)
-        console.log(this.endereco);
-        
-        console.log(this.endereco.cidade)
-=======
         axios.get("viacep.com.br/ws/"+this.cep+"/json/").then(cep => this.sla = cep.data)
         console.log(this.sla)
->>>>>>> c756131852baa142195dbb5236c278f856df5263
     },
     salvarCadastro: function(){
         axios.post("http://localhost:55537/api/Cliente",{
