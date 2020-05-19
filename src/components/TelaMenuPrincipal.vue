@@ -9,7 +9,6 @@
                         <li @click="IrParaTelaCardapio">CARDÁPIO</li>
                         <li @click="IrParaTelaLogin">SOBRE</li>
                         <li @click="IrParaTelaCadastro">PERFIL</li>
-                        <li @click="IrParaTelaEntregador">Menu Admin</li>
                     </ul>                
                 </nav>
                 <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
@@ -26,17 +25,14 @@
                     <router-link to = "ViewTelaCadastro" id="IrParaTelaCadastro">Cadastre-se caso ainda não possua uma conta</router-link>
                     </div>
                 </div>
-                <img src="../imagens/logo.png" id="logo"> 
+                <img src="../imagens/logopizza.png" id="logo"> 
                 <button id="botao-logar" @click="logar" v-if="ocultarBotaoLogin">FAZER LOGIN OU CADASTRAR-SE</button>
                 <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
                 <img src="../imagens/comercial.png" id="userlogo">
-                <router-link to = "/ViewTelaCadastro" id="IrParaTelaCadastro">Cadastrar-se</router-link>
                 <label id="labelLogado" v-if="logado">Logado:{{NomePessoaLogada}}</label>
 
             
             </div>
-               
-                <router-link to = "/ViewTelaCadastroProdutos">Produtos</router-link>
     </div>
                 <div v-if="menuCardapio" id="menuCardapio">
                     <button>O MEU PAU É BEM GRANDE</button>
@@ -99,7 +95,7 @@ data:function(){
               this.$router.push("/ViewTelaLogin")
             }, IrParaTelaCadastro:function(){
               this.$router.push("/ViewTelaCadastro")
-            },  IrParaTelaEntregador:function(){
+            }, IrParaTelaAdmin:function(){
               this.$router.push("/ViewTelaMenuAdmin")
             }
           }, mounted(){
