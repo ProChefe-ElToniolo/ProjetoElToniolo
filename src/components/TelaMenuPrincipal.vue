@@ -58,10 +58,21 @@ data:function(){
             logar: function(){
                 return this.ocultarMenuLogin = false;
             },entrar: function(){
-                alert("entrou")
-                console.log(this.usuarios)
-                this.usuarios.filter(f =>{
-                
+                this.clientes.filter(c => {
+                    if (c.email == this.email && c.senha == this.senha) {
+                        alert("Logado como Cliente")
+                        this.logado = true
+                        this.NomePessoaLogada = c.nome
+                        this.ocultarMenuLogin = true
+                        this.ocultarBotaoLogin = false
+                        this.botaoSair = true
+                    }
+                })
+                this.usuarios.filter(u => {
+                    if(u.email == this.email && u.senha == this.senha){
+                        alert("Logado como Admin")
+                        this.$router.push("/ViewTelaMenuAdmin")
+                    }
                 })
             }, sair:function(){
                 this.NomePessoaLogada = ''
@@ -81,8 +92,8 @@ data:function(){
               this.$router.push("/ViewTelaMenuAdmin")
             }
           }, mounted(){
-            axios.get("http://localhost:55537/api/Cliente").then(cliente => this.clientes = cliente.data)
-            axios.get("http://localhost:55537/api/Usuario").then(usuario => this.usuarios = usuario.data)
+              axios.get("http://localhost:55537/api/Cliente").then(cliente => this.clientes = cliente.data)
+              axios.get("http://localhost:55537/api/Usuario").then(usuario => this.usuarios = usuario.data)
           }
         }
 </script>
@@ -230,6 +241,7 @@ data:function(){
         background-color: rgba(255, 255, 255, 0.555);
         border: 2px solid rgba(0, 0, 0, 0.384);
         outline: none;
+        cursor: pointer;
     }
     #menu-bar{
         text-align: center;
