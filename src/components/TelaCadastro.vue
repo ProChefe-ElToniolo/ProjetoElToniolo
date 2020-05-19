@@ -67,10 +67,6 @@ export default {
             if(theEvent.preventDefault) theEvent.preventDefault();
             }
     },buscar: function(){
-
-        axios.get("viacep.com.br/ws/"+this.cep+"/json/").then(cep => this.endereco = cep.data)
-        console.log(this.endereco);
-        console.log(this.endereco.cidade)
         axios.get("viacep.com.br/ws/"+this.cep+"/json/").then(cep => this.sla = cep.data)
         console.log(this.sla)
     },

@@ -25,7 +25,7 @@
                     <button id="botao-entrar" @click="entrar">Entrar</button><br>
                     <router-link to = "ViewTelaCadastro" id="IrParaTelaCadastro">Cadastre-se caso ainda não possua uma conta</router-link>
                     </div>
-        </div>
+                </div>
                 <img src="../imagens/logo.png" id="logo"> 
                 <button id="botao-logar" @click="logar" v-if="ocultarBotaoLogin">FAZER LOGIN OU CADASTRAR-SE</button>
                 <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
