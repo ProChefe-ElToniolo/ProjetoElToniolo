@@ -51,6 +51,7 @@ data:function(){
             email: '',
             senha: '',
             clientes:[],
+            usuarios:[],
             ocultarMenuLogin: true,
             logado:false,
             NomePessoaLogada:'',
@@ -61,14 +62,20 @@ data:function(){
             logar: function(){
                 return this.ocultarMenuLogin = false;
             },entrar: function(){
-                this.clientes.filter(e => {
-                    if (e.email == this.email && e.senha == this.senha) {
-                        alert("Logado")
+                this.clientes.filter(c => {
+                    if (c.email == this.email && c.senha == this.senha) {
+                        alert("Logado como Cliente")
                         this.logado = true
-                        this.NomePessoaLogada = e.nome
+                        this.NomePessoaLogada = c.nome
                         this.ocultarMenuLogin = true
                         this.ocultarBotaoLogin = false
                         this.botaoSair = true
+                    }
+                })
+                this.usuarios.filter(u => {
+                    if(u.email == this.email && u.senha == this.senha){
+                        alert("Logado como Admin")
+                        this.$router.push("/ViewTelaMenuAdmin")
                     }
                 })
             }, sair:function(){
@@ -90,6 +97,7 @@ data:function(){
             }
           }, mounted(){
               axios.get("http://localhost:55537/api/Cliente").then(cliente => this.clientes = cliente.data)
+              axios.get("http://localhost:55537/api/Usuario").then(usuario => this.usuarios = usuario.data)
           }
         }
 </script>
@@ -237,6 +245,7 @@ data:function(){
         background-color: rgba(255, 255, 255, 0.555);
         border: 2px solid rgba(0, 0, 0, 0.384);
         outline: none;
+        cursor: pointer;
     }
     #menu-bar{
         text-align: center;
