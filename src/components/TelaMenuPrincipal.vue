@@ -9,7 +9,6 @@
                         <li @click="IrParaTelaCardapio">CARDÁPIO</li>
                         <li @click="IrParaTelaLogin">SOBRE</li>
                         <li @click="IrParaTelaCadastro">PERFIL</li>
-                        <li @click="IrParaTelaEntregador">Menu Admin</li>
                     </ul>                
                 </nav>
                 <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
@@ -26,15 +25,12 @@
                     <router-link to = "ViewTelaCadastro" id="IrParaTelaCadastro">Cadastre-se caso ainda não possua uma conta</router-link>
                     </div>
                 </div>
-                <img src="../imagens/logo.png" id="logo"> 
+                <img src="../imagens/logopizza.png" id="logo"> 
                 <button id="botao-logar" @click="logar" v-if="ocultarBotaoLogin">FAZER LOGIN OU CADASTRAR-SE</button>
                 <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
                 <img src="../imagens/comercial.png" id="userlogo">
-                <router-link to = "/ViewTelaCadastro" id="IrParaTelaCadastro">Cadastrar-se</router-link>
                 <label id="labelLogado" v-if="logado">Logado:{{NomePessoaLogada}}</label>
             </div>
-               
-                <router-link to = "/ViewTelaCadastroProdutos">Produtos</router-link>
     </div>
         <div id="sombra-menu"></div>
             <div id="menu-rodape"></div>
@@ -51,6 +47,7 @@ data:function(){
             email: '',
             senha: '',
             clientes:[],
+            usuarios:[],
             ocultarMenuLogin: true,
             logado:false,
             NomePessoaLogada:'',
@@ -61,14 +58,20 @@ data:function(){
             logar: function(){
                 return this.ocultarMenuLogin = false;
             },entrar: function(){
-                this.clientes.filter(e => {
-                    if (e.email == this.email && e.senha == this.senha) {
-                        alert("Logado")
+                this.clientes.filter(c => {
+                    if (c.email == this.email && c.senha == this.senha) {
+                        alert("Logado como Cliente")
                         this.logado = true
-                        this.NomePessoaLogada = e.nome
+                        this.NomePessoaLogada = c.nome
                         this.ocultarMenuLogin = true
                         this.ocultarBotaoLogin = false
                         this.botaoSair = true
+                    }
+                })
+                this.usuarios.filter(u => {
+                    if(u.email == this.email && u.senha == this.senha){
+                        alert("Logado como Admin")
+                        this.$router.push("/ViewTelaMenuAdmin")
                     }
                 })
             }, sair:function(){
@@ -85,11 +88,12 @@ data:function(){
               this.$router.push("/ViewTelaLogin")
             }, IrParaTelaCadastro:function(){
               this.$router.push("/ViewTelaCadastro")
-            },  IrParaTelaEntregador:function(){
+            }, IrParaTelaAdmin:function(){
               this.$router.push("/ViewTelaMenuAdmin")
             }
           }, mounted(){
               axios.get("http://localhost:55537/api/Cliente").then(cliente => this.clientes = cliente.data)
+              axios.get("http://localhost:55537/api/Usuario").then(usuario => this.usuarios = usuario.data)
           }
         }
 </script>
@@ -237,6 +241,7 @@ data:function(){
         background-color: rgba(255, 255, 255, 0.555);
         border: 2px solid rgba(0, 0, 0, 0.384);
         outline: none;
+        cursor: pointer;
     }
     #menu-bar{
         text-align: center;
