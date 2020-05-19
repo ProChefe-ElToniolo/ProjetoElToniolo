@@ -32,13 +32,19 @@
                 <img src="../imagens/comercial.png" id="userlogo">
                 <router-link to = "/ViewTelaCadastro" id="IrParaTelaCadastro">Cadastrar-se</router-link>
                 <label id="labelLogado" v-if="logado">Logado:{{NomePessoaLogada}}</label>
+
+            
             </div>
                
                 <router-link to = "/ViewTelaCadastroProdutos">Produtos</router-link>
     </div>
+                <div v-if="menuCardapio" id="menuCardapio">
+                    <button>O MEU PAU É BEM GRANDE</button>
+                </div>
         <div id="sombra-menu"></div>
             <div id="menu-rodape"></div>
     </div>
+    
         
 </template>
 
@@ -56,7 +62,8 @@ data:function(){
             logado:false,
             NomePessoaLogada:'',
             ocultarBotaoLogin: true,
-            botaoSair: false
+            botaoSair: false,
+            menuCardapio: false
           } 
         }, methods:{
             logar: function(){
@@ -85,7 +92,7 @@ data:function(){
                 this.botaoSair = false
             },
             IrParaTelaCardapio:function(){
-              this.$router.push("/ViewTelaCardapio")
+              this.menuCardapio = true
             },IrParaTelaPedidos:function(){
               this.$router.push("/ViewTelaPedidos")
             }, IrParaTelaLogin:function(){
@@ -329,5 +336,13 @@ data:function(){
         height: 70px;
         background-color: #006491;
         cursor: pointer;
+    }
+
+    #menuCardapio{
+        position: absolute;
+        border: springgreen 5px solid;
+        width: 100%;
+        height: 75%;
+        margin: 70px 0 0 0;
     }
 </style>
