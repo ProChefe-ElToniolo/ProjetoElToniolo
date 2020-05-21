@@ -9,6 +9,7 @@ import ViewTelaCadastroProdutos from '../views/ViewTelaCadastroProdutos.vue'
 import ViewTelaCadastroCategoria from '../views/ViewTelaCadastroCategoria.vue'
 import ViewTelaCadastroUsuario from '../views/ViewTelaCadastroUsuario.vue'
 import ViewTelaEntregador from '../views/ViewTelaEntregador.vue'
+import GerenciamentoPedidos from '../views/GerenciamentoPedidos.vue'
 
 Vue.use(VueRouter)
 
@@ -49,6 +50,10 @@ Vue.use(VueRouter)
     path: '/ViewTelaEntregador',
     name: 'ViewTelaEntregador',
     component: ViewTelaEntregador
+  },{
+    path: '/GerenciamentoPedidos',
+    name: 'GerenciamentoPedidos',
+    component: GerenciamentoPedidos
   }
 ]
 

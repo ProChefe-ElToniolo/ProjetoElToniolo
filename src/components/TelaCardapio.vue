@@ -1,36 +1,35 @@
 <template>
   <div>
-      <h1>Bem Vindo a Tela de Cardapio</h1>
-      <button id="teste" @click="IrParaTelaPedidos">IrParaTelaPedidos</button>
-      <button id="teste1" @click="IrParaTelaMenuPrincipal">IrParaTelaMenuPrincipal</button>
+    <h1>Bem Vindo a Tela de Cardapio</h1>
+    <button id="teste" @click="IrParaTelaPedidos">IrParaTelaPedidos</button>
+    <button id="teste1" @click="IrParaTelaMenuPrincipal">IrParaTelaMenuPrincipal</button>
   </div>
 </template>
 
 <script>
 export default {
-data:function(){
-  return{
-
+  data: function() {
+    return {};
+  },
+  methods: {
+    IrParaTelaPedidos: function() {
+      this.$router.push("/ViewTelaPedidos");
+    },
+    IrParaTelaMenuPrincipal: function() {
+      this.$router.push("/");
+    }
   }
-}, methods:{
-  IrParaTelaPedidos:function(){
-    this.$router.push("/ViewTelaPedidos")
-  }, IrParaTelaMenuPrincipal:function(){
-    this.$router.push("/")
-  }
-}
-}
+};
 </script>
 
 <style>
-
-#teste{
+#teste {
   border: 2px solid black;
   color: red;
-  background-color: black ;
+  background-color: black;
 }
 
-#teste1{
+#teste1 {
   border: 2px solid black;
   color: black;
   background-color: green;
