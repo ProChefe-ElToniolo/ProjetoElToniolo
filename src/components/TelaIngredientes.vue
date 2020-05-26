@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
   <div>
+=======
+  <div class="princ">
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
     <h4>INGREDIENTES</h4>
     <label>Nome</label>
     <br />
@@ -16,8 +20,29 @@
       <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
     </select>
     <br />
+<<<<<<< HEAD
     <button>Excluir</button>
     <button>Salvar</button>
+=======
+    <button @click="excluir">Excluir</button>
+    <button @click="salvar">Salvar</button>
+    <table border="1" class="ingredientes">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Categoria</th>
+          <th>Estoque</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(ing, index) in ingredientes" :key="index" @click="selecionar(ing.id)">
+          <td>{{ing.nome}}</td>
+          <td>{{ing.nomeCategoria}}</td>
+          <td>{{ing.estoque}}</td>
+        </tr>
+      </tbody>
+    </table>
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
   </div>
 </template>
 
@@ -30,6 +55,7 @@ export default {
       categorias: [],
       nome: "",
       estoque: 0,
+<<<<<<< HEAD
       idCatIng: 0
     };
   },
@@ -40,9 +66,80 @@ export default {
     axios
       .get("htpp://localhost:55537/api/Categoria/")
       .then(categoria => (this.categorias = categoria.data));
+=======
+      idCatIng: 0,
+      ingEscolhido: [],
+      existe: false
+    };
+  },
+  methods: {
+    salvar: function() {
+      this.ingredientes.filter(e => {
+        if (e.id == this.ingEscolhido.id) {
+          this.existe = true;
+        }
+      })
+      if (this.existe) {
+        alert("entrouAlterar");
+        axios.put(
+          "http://localhost:55537/api/Ingrediente/" + this.ingEscolhido.id,
+          {
+            nome: this.nome,
+            id_categoria: this.idCatIng,
+            estoque: this.estoque
+          }
+        );
+      } 
+      else {
+        axios.post("http://localhost:55537/api/Ingrediente", {
+          nome: this.nome,
+          id_categoria: this.idCatIng,
+          estoque: this.estoque
+        });
+      }
+      this.existe = false;
+    },
+    selecionar: function(id) {
+      this.ingredientes.filter(u => {
+        if (u.id == id) {
+          this.ingEscolhido = u;
+        }
+      });
+      console.log(this.ingEscolhido)
+      this.nome = this.ingEscolhido.nome;
+      this.idCatIng = this.ingEscolhido.id_categoria;
+      this.estoque = this.ingEscolhido.estoque;
+    },
+    excluir: function() {
+      console.log(this.ingEscolhido.id);
+      axios.delete(
+        "http://localhost:55537/api/Ingrediente/" + this.ingEscolhido.id
+      );
+    }
+  },
+  mounted() {
+    axios
+      .get("http://localhost:55537/api/Ingrediente")
+      .then(ingrediente => (this.ingredientes = ingrediente.data));
+    axios
+      .get("http://localhost:55537/api/Categoria")
+      .then(cat => (this.categorias = cat.data));
+    console.log(this.categorias);
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
   }
 };
 </script>
 
 <style>
+<<<<<<< HEAD
+=======
+
+.ingredientes tr:hover {
+  background: rgb(109, 235, 224);
+  color: #ffffff;
+}
+.ingredientes tr {
+  cursor: pointer;
+}
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
 </style>

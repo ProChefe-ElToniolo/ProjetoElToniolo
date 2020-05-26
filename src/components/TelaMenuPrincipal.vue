@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+<<<<<<< HEAD
     <img src="../imagens/transferir.jpg" id="imgFundo" />
     <div id="menu">
       <div id="certo">
@@ -36,13 +37,69 @@
     </div>
     <div id="sombra-menu"></div>
     <div id="menu-rodape"></div>
+=======
+    <div class="scrollbar" id="style-14">
+      <!-- <img src="../imagens/transferir.jpg" id="imgFundo" /> -->
+      <div id="menu">
+        <div id="certo">
+          <nav>
+            <ul class="list-menu">
+              <li @click="IrParaTelaPedidos">DELIVERY</li>
+              <li @click="Cardapio">CARDÁPIO</li>
+              <li @click="IrParaTelaLogin">SOBRE</li>
+              <li @click="IrParaTelaCadastro">PERFIL</li>
+              <li @click="IrParaTelaAdmin">Produto</li>
+            </ul>
+          </nav>
+          <div v-if="visualizarCardapio">
+            <TelaCardapio />
+          </div>
+          <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
+          <div id="caixa-login" v-if="ocultarMenuLogin == false">
+            <div id="menu-bar">
+              <ul>
+                <li v-for="cli in clientes" :key="cli.id">{{cli.email}} - {{cli.senha}}</li>
+              </ul>
+              <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
+              <input type="password" placeholder="Senha" class="inputs" v-model="senha" />
+              <button id="botao-entrar" @click="entrar">Entrar</button>
+              <br />
+              <router-link
+                to="ViewTelaCadastro"
+                id="IrParaTelaCadastro"
+              >Cadastre-se caso ainda não possua uma conta</router-link>
+            </div>
+          </div>
+          <img src="../imagens/logopizza.png" id="logo" />
+          <button
+            id="botao-logar"
+            @click="logar"
+            v-if="ocultarBotaoLogin"
+          >FAZER LOGIN OU CADASTRAR-SE</button>
+          <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
+          <img src="../imagens/comercial.png" id="userlogo" />
+          <label id="labelLogado" v-if="logado">Logado:{{NomePessoaLogada}}</label>
+        </div>
+      </div>
+      <div id="sombra-menu"></div>
+      <div id="menu-rodape"></div>
+    </div>
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
   </div>
 </template>
 
 <script>
 const axios = require("axios");
+<<<<<<< HEAD
 
 export default {
+=======
+import TelaCardapio from "../components/TelaCardapio.vue";
+export default {
+  components: {
+    TelaCardapio
+  },
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
   data: function() {
     return {
       email: "",
@@ -53,7 +110,12 @@ export default {
       logado: false,
       NomePessoaLogada: "",
       ocultarBotaoLogin: true,
+<<<<<<< HEAD
       botaoSair: false
+=======
+      botaoSair: false,
+      visualizarCardapio: false
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
     };
   },
   methods: {
@@ -69,6 +131,7 @@ export default {
           this.ocultarMenuLogin = true;
           this.ocultarBotaoLogin = false;
           this.botaoSair = true;
+<<<<<<< HEAD
         }
       });
       this.usuarios.filter(u => {
@@ -77,6 +140,19 @@ export default {
           this.$router.push("/ViewTelaMenuAdmin");
         }
       });
+=======
+          localStorage.setItem("usuarioLogado", JSON.stringify(c));
+          localStorage.getItem;
+        }
+      });
+      this.usuarios.filter(u => {
+        if (u.email == this.email && u.senha == this.senha) {
+          alert("Logado como Admin");
+          localStorage.setItem("usuarioLogado", JSON.stringify(u));
+          this.$router.push("/ViewTelaMenuAdmin");
+        }
+      });
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
     },
     sair: function() {
       this.NomePessoaLogada = "";
@@ -84,8 +160,13 @@ export default {
       this.logado = false;
       this.botaoSair = false;
     },
+<<<<<<< HEAD
     IrParaTelaCardapio: function() {
       this.$router.push("/ViewTelaCardapio");
+=======
+    Cardapio: function() {
+      this.visualizarCardapio = true;
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
     },
     IrParaTelaPedidos: function() {
       this.$router.push("/ViewTelaPedidos");
@@ -123,6 +204,11 @@ body {
   padding: 0px;
   margin: 0px;
   background-color: #f6f6f6;
+<<<<<<< HEAD
+=======
+  overflow: hidden;
+  overflow-y: auto;
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
 }
 
 @media (max-width: 900px) {
@@ -182,7 +268,10 @@ body {
 }
 
 .list-menu li:hover {
+<<<<<<< HEAD
   /* background-color: #00567e7c; */
+=======
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
   background-color: black;
 }
 
@@ -225,6 +314,7 @@ body {
   width: 65px;
   height: 65px;
 }
+<<<<<<< HEAD
 #menu-rodape {
   margin: 800px 0px 0px 0px;
   width: 100%;
@@ -232,6 +322,14 @@ body {
   /* background-color:  rgb(0, 81, 119); */
   background-color: rgb(24, 24, 24);
 }
+=======
+/* #menu-rodape {
+  margin: 800px 0px 0px 0px;
+  width: 100%;
+  height: 200px;
+  background-color: rgb(24, 24, 24);
+} */
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
 #cadastrar {
   margin: 3px 5px 0px 0px 80px;
   outline: none;
@@ -343,4 +441,25 @@ body {
   background-color: #006491;
   cursor: pointer;
 }
+<<<<<<< HEAD
+=======
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgb(0, 0, 0);
+}
+::-webkit-scrollbar-track {
+  background-color: #1f2023;
+}
+#menuCardapio {
+  position: absolute;
+  border: springgreen 5px solid;
+  width: 100%;
+  height: 75%;
+  margin: 70px 0 0 0;
+}
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
 </style>

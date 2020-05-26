@@ -1,11 +1,18 @@
 <template>
   <div class="cadastro">
+<<<<<<< HEAD
     <img src="../imagens/transferir.jpg" />
     <h1>CADASTRO</h1>
     <input class="geral" type="text" placeholder="Nome" maxlength="50" v-model="nome" />
     <br />
     <input
       class="geral"
+=======
+    <h1>CADASTRO</h1>
+    <input type="text" placeholder="Nome" maxlength="50" v-model="nome" />
+    <br />
+    <input
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
       type="text"
       onkeypress="return event.charCode >= 48 && event.charCode <= 57"
       placeholder="Telefone"
@@ -13,12 +20,20 @@
       v-model="telefone"
     />
     <br />
+<<<<<<< HEAD
     <input class="geral" type="text" placeholder="E-mail" maxlength="50" v-model="email" />
     <br />
     <input class="geral" type="password" placeholder="Senha" maxlength="20" v-model="senha" />
     <br />
     <input
       class="geral"
+=======
+    <input type="text" placeholder="E-mail" maxlength="50" v-model="email" />
+    <br />
+    <input type="password" placeholder="Senha" maxlength="20" v-model="senha" />
+    <br />
+    <input
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
       type="text"
       onkeypress="return event.charCode >= 48 && event.charCode <= 57"
       placeholder="CPF"
@@ -27,7 +42,10 @@
     />
     <br />
     <input
+<<<<<<< HEAD
       class="geral"
+=======
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
       type="text"
       v-on:keyup.13="buscar"
       onkeypress="return event.charCode >= 48 && event.charCode <= 57"
@@ -36,6 +54,7 @@
       v-model="cep"
     />
     <br />
+<<<<<<< HEAD
     <input class="geral" type="text" placeholder="Cidade" maxlength="20" v-model="cidade" />
     <br />
     <input class="geral" type="text" placeholder="Logradouro" maxlength="50" v-model="logradouro" />
@@ -44,6 +63,15 @@
     <br />
     <input
       class="geral"
+=======
+    <input type="text" placeholder="Cidade" maxlength="20" v-model="cidade" />
+    <br />
+    <input type="text" placeholder="Logradouro" maxlength="50" v-model="logradouro" />
+    <br />
+    <input type="text" placeholder="Bairro" maxlength="25" v-model="bairro" />
+    <br />
+    <input
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
       type="text"
       onkeypress="return event.charCode >= 48 && event.charCode <= 57"
       placeholder="Numero"
@@ -51,9 +79,15 @@
       v-model="numero"
     />
     <br />
+<<<<<<< HEAD
     <input class="geral" type="text" placeholder="UF" maxlength="2" v-model="uf" />
     <br />
     <input class="geral" type="text" placeholder="Complemento" maxlength="50" v-model="complemento" />
+=======
+    <input type="text" placeholder="UF" maxlength="2" v-model="uf" />
+    <br />
+    <input type="text" placeholder="Complemento" maxlength="50" v-model="complemento" />
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
     <br />
     <button id="botãoCadastrar" @click="salvarCadastro">Cadastrar</button>
     <br />
@@ -147,6 +181,7 @@ export default {
 </script>
 
 <style>
+<<<<<<< HEAD
 html,
 body {
   background-color: #f6f6f6;
@@ -166,6 +201,11 @@ body {
   border-radius: 5px;
 }
 
+=======
+.cadastro {
+  text-align: center;
+}
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
 #botãoVoltar {
   border: 2px solid white;
   color: white;
