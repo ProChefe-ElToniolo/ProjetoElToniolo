@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+
     <div class="scrollbar" id="style-14">
       <!-- <img src="../imagens/transferir.jpg" id="imgFundo" /> -->
       <div id="menu">
@@ -47,6 +48,7 @@
       </div>
       <div id="menu-rodape"></div>
     </div>
+>>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
   </div>
 </template>
 
@@ -377,6 +379,6 @@ body {
   border: springgreen 5px solid;
   width: 100%;
   height: 75%;
-  margin: 70px 0 0 0;
+  margin: 70px 0px 0px 0px;
 }
 </style>

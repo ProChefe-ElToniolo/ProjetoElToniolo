@@ -44,7 +44,7 @@ export default {
     return {
       ingredientes: [],
       categorias: [],
-      nome: "",
+      nome: '',
       estoque: 0,
       idCatIng: 0,
       ingEscolhido: [],
@@ -114,6 +114,7 @@ body {
   height: 100%;
   background-color: white;
 }
+
 .ingredientes tr:hover {
   background: rgb(109, 235, 224);
   color: #ffffff;
