@@ -13,9 +13,6 @@
               <li @click="IrParaTelaAdmin">Produto</li>
             </ul>
           </nav>
-          <div v-if="visualizarCardapio">
-            <TelaCardapio />
-          </div>
           <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
           <div id="caixa-login" v-if="ocultarMenuLogin == false">
             <div id="menu-bar">
@@ -32,6 +29,7 @@
               >Cadastre-se caso ainda não possua uma conta</router-link>
             </div>
           </div>
+
           <img src="../imagens/logopizza.png" id="logo" />
           <button
             id="botao-logar"
@@ -44,6 +42,9 @@
         </div>
       </div>
       <div id="sombra-menu"></div>
+      <div v-if="visualizarCardapio">
+        <TelaCardapio />
+      </div>
       <div id="menu-rodape"></div>
     </div>
   </div>

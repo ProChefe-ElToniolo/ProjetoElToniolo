@@ -11,8 +11,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+
+};
 </script>
 
 <style>
+body {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
 </style>

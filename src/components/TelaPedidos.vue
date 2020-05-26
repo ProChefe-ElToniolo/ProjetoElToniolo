@@ -1,8 +1,6 @@
 <template>
   <div>
     <h1>Bem Vindo a Tela Pedidos</h1>
-    <button @click="IrParaTelaMenuPrincipal">IrParaTelaMenuPrincipal</button>
-    <button @click="IrParaTelaCardapio">IrParaTelaCardápio</button>
   </div>
 </template>
 
@@ -23,4 +21,9 @@ export default {
 </script>
 
 <style>
+body {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
 </style>

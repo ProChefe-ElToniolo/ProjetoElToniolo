@@ -109,7 +109,11 @@ export default {
 </script>
 
 <style>
-
+body {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
 .ingredientes tr:hover {
   background: rgb(109, 235, 224);
   color: #ffffff;

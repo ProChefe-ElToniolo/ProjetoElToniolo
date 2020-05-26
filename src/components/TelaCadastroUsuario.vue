@@ -1,5 +1,17 @@
 <template>
     <div class="princ">
+        <h1>Tela Cadastro Usuario</h1>
+        <input type="text" placeholder="Nome" v-model="nomeUsuario">
+        <br>
+        <input type="text" placeholder="Email" v-model="email">
+        <br>
+
+        <select v-model="idTpUser">
+            <option selected disabled value="0">Selecione tpUser</option>
+            <option :value="tpUser.id" v-for="tpUser in tipoUsuario" :key="tpUser.id">{{tpUser.nome}}</option>
+        </select>
+
+        <button @click="cadastrarUsuario">Cadastrar Usuario</button>
         <h1>Tela Cadastro do TIPO USUARIO</h1>
         <input type="text" placeholder="Nome" maxlength="50" v-model="nome">
         <br>
@@ -8,12 +20,6 @@
         <button>Excluir Tipo Usuario</button>
         <br>
         <button>IrParaTelaMenuAdmin</button>
-        <h1>Tela Cadastro Usuario</h1>
-        <input type="text" placeholder="Nome" v-model="nomeUsuario">
-        <br>
-        <input type="text" placeholder="Email" v-model="email">
-        <br>
-        <button @click="cadastrarUsuario">Cadastrar Usuario</button>
     </div>
 </template>
 
@@ -24,7 +30,10 @@ data:function(){
     return{
         nome: '',
         nomeUsuario: '',
-        email: ''
+        email: '',
+        idTpUser: 0,
+        tipoUsuario: [],
+        user: []
     } 
 }, methods:{
     IrParaTelaMenuAdmin:function(){
@@ -44,7 +53,7 @@ data:function(){
             nome: this.nome,
             email: this.email,
             senha: this.senha,
-            tipo_usuario: this.tipo_usuario
+            tipo_usuario: this.idTpUser
         }).then(resp =>{
             console.log(resp.data)
             this.usuario.push({
@@ -56,9 +65,9 @@ data:function(){
         })
     }
 }, mounted(){
-    axios.get("http://localhost:55537/api/TipoUsuario").then(tipo_usuario => this.tipoUsuario = tipo_usuario.data)
-    axios.get("http://localhost:55537/api/Usuario").then(usuario => this.user = usuario.data)
-} 
+        axios.get("http://localhost:55537/api/TipoUsuario").then(tipo_usuario => this.tipoUsuario = tipo_usuario.data)
+        axios.get("http://localhost:55537/api/Usuario").then(usuario => this.user = usuario.data)
+    } 
 }
 </script>
 

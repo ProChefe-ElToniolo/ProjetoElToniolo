@@ -10,10 +10,10 @@
           type="text"
           class="input-nome"
           placeholder="Nome Completo"
+          v-model="nome"
         />
         <label for="nomeCompleto" class="label-nome">Nome Completo</label>
       </div>
-      <input type="text" v-model="nome" placeholder="Nome" class="inputFormulario" />
       <br />
       <textarea
         id="inputMulti"
@@ -26,12 +26,12 @@
       <br />
       <input type="text" v-model="preco" placeholder="Preço" class="inputFormulario" />
       <br />
-      <select v-model="idCat" id="cbx">
+      <select v-model="idCat" class="cbx">
         <option value="0" selected disabled>Categoria desejada</option>
         <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
       </select>
       <br />
-      <select v-model="medida" id="cbx">
+      <select v-model="medida" class="cbx">
         <option value="0" selected disabled>Unidade de Medida</option>
         <option>Kg</option>
         <option>L</option>
@@ -76,7 +76,7 @@ export default {
       preco: "",
       idCat: 0,
       imagem: "",
-      medida: "",
+      medida: 0,
       prods: [],
       ProdSelecionado: [],
       existe: false,
@@ -191,6 +191,8 @@ td {
   border: 1px solid black;
 }
 .produtos th {
+  color: white;
+  background: rgb(34, 34, 34);
   text-align: left;
   padding: 10px;
 }
@@ -207,7 +209,7 @@ td {
 #ingredientes {
   position: absolute;
 }
-#cbx {
+.cbx {
   margin: 10px 0px 0px 0px;
   border: 1px solid black;
   height: 20px;
@@ -233,7 +235,7 @@ td {
 }
 
 .input-nome {
-  width: 100%;
+  width: 300px;
   position: relative;
   font-size: 16px;
   color: #5b5b5b;
