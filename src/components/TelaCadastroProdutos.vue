@@ -1,33 +1,35 @@
 <template>
-  <div id="containerProd">
-    <div id="princ">
+  <div id="fundo1">
+    <div class="princ">
       <h4>Cadastro Produtos</h4>
-      <button @click="IrParaTelaMenuAdmin">IrParaTelaMenuAdmin</button>
       <br />
       <img id="img" src="cadastrarProd.png" alt />
       <br />
-      <label>Nome</label>
+      <div class="meu-box">
+        <input
+          type="text"
+          class="input-nome"
+          placeholder="Nome Completo"
+        />
+        <label for="nomeCompleto" class="label-nome">Nome Completo</label>
+      </div>
+      <input type="text" v-model="nome" placeholder="Nome" class="inputFormulario" />
       <br />
-      <input type="text" v-model="nome" />
+      <textarea
+        id="inputMulti"
+        rows="10"
+        cols="38"
+        v-model="descricao"
+        maxlength="200"
+        placeholder="Descrição"
+      ></textarea>
       <br />
-      <label>Descrição</label>
-      <br />
-      <textarea id="inputMulti" rows="10" cols="38" v-model="descricao" maxlength="200"></textarea>
-      <br />
-      <label>Preço</label>
-      <br />
-      <input type="text" v-model="preco" />
-      <br />
-      <label>Imagens</label>
-      <br />
-      <label>Categorias</label>
+      <input type="text" v-model="preco" placeholder="Preço" class="inputFormulario" />
       <br />
       <select v-model="idCat" id="cbx">
         <option value="0" selected disabled>Categoria desejada</option>
         <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
       </select>
-      <br />
-      <label>Medidas</label>
       <br />
       <select v-model="medida" id="cbx">
         <option value="0" selected disabled>Unidade de Medida</option>
@@ -57,23 +59,15 @@
           </tr>
         </tbody>
       </table>
-      <button @click="salvar">Salvar</button>
-      <button @click="excluir">Excluir</button>
-      <button @click="ingredientes">Ingredientes</button>
-      <div v-if="visivel" v-show="true" id="ingredientes">
-        <TelaIngredientes />
-      </div>
+      <button class="button" @click="salvar">Salvar</button>
+      <button class="button" @click="excluir">Excluir</button>
     </div>
   </div>
 </template>
 
 <script>
-import TelaIngredientes from "../components/TelaIngredientes.vue";
 const axios = require("axios");
 export default {
-  components: {
-    TelaIngredientes
-  },
   data: function() {
     return {
       categorias: [],
@@ -86,7 +80,7 @@ export default {
       prods: [],
       ProdSelecionado: [],
       existe: false,
-      visivel: false
+      invalido: false
     };
   },
   methods: {
@@ -133,6 +127,7 @@ export default {
           this.ProdSelecionado = f;
         }
       });
+      console.log(this.ProdSelecionado);
       this.nome = this.ProdSelecionado.nome;
       this.descricao = this.ProdSelecionado.descricao;
       this.preco = this.ProdSelecionado.preco;
@@ -141,12 +136,14 @@ export default {
       this.imagem = this.ProdSelecionado.imagem;
     },
     excluir: function() {
-      axios.delete(
-        "http://localhost:55537/api/Produto/" + this.ProdSelecionado.id
-      );
-    },
-    ingredientes: function() {
-      this.visivel = true;
+      if (this.ProdSelecionado.id == null) {
+        axios.delete(
+          "http://localhost:55537/api/Produto/" + this.ProdSelecionado.id
+        );
+        this.invalido = false;
+      } else {
+        this.invalido = true;
+      }
     }
   },
   mounted() {
@@ -161,24 +158,13 @@ export default {
 </script>
 
 <style>
-html,
 body {
   width: 100%;
   height: 100%;
 }
-#containerProd {
-  width: 100%;
-  height: 100%;
-  display: flex;
+.princ {
+  background-color: rgb(255, 255, 255);
 }
-#princ {
-  position: absolute;
-  width: auto;
-  height: auto;
-  margin: 10px 0px 0px 1%;
-  padding: 0px;
-}
-
 #imgProd {
   width: 80px;
   height: 80px;
@@ -195,18 +181,24 @@ body {
 .produtos {
   border-collapse: collapse;
 }
-.produtos, th, td{
+.produtos tr:focus-within{
+  background: rgba(214, 62, 62, 0.644);
+  color: #ffffff;
+}
+.produtos,
+th,
+td {
   border: 1px solid black;
 }
-.produtos th{
+.produtos th {
   text-align: left;
   padding: 10px;
 }
-.produtos td{
+.produtos td {
   padding: 5px;
 }
 .produtos tr:hover {
-  background: rgb(109, 235, 224);
+  background: rgba(73, 73, 73, 0.644);
   color: #ffffff;
 }
 .produtos tr {
@@ -214,12 +206,62 @@ body {
 }
 #ingredientes {
   position: absolute;
-  margin: -123% 0px 0px 180%;
 }
-#cbx{
+#cbx {
+  margin: 10px 0px 0px 0px;
   border: 1px solid black;
   height: 20px;
   color: rgba(0, 0, 0, 0.788);
   border-radius: 6px;
+}
+.inputFormulario {
+  margin: 10px 0px 0px 0px;
+}
+.button {
+  margin: 10px 0px 0px 0px;
+}
+
+/* d */
+.conteudo {
+  width: 600px;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+.meu-box {
+  position: relative;
+}
+
+.input-nome {
+  width: 100%;
+  position: relative;
+  font-size: 16px;
+  color: #5b5b5b;
+  border: 1px rgba(83, 83, 83, 0.658) solid;
+  padding: 10px 10px 10px 15px;
+  box-sizing: content-box;
+  z-index: 2;
+}
+
+.label-nome {
+  width: 90px;
+  height: 14px;
+  margin-left: 5px;
+  position: absolute;
+  background: white;
+  color: rgb(90, 90, 90);
+  font-weight: bold;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: 0.5s;
+}
+
+.input-nome:focus + .label-nome {
+  color: rgb(90, 90, 90);
+  top: -25%;
+  transition: 0.2s;
+    z-index: 3;
 }
 </style>

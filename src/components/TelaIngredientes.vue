@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="princ">
     <h4>INGREDIENTES</h4>
     <label>Nome</label>
     <br />
@@ -70,7 +70,6 @@ export default {
         );
       } 
       else {
-
         axios.post("http://localhost:55537/api/Ingrediente", {
           nome: this.nome,
           id_categoria: this.idCatIng,
@@ -110,6 +109,7 @@ export default {
 </script>
 
 <style>
+
 .ingredientes tr:hover {
   background: rgb(109, 235, 224);
   color: #ffffff;

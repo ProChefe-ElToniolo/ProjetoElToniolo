@@ -1,43 +1,124 @@
 <template>
   <div>
-    <nav>
-      <ul class="list-vertical">
-        <li id="slogan">El Toniolo</li>
-        <img src="../imagens/logopizza.png" id="logoPizza"/>
-        <li @click="IrParaTelaMenuPrincipal">IrParaTelaMenuPrincipal</li>
-        <li @click="IrParaCadastroProdutos">IrParaCadastroProdutos</li>
-        <li @click="IrParaCadastroCategoria">IrParaCadastroCategoria</li>
-        <li @click="IrParaCadastroUsuario">IrParaCadastroUsuario</li>
-        <li @click="IrParaTelaEntregador">IrParaTelaEntregador</li>
-          <li @click="IrParaGerenciarPedidos">Gerenciar Pedidos</li>
-      </ul>
-    </nav>
+    <div id="menu-lateral">
+      <div id="slogan">
+        <h4>
+          El Toniolo
+          <img src="../imagens/chef.png" class="img-slogan" />
+        </h4>
+      </div>
+      <nav>
+        <ul class="list-vertical">
+          <!-- <li id="slogan">El Toniolo</li>
+          <img src="../imagens/logopizza.png" id="logoPizza" />-->
+          <li @click="Produtos">
+            <img src="../imagens/pizzaColorida.png" class="img-li" />
+            Produtos
+          </li>
+          <li @click="Ingredientes">
+            <img src="../imagens/ingredientes.png" class="img-li" />
+            Ingredientes
+          </li>
+          <li @click="Categorias">
+            <img src="../imagens/categoria.png" class="img-li" />
+            Categorias
+          </li>
+          <li @click="Usuario">
+            <img src="../imagens/usuario.png" class="img-li" />
+            Usuario
+          </li>
+          <li @click="Entregador">
+            <img src="../imagens/entregador.png" class="img-li" />
+            Entregador
+          </li>
+          <li @click="Pedidos">
+            <img src="../imagens/pedidos.png" class="img-li" />
+            Pedidos
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div id="fundo">
+      <div v-if="produtosVisualizar">
+        <TelaCadastroProdutos />
+      </div>
+      <div v-if="ingredientesVisualizar">
+        <TelaIngredientes />
+      </div>
+      <div v-if="categoriasVisualizar">
+        <TelaCadastroCategoria />
+      </div>
+      <div v-if="usuarioVisualizar">
+        <TelaCadastroUsuario />
+      </div>
+      <div v-if="entregadorVisualizar">
+        <TelaEntregador />
+      </div>
+      <div v-if="pedidosVisualizar">
+        <TelaPedidos />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import TelaCadastroCategoria from "../components/TelaCadastroCategoria.vue";
+import TelaIngredientes from "../components/TelaIngredientes.vue";
+import TelaCadastroProdutos from "../components/TelaCadastroProdutos.vue";
+import TelaCadastroUsuario from "../components/TelaCadastroUsuario.vue";
+import TelaEntregador from "../components/TelaEntregador.vue";
+import TelaPedidos from "../components/TelaPedidos.vue";
 export default {
+  components: {
+    TelaIngredientes,
+    TelaCadastroProdutos,
+    TelaCadastroCategoria,
+    TelaCadastroUsuario,
+    TelaEntregador,
+    TelaPedidos
+  },
   data: function() {
-    return {};
+    return {
+      produtosVisualizar: false,
+      ingredientesVisualizar: false,
+      categoriasVisualizar: false,
+      usuarioVisualizar: false,
+      entregadorVisualizar: false,
+      pedidosVisualizar: false
+    };
   },
   methods: {
-    IrParaTelaMenuPrincipal: function() {
-      this.$router.push("/");
+    Produtos: function() {
+      this.fechar();
+      this.produtosVisualizar = true;
     },
-    IrParaCadastroProdutos: function() {
-      this.$router.push("/ViewTelaCadastroProdutos");
+    fechar: function() {
+      this.produtosVisualizar = false;
+      this.ingredientesVisualizar = false;
+      this.categoriasVisualizar = false;
+      this.usuarioVisualizar = false;
+      this.entregadorVisualizar = false;
+      this.pedidosVisualizar = false;
     },
-    IrParaCadastroCategoria: function() {
-      this.$router.push("/ViewTelaCadastroCategoria");
+    Ingredientes: function() {
+      this.fechar();
+      this.ingredientesVisualizar = true;
     },
-    IrParaCadastroUsuario: function() {
-      this.$router.push("/ViewTelaCadastroUsuario");
+    Categorias: function() {
+      this.fechar();
+      this.categoriasVisualizar = true;
     },
-    IrParaTelaEntregador: function() {
-      this.$router.push("/ViewTelaEntregador");
+    Usuario: function() {
+      this.fechar();
+      this.usuarioVisualizar = true;
     },
-    IrParaGerenciarPedidos: function(){
-      this.$router.push("/GerenciamentoPedidos")
+    Entregador: function() {
+      this.fechar();
+      this.entregadorVisualizar = true;
+    },
+    Pedidos: function() {
+      this.fechar();
+      this.pedidosVisualizar = true;
     }
   }
 };
@@ -53,7 +134,6 @@ body {
   height: 100%;
   width: 100%;
   padding: 0px;
-  margin: 0px;
   background-color: #f6f6f6;
 }
 #imgFundo {
@@ -62,35 +142,68 @@ body {
   position: absolute;
   opacity: 0.9;
 }
-
-.list-vertical {
+.img-slogan {
+  transform: rotate(45deg);
   position: absolute;
-  height: 100%;
-  background-color: rgb(0, 0, 0);
-  margin: 0px 0px 0px 0px;
+  margin: -20px 0px 5px -4px;
+  width: 32px;
+  height: 32px;
+}
+.list-vertical {
   padding: 0px;
   list-style: none;
-  line-height: 40px;
-  font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica, sans-serif;
-  margin: 0px 0px 0px 0px;
+  /* line-height: 40px; */
+  font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
+    sans-serif;
   color: white;
 }
 
 .list-vertical li:hover {
-  color: rgb(197, 199, 84);
+  background-color: rgba(116, 116, 116, 0.432);
 }
-#slogan {
-  font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica, sans-serif;
-  margin: 2% 0px 0px 25%;
-  color: white;
-  background-color: rgb(0, 0, 0);
+.list-vertical ul {
+  margin: 0px 0px 0px 0px;
+}
+.list-vertical li {
+  display: flex;
+  text-align: center;
+  line-height: 45px;
+  background-color: #1f2023;
+  border: 1px rgba(56, 56, 56, 0.301) solid;
+  margin: 1px 0px 2px 0px;
+  width: 148px;
 }
 
+#slogan {
+  font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
+    sans-serif;
+  text-align: center;
+  font-size: 20px;
+  color: white;
+  background-color: #1f2023;
+}
+.img-li {
+  margin: 10px;
+}
 #logoPizza {
   position: absolute;
-  margin: 0px 0px 0px 0px;
+  margin: -40px 0px 0px 2%;
   width: 40px;
   height: 40px;
 }
-
+#fundo {
+  display: flex;
+  position: relative;
+  margin: 0px 0px 0px 150px;
+  background-color: rgb(255, 255, 255);
+}
+#menu-lateral {
+  position: absolute;
+  width: 150px;
+  height: 100%;
+  background-color: #1f2023;
+}
+input:focus::-webkit-input-placeholder {
+   color: transparent;
+}
 </style>

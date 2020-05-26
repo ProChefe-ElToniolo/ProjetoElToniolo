@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="princ">
     <h1>Bem Vindo a Tela Cadastro Categoria</h1>
-    <button @click="IrParaTelaMenuAdmin">IrParaTelaMenuAdmin</button>
     <input type="text" placeholder="Digite o nome da Categoria" id="txtCategoria" v-model="nome" />
     <span v-if="verificado">Digite algo!</span>
     <input type="file" />
@@ -44,10 +43,6 @@ export default {
     };
   },
   methods: {
-    IrParaTelaMenuAdmin: function() {
-      this.$router.push("/ViewTelaMenuAdmin");
-    },
-
     SalvarCategoria: function() {
       var txtCategoria = document.getElementById("txtCategoria");
       console.log(txtCategoria);

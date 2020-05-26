@@ -72,11 +72,14 @@ export default {
           this.ocultarMenuLogin = true;
           this.ocultarBotaoLogin = false;
           this.botaoSair = true;
+          localStorage.setItem("usuarioLogado", JSON.stringify(c))
+          localStorage.getItem
         }
       });
       this.usuarios.filter(u => {
         if (u.email == this.email && u.senha == this.senha) {
           alert("Logado como Admin");
+          localStorage.setItem("usuarioLogado", JSON.stringify(u))
           this.$router.push("/ViewTelaMenuAdmin");
         }
       });
@@ -356,5 +359,11 @@ html, body {
 ::-webkit-scrollbar-track{
     background-color: #1f2023;
 }
-
+    #menuCardapio{
+        position: absolute;
+        border: springgreen 5px solid;
+        width: 100%;
+        height: 75%;
+        margin: 70px 0 0 0;
+    }
 </style>
