@@ -9,8 +9,6 @@
       </div>
       <nav>
         <ul class="list-vertical">
-          <!-- <li id="slogan">El Toniolo</li>
-          <img src="../imagens/logopizza.png" id="logoPizza" />-->
           <li @click="Produtos">
             <img src="../imagens/pizzaColorida.png" class="img-li" />
             Produtos

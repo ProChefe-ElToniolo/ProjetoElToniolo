@@ -1,51 +1,61 @@
 <template>
   <div id="container">
     <div class="scrollbar" id="style-14">
-    <img src="../imagens/transferir.jpg" id="imgFundo" />
-    <div id="menu">
-      <div id="certo">
-        <nav>
-          <ul class="list-menu">
-            <li @click="IrParaTelaPedidos">DELIVERY</li>
-            <li @click="IrParaTelaCardapio">CARDÁPIO</li>
-            <li @click="IrParaTelaLogin">SOBRE</li>
-            <li @click="IrParaTelaCadastro">PERFIL</li>
-            <li @click="IrParaTelaAdmin">Produto</li>
-          </ul>
-        </nav>
-        <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
-        <div id="caixa-login" v-if="ocultarMenuLogin == false">
-          <div id="menu-bar">
-            <ul>
-              <li v-for="cli in clientes" :key="cli.id">{{cli.email}} - {{cli.senha}}</li>
+      <!-- <img src="../imagens/transferir.jpg" id="imgFundo" /> -->
+      <div id="menu">
+        <div id="certo">
+          <nav>
+            <ul class="list-menu">
+              <li @click="IrParaTelaPedidos">DELIVERY</li>
+              <li @click="Cardapio">CARDÁPIO</li>
+              <li @click="IrParaTelaLogin">SOBRE</li>
+              <li @click="IrParaTelaCadastro">PERFIL</li>
+              <li @click="IrParaTelaAdmin">Produto</li>
             </ul>
-            <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
-            <input type="password" placeholder="Senha" class="inputs" v-model="senha" />
-            <button id="botao-entrar" @click="entrar">Entrar</button>
-            <br />
-            <router-link
-              to="ViewTelaCadastro"
-              id="IrParaTelaCadastro"
-            >Cadastre-se caso ainda não possua uma conta</router-link>
+          </nav>
+          <div v-if="visualizarCardapio">
+            <TelaCardapio />
           </div>
+          <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
+          <div id="caixa-login" v-if="ocultarMenuLogin == false">
+            <div id="menu-bar">
+              <ul>
+                <li v-for="cli in clientes" :key="cli.id">{{cli.email}} - {{cli.senha}}</li>
+              </ul>
+              <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
+              <input type="password" placeholder="Senha" class="inputs" v-model="senha" />
+              <button id="botao-entrar" @click="entrar">Entrar</button>
+              <br />
+              <router-link
+                to="ViewTelaCadastro"
+                id="IrParaTelaCadastro"
+              >Cadastre-se caso ainda não possua uma conta</router-link>
+            </div>
+          </div>
+          <img src="../imagens/logopizza.png" id="logo" />
+          <button
+            id="botao-logar"
+            @click="logar"
+            v-if="ocultarBotaoLogin"
+          >FAZER LOGIN OU CADASTRAR-SE</button>
+          <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
+          <img src="../imagens/comercial.png" id="userlogo" />
+          <label id="labelLogado" v-if="logado">Logado:{{NomePessoaLogada}}</label>
         </div>
-        <img src="../imagens/logopizza.png" id="logo" />
-        <button id="botao-logar" @click="logar" v-if="ocultarBotaoLogin">FAZER LOGIN OU CADASTRAR-SE</button>
-        <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
-        <img src="../imagens/comercial.png" id="userlogo" />
-        <label id="labelLogado" v-if="logado">Logado:{{NomePessoaLogada}}</label>
       </div>
-    </div>
-    <div id="sombra-menu"></div>
-    <div id="menu-rodape"></div>
+      <div id="sombra-menu"></div>
+      <div id="menu-rodape"></div>
     </div>
   </div>
 </template>
 
 <script>
 const axios = require("axios");
-
+import TelaCardapio from "../components/TelaCardapio.vue";
 export default {
+  components: {
+    TelaCardapio
+  },
   data: function() {
     return {
       email: "",
@@ -56,7 +66,8 @@ export default {
       logado: false,
       NomePessoaLogada: "",
       ocultarBotaoLogin: true,
-      botaoSair: false
+      botaoSair: false,
+      visualizarCardapio: false
     };
   },
   methods: {
@@ -72,14 +83,14 @@ export default {
           this.ocultarMenuLogin = true;
           this.ocultarBotaoLogin = false;
           this.botaoSair = true;
-          localStorage.setItem("usuarioLogado", JSON.stringify(c))
-          localStorage.getItem
+          localStorage.setItem("usuarioLogado", JSON.stringify(c));
+          localStorage.getItem;
         }
       });
       this.usuarios.filter(u => {
         if (u.email == this.email && u.senha == this.senha) {
           alert("Logado como Admin");
-          localStorage.setItem("usuarioLogado", JSON.stringify(u))
+          localStorage.setItem("usuarioLogado", JSON.stringify(u));
           this.$router.push("/ViewTelaMenuAdmin");
         }
       });
@@ -90,8 +101,8 @@ export default {
       this.logado = false;
       this.botaoSair = false;
     },
-    IrParaTelaCardapio: function() {
-      this.$router.push("/ViewTelaCardapio");
+    Cardapio: function() {
+      this.visualizarCardapio = true;
     },
     IrParaTelaPedidos: function() {
       this.$router.push("/ViewTelaPedidos");
@@ -118,7 +129,8 @@ export default {
 </script>
 
 <style>
-html, body {
+html,
+body {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
   font-size: 14px;
@@ -331,7 +343,7 @@ html, body {
 
 #botaoSair {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
-  sans-serif;
+    sans-serif;
   letter-spacing: 0.05rem;
   font-weight: 700;
   position: absolute;
@@ -356,14 +368,14 @@ html, body {
 ::-webkit-scrollbar-thumb {
   background-color: rgb(0, 0, 0);
 }
-::-webkit-scrollbar-track{
-    background-color: #1f2023;
+::-webkit-scrollbar-track {
+  background-color: #1f2023;
 }
-    #menuCardapio{
-        position: absolute;
-        border: springgreen 5px solid;
-        width: 100%;
-        height: 75%;
-        margin: 70px 0 0 0;
-    }
+#menuCardapio {
+  position: absolute;
+  border: springgreen 5px solid;
+  width: 100%;
+  height: 75%;
+  margin: 70px 0 0 0;
+}
 </style>
