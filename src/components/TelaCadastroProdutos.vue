@@ -101,7 +101,7 @@ export default {
             imagem: this.imagem
           }
         );
-      } else if(this.nome != null && this.preco != null && this.medida != null && this.idCat != null && this.imagem != null){
+      } else if(this.nome != null && this.preco != null && this.medida != 0 && this.idCat != 0){
         alert("entrou")
         axios.post("http://localhost:55537/api/Produto", {
           nome: this.nome,
