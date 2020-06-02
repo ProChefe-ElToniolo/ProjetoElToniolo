@@ -7,40 +7,7 @@
       <option value="0" selected disabled>Selecione o ID do entregador</option>
       <option v-for="user in usuarios" :key="user.id">{{user.nome}}</option>
     </select>
-
-        <table border="5">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Tipo Usuário</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="user in usuarios" :key="user.id">
-                    <td>{{user.id}}</td>
-                    <td>{{user.nome}}</td>
-                    <td>{{user.tipo_usuario}}</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <table border="2">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Entregador</th>
-                    <th>Processamento</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="ped in pedidos" :key="ped.id">
-                    <td>{{ped.id}}</td>
-                    <td>{{ped.id_entregador}}</td>
-                    <td>{{ped.processamento}}</td>
-                </tr>
-            </tbody>
-        </table>
+            
     </div>
     <table border="5" style="cursor:pointer" id="tabela">
       <thead>
@@ -80,6 +47,7 @@ data:function(){
   },
   methods: {
     SelecionarPedido: function(nome) {
+      this.pedidosEntregador.splice(0, this.pedidosEntregador.length) 
       this.usuarios.filter(u => {
         if (u.nome == nome) {
           this.entregadorSelecionado = u;
@@ -110,7 +78,7 @@ data:function(){
         })
         .then(resp => console.log(resp.data));
     }, IrParaTelaMenuAdmin:function(){
-        this.$router.push("/ViewTelaMenuAdmin")
+        this.$router.push("/")
     }
 },
 mounted(){
