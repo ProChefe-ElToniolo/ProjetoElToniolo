@@ -1,71 +1,124 @@
 <template>
+    <div>
+      
   <div>
     <h1>Bem Vindo a Tela de Entregador</h1>
-    <select>
+    <select v-model="nomeEntregador" @change="SelecionarPedido(nomeEntregador)">
       <option value="0" selected disabled>Selecione o ID do entregador</option>
-      <option
-        v-for="user in usuarios"
-        :key="user.id"
-      >{{user.id}} - {{user.nome}} - {{user.tipo_usuario}}</option>
+      <option v-for="user in usuarios" :key="user.id">{{user.nome}}</option>
     </select>
 
-    <table border="5">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Tipo Usuário</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="user in usuarios" :key="user.id">
-          <td>{{user.id}}</td>
-          <td>{{user.nome}}</td>
-          <td>{{user.tipo_usuario}}</td>
-        </tr>
-      </tbody>
-    </table>
+        <table border="5">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Tipo Usuário</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="user in usuarios" :key="user.id">
+                    <td>{{user.id}}</td>
+                    <td>{{user.nome}}</td>
+                    <td>{{user.tipo_usuario}}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <table border="2">
+        <table border="2">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Entregador</th>
+                    <th>Processamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="ped in pedidos" :key="ped.id">
+                    <td>{{ped.id}}</td>
+                    <td>{{ped.id_entregador}}</td>
+                    <td>{{ped.processamento}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <table border="5" style="cursor:pointer" id="tabela">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Entregador</th>
-          <th>Processamento</th>
+          <th>ID Entregador</th>
+          <th>Pedidos</th>
+          <th>Vai trabaia vagabundo</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="ped in pedidos" :key="ped.id">
-          <td>{{ped.id}}</td>
-          <td>{{ped.id_entregador}}</td>
+        <tr v-for="(ped, index) in pedidosEntregador" :key="index">
+          <td>{{entregadorSelecionado.nome}}</td>
           <td>{{ped.processamento}}</td>
+          <td>
+            <input type="checkbox" @click="pedidoFinalizado(ped.id)" id="cbx" />
+          </td>
         </tr>
       </tbody>
     </table>
+    <button @click="IrParaTelaMenuAdmin">Voltar a Tela Menu Admin</button>
   </div>
 </template>
 
 <script>
-const axios = require("axios");
+const axios = require('axios')
 
 export default {
-  data: function() {
-    return {
-      usuarios: [],
-      pedidos: []
+data:function(){
+    return{
+        usuarios: [],
+        pedidos: [],
+      pedidosEntregador: [],
+      nomeEntregador: "",
+      entregadorSelecionado: [],
+      entregaCliente: 0
     };
   },
-  methods: {},
-  mounted() {
-    axios
-      .get("http://localhost:55537/api/Usuario")
-      .then(usuario => (this.usuarios = usuario.data));
-    axios
-      .get("http://localhost:55537/api/Pedidos")
-      .then(pedido => (this.pedidos = pedido.data));
-  }
-};
+  methods: {
+    SelecionarPedido: function(nome) {
+      this.usuarios.filter(u => {
+        if (u.nome == nome) {
+          this.entregadorSelecionado = u;
+        }
+      });
+      this.pedidos.filter(p => {
+        if (
+          p.id_entregador == this.entregadorSelecionado.id &&
+          p.processamento == false
+        ) {
+          this.pedidosEntregador.push(p);
+        }
+      });
+      console.log(this.pedidosEntregador);
+    },
+    pedidoFinalizado: function(id) {
+      this.pedidos.filter(n => {
+        if (id == n.id) {
+          this.entregaCliente = n.id_cliente;
+        }
+      });
+      console.log(this.entregaCliente);
+      axios
+        .put("http://localhost:55537/api/Pedidos/" + id, {
+          id_cliente: this.entregaCliente,
+          id_entregador: this.entregadorSelecionado.id,
+          processamento: true
+        })
+        .then(resp => console.log(resp.data));
+    }, IrParaTelaMenuAdmin:function(){
+        this.$router.push("/ViewTelaMenuAdmin")
+    }
+},
+mounted(){
+    axios.get("http://localhost:55537/api/Usuario").then(usuario => this.usuarios = usuario.data)
+    axios.get("http://localhost:55537/api/Pedidos").then(pedido => this.pedidos = pedido.data)
+}
+}
 </script>
 
 <style>
-</style>
+</style> 
