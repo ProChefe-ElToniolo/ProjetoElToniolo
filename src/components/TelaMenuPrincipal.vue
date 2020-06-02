@@ -146,24 +146,20 @@ body {
   overflow: hidden;
   overflow-y: auto;
 }
-
 @media (max-width: 900px) {
   #menu {
     display: none;
   }
 }
-
 #imgFundo {
   width: 100%;
   height: 800px;
   position: absolute;
   opacity: 0.9;
 }
-
 #container {
   display: flex;
 }
-
 #menu {
   display: flex;
   position: absolute;
@@ -177,7 +173,6 @@ body {
   -moz-box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
   box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
 }
-
 #certo {
   display: flex;
   position: absolute;
@@ -185,7 +180,6 @@ body {
   width: 71.72%;
   margin-left: 14.4%;
 }
-
 .list-menu {
   color: white;
   position: absolute;
@@ -195,18 +189,15 @@ body {
   list-style: none;
   line-height: 70px;
 }
-
 .list-menu li {
   text-align: center;
   padding: 0 8% 0 8%;
   width: 120%;
   height: 70px;
 }
-
 .list-menu li:hover {
   background-color: black;
 }
-
 #botao-logar {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
@@ -225,21 +216,18 @@ body {
   background-color: black;
   height: 70px;
 }
-
 #title {
   line-height: 38px;
   font-family: fantasy;
   font-size: 34px;
   color: white;
 }
-
 #userlogo {
   margin: 20px 0px 0px 61.7%;
   position: absolute;
   width: 30px;
   height: 30px;
 }
-
 #logo {
   position: absolute;
   margin: 0.2% 0px 0px 0px;
@@ -297,35 +285,28 @@ body {
   width: 380px;
   height: 440px;
 }
-
 #IrParaTelaCadastro {
   color: rgba(255, 255, 255, 0.555);
 }
-
 ::-webkit-input-placeholder {
   color: black;
   font: 14px verdana, arial, sans-serif;
 }
-
 :-moz-placeholder {
   color: black;
   font: 14px verdana, arial, sans-serif;
 }
-
 ::-moz-placeholder {
   color: black;
   font: 14px verdana, arial, sans-serif;
 }
-
 :-ms-input-placeholder {
   color: black;
   font: 14px verdana, arial, sans-serif;
 }
-
 #botaoIrParaMenuAdmin {
   color: pink;
 }
-
 #labelLogado {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
@@ -343,7 +324,6 @@ body {
   width: auto;
   height: 70px;
 }
-
 #botaoSair {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
@@ -363,7 +343,6 @@ body {
   background-color: #006491;
   cursor: pointer;
 }
-
 ::-webkit-scrollbar {
   width: 11px;
   height: 10px;

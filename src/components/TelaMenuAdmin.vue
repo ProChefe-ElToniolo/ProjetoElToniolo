@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="container">
     <div id="menu-lateral">
       <div id="slogan">
         <h4>
@@ -123,8 +123,8 @@ export default {
 </script>
 
 <style>
-html,
-body {
+#container {
+  display: flex;
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
   font-size: 14px;
@@ -191,7 +191,6 @@ body {
 }
 #fundo {
   display: flex;
-  position: relative;
   margin: 0px 0px 0px 150px;
   background-color: rgb(255, 255, 255);
 }

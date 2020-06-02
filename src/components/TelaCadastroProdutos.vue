@@ -1,17 +1,9 @@
 <template>
   <div id="fundo1">
-    <div class="princ">
-      <h4>Cadastro Produtos</h4>
-      <br />
-      <img id="img" src="cadastrarProd.png" alt />
+    <div id="formulario">
       <br />
       <div class="meu-box">
-        <input
-          type="text"
-          class="input-nome"
-          placeholder="Nome Completo"
-          v-model="nome"
-        />
+        <input type="text" class="input-nome" placeholder="Nome Completo" v-model="nome" />
         <label for="nomeCompleto" class="label-nome">Nome Completo</label>
       </div>
       <br />
@@ -33,20 +25,18 @@
       <br />
       <select v-model="medida" class="cbx">
         <option value="0" selected disabled>Unidade de Medida</option>
-        <option>Kg</option>
-        <option>L</option>
-        <option>g</option>
-        <option>Familia</option>
-        <option>Exagerada</option>
-        <option>Média</option>
-        <option>Broto</option>
-        <option>Grande</option>
+        <option :value="med.id" v-for="med in medidas" :key="med.id">{{med.nome}}</option>
       </select>
       <br />
+      <button class="button" @click="salvar">Salvar</button>
+      <button class="button" @click="excluir">Excluir</button>
+    </div>
+    <div class="pos-tabel">
       <table class="produtos">
         <thead>
           <tr>
             <th>Nome</th>
+            <th>Categoria</th>
             <th>Descrição</th>
             <th>Preço</th>
           </tr>
@@ -54,14 +44,17 @@
         <tbody>
           <tr v-for="(prod, index) in prods" :key="index" @click="selecionar(prod.id)">
             <td>{{prod.nome}}</td>
+            <td>{{prod.categoriaProd}}</td>
             <td>{{prod.descricao}}</td>
-            <td>{{prod.preco}}</td>
+            <td>{{"R$ " + (prod.preco)}}</td>
           </tr>
         </tbody>
       </table>
-      <button class="button" @click="salvar">Salvar</button>
-      <button class="button" @click="excluir">Excluir</button>
     </div>
+    <select class="cbx" @change="filtro(filtrarCat)" v-model="filtrarCat">
+      <option value="0">Todos Produtos</option>
+      <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
+    </select>
   </div>
 </template>
 
@@ -75,12 +68,15 @@ export default {
       descricao: "",
       preco: "",
       idCat: 0,
+      filtrarCat: 0,
       imagem: "",
       medida: 0,
       prods: [],
       ProdSelecionado: [],
       existe: false,
-      invalido: false
+      invalido: false,
+      todosProds: [],
+      medidas: []
     };
   },
   methods: {
@@ -94,7 +90,6 @@ export default {
         }
       });
       if (this.existe) {
-        alert("entrouAlterar");
         axios.put(
           "http://localhost:55537/api/Produto/" + this.ProdSelecionado.id,
           {
@@ -106,15 +101,23 @@ export default {
             imagem: this.imagem
           }
         );
-      } else {
-        alert("entrouSalvar");
-        console.log(this.idCat);
+      } else if(this.nome != null && this.preco != null && this.medida != null && this.idCat != null && this.imagem != null){
+        alert("entrou")
         axios.post("http://localhost:55537/api/Produto", {
           nome: this.nome,
           descricao: this.descricao,
           preco: this.preco,
-          medida: this.medida,
+          medida_tamanho: this.medida,
           id_categoria: this.idCat,
+          imagem: this.imagem
+        });
+        this.prods.push({
+          nome: this.nome,
+          descricao: this.descricao,
+          preco: this.preco,
+          medida_tamanho: this.medida,
+          id_categoria: this.idCat,
+          categoriaProd: this.categorias.filter(u => u.id == this.idCat)[0].nome,
           imagem: this.imagem
         });
       }
@@ -136,7 +139,8 @@ export default {
       this.imagem = this.ProdSelecionado.imagem;
     },
     excluir: function() {
-      if (this.ProdSelecionado.id == null) {
+      console.log(this.ProdSelecionado.id)
+      if (this.ProdSelecionado.id != null) {
         axios.delete(
           "http://localhost:55537/api/Produto/" + this.ProdSelecionado.id
         );
@@ -144,6 +148,17 @@ export default {
       } else {
         this.invalido = true;
       }
+    },
+    filtro: function() {
+      this.prods = this.todosProds;
+      if (this.filtrarCat != 0) {
+        this.prods = this.prods.filter(i => {
+          if (i.id_categoria == this.filtrarCat) {
+            return i;
+          }
+        });
+      }
+      console.log(this.prods);
     }
   },
   mounted() {
@@ -153,6 +168,9 @@ export default {
     axios
       .get("http://localhost:55537/api/Produto")
       .then(produto => (this.prods = produto.data));
+    axios
+      .get("http://localhost:55537/api/Medida")
+      .then(medida => (this.medidas = medida.data));
   }
 };
 </script>
@@ -162,12 +180,18 @@ body {
   width: 100%;
   height: 100%;
 }
-.princ {
-  background-color: rgb(255, 255, 255);
+#formulario {
+  margin: 20px 5% 0px 5%;
+}
+#fundo1 {
+  display: relative;
 }
 #imgProd {
   width: 80px;
   height: 80px;
+}
+.pos-tabel {
+  margin: 20px 0px 0px 8%;
 }
 #output {
   width: 80px;
@@ -179,9 +203,10 @@ body {
   resize: none;
 }
 .produtos {
+  width: 500px;
   border-collapse: collapse;
 }
-.produtos tr:focus-within{
+.produtos tr:focus-within {
   background: rgba(214, 62, 62, 0.644);
   color: #ffffff;
 }
@@ -264,6 +289,6 @@ td {
   color: rgb(90, 90, 90);
   top: -25%;
   transition: 0.2s;
-    z-index: 3;
+  z-index: 3;
 }
 </style>
