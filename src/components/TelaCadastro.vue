@@ -1,6 +1,5 @@
 <template>
   <div class="cadastro">
-    <img src="../imagens/transferir.jpg" />
     <h1>CADASTRO</h1>
     <input class="geral" type="text" placeholder="Nome" maxlength="50" v-model="nome" />
     <br />
@@ -79,7 +78,8 @@ export default {
       complemento: "",
       numero: "",
       endereco: [],
-      sla: []
+      sla: [],
+      existe: false
     };
   },
   methods: {
@@ -98,52 +98,52 @@ export default {
       }
     },
     buscar: function() {
-      axios
-        .get("viacep.com.br/ws/" + this.cep + "/json/")
-        .then(cep => (this.sla = cep.data));
-      console.log(this.sla);
+      // axios
+      //   .get("viacep.com.br/ws/" + this.cep + "/json/")
+      //   .then(cep => (this.sla = cep.data));
+      // console.log(this.sla);
     },
     salvarCadastro: function() {
-      axios
-        .post("http://localhost:55537/api/Cliente", {
-          nome: this.nome,
-          telefone: this.telefone,
-          email: this.email,
-          senha: this.senha,
-          cpf: this.cpf,
-          cep: this.cep,
-          cidade: this.cidade,
-          logradouro: this.logradouro,
-          bairro: this.bairro,
-          numero: this.numero,
-          uf: this.uf,
-          complemento: this.complemento
-        })
-        .then(resp => {
-          console.log(resp.data);
-          this.cliente.push({
-            nome: this.nome,
-            telefone: this.telefone,
-            email: this.email,
-            senha: this.senha,
-            cpf: this.cpf,
-            cep: this.cep,
-            cidade: this.cidade,
-            numero: this.numero,
-            logradouro: this.logradouro,
-            bairro: this.bairro,
-            uf: this.uf,
-            complemento: this.complemento
-          });
-        });
+        if (
+          this.nome != "" &&
+          this.telefone != "" &&
+          this.email != "" &&
+          this.senha != "" &&
+          this.cpf != "" &&
+          this.cep != "" &&
+          this.cidade != "" &&
+          this.logradouro != "" &&
+          this.bairro != "" &&
+          this.numero != "" &&
+          this.uf != "" 
+  
+        ) {
+          alert("Cadastrado com sucesso!")
+          axios
+            .post("http://localhost:55537/api/Cliente", {
+              nome: this.nome,
+              telefone: this.telefone,
+              email: this.email,
+              senha: this.senha,
+              cpf: this.cpf,
+              cep: this.cep,
+              cidade: this.cidade,
+              logradouro: this.logradouro,
+              bairro: this.bairro,
+              numero: this.numero,
+              uf: this.uf,
+              complemento: this.complemento
+            })
+            .then(resp => {
+              console.log(resp.data);
+            });
+        } else{
+            alert("Preencha os dados corretamente!")
+        }
+          window.location.reload()
+      }
     }
-  },
-  mounted() {
-    axios
-      .get("http://localhost:55537/api/Cliente")
-      .then(cliente => (this.clientes = cliente.data));
   }
-};
 </script>
 
 <style>
