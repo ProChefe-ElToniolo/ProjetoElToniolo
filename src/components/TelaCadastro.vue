@@ -136,7 +136,10 @@ export default {
             .then(resp => {
               console.log(resp.data);
             });
+        } else{
+            alert("Preencha os dados corretamente!")
         }
+          window.location.reload()
       }
     }
   }

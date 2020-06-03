@@ -40,7 +40,7 @@
         </div>
       </div>
       <div id="sombra-menu"></div>
-      <div v-if="visualizarCardapio">
+      <div v-if="visualizarCardapio">  
         <TelaCardapio />
       </div>
       <div id="menu-rodape"></div>
@@ -66,7 +66,8 @@ export default {
       NomePessoaLogada: "",
       ocultarBotaoLogin: true,
       botaoSair: false,
-      visualizarCardapio: false
+      visualizarCardapio: false,
+      categorias:[]
     };
   },
   methods: {
@@ -122,7 +123,7 @@ export default {
       .then(cliente => (this.clientes = cliente.data));
     axios
       .get("http://localhost:55537/api/Usuario")
-      .then(usuario => (this.usuarios = usuario.data));
+      .then(usuario => this.usuarios = usuario.data);
   }
 };
 </script>
