@@ -101,8 +101,13 @@ export default {
             imagem: this.imagem
           }
         );
-      } else if(this.nome != null && this.preco != null && this.medida != null && this.idCat != null && this.imagem != null){
-        alert("entrou")
+      } else if (
+        this.nome != null &&
+        this.preco != null &&
+        this.medida != 0 &&
+        this.idCat != 0
+      ) {
+        alert("entrou");
         axios.post("http://localhost:55537/api/Produto", {
           nome: this.nome,
           descricao: this.descricao,
@@ -117,9 +122,12 @@ export default {
           preco: this.preco,
           medida_tamanho: this.medida,
           id_categoria: this.idCat,
-          categoriaProd: this.categorias.filter(u => u.id == this.idCat)[0].nome,
+          categoriaProd: this.categorias.filter(u => u.id == this.idCat)[0]
+            .nome,
           imagem: this.imagem
         });
+      } else {
+        alert("PREENCHE TUDO TLGD");
       }
       this.existe = false;
     },
@@ -139,11 +147,13 @@ export default {
       this.imagem = this.ProdSelecionado.imagem;
     },
     excluir: function() {
-      console.log(this.ProdSelecionado.id)
       if (this.ProdSelecionado.id != null) {
         axios.delete(
           "http://localhost:55537/api/Produto/" + this.ProdSelecionado.id
         );
+        console.log(this.prods);
+        alert(this.prods.indexOf(this.ProdSelecionado));
+        this.prods.splice(this.prods.indexOf(this.ProdSelecionado), 1);
         this.invalido = false;
       } else {
         this.invalido = true;

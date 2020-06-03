@@ -60,7 +60,7 @@ data:function(){
                 nome: this.nome,
                 email: this.email,
                 senha: this.senha,
-                tipo_usuario: this.tipo_usuario
+                tipo_usuario: this.idTpUser
             })
         })
     }

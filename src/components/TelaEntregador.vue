@@ -70,8 +70,8 @@ const axios = require('axios')
 export default {
 data:function(){
     return{
-        usuarios: [],
-        pedidos: [],
+      usuarios: [],
+      pedidos: [],
       pedidosEntregador: [],
       nomeEntregador: "",
       entregadorSelecionado: [],

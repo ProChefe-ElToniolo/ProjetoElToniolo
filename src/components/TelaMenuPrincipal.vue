@@ -11,15 +11,12 @@
               <li @click="Cardapio">CARDÁPIO</li>
               <li @click="IrParaTelaLogin">SOBRE</li>
               <li @click="IrParaTelaCadastro">PERFIL</li>
-              <li @click="IrParaTelaAdmin">Produto</li>
+               <li @click="IrParaTelaAdmin">ADMIN</li>
             </ul>
           </nav>
           <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
           <div id="caixa-login" v-if="ocultarMenuLogin == false">
             <div id="menu-bar">
-              <ul>
-                <li v-for="cli in clientes" :key="cli.id">{{cli.email}} - {{cli.senha}}</li>
-              </ul>
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
               <input type="password" placeholder="Senha" class="inputs" v-model="senha" />
               <button id="botao-entrar" @click="entrar">Entrar</button>
@@ -48,7 +45,6 @@
       </div>
       <div id="menu-rodape"></div>
     </div>
->>>>>>> 86f35e84788cd449bf0ab9ea5aa217efbfc0a783
   </div>
 </template>
 
@@ -191,7 +187,8 @@ body {
 }
 .list-menu li {
   text-align: center;
-  padding: 0 8% 0 8%;
+  padding: 0 20px 0 20px;
+  /* margin: 0px 0px 0px 40px; */
   width: 120%;
   height: 70px;
 }
@@ -206,8 +203,7 @@ body {
   color: white;
   border: none;
   font-size: 14px;
-  padding-right: 4%;
-  padding-left: 7%;
+  padding: 0px 14px 0px 60px;
   text-align: right;
   margin: 0px 0px 0px 60%;
   outline: none;
@@ -234,12 +230,12 @@ body {
   width: 65px;
   height: 65px;
 }
-/* #menu-rodape {
+#menu-rodape {
   margin: 800px 0px 0px 0px;
   width: 100%;
   height: 200px;
   background-color: rgb(24, 24, 24);
-} */
+}
 #cadastrar {
   margin: 3px 5px 0px 0px 80px;
   outline: none;
