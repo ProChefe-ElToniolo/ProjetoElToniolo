@@ -12,7 +12,7 @@
     <label>Categoria</label>
     <br />
     <select v-model="idCatIng">
-      <option value="0" select disabled>Escolhan a categoria</option>
+      <option value="0" select disabled>Escolha a categoria</option>
       <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
     </select>
     <br />
