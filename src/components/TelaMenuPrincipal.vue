@@ -88,7 +88,7 @@ export default {
         }
       });
       this.usuarios.filter(u => {
-        if (u.email == this.email && u.senha == this.senha) {
+        if (u.email == this.email && u.senha.trim() == this.senha.trim()) {
           alert("Logado como Admin");
           localStorage.setItem("usuarioLogado", JSON.stringify(u));
           this.$router.push("/ViewTelaMenuAdmin");
@@ -120,7 +120,7 @@ export default {
   mounted() {
     axios
       .get("http://localhost:55537/api/Cliente")
-      .then(cliente => (this.clientes = cliente.data));
+      .then(cliente => this.clientes = cliente.data);
     axios
       .get("http://localhost:55537/api/Usuario")
       .then(usuario => this.usuarios = usuario.data);
