@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="meio">
     <div id="gabrielgay">
     <h1>Bem-Vindo à tela de Cardapio</h1>
 
@@ -70,6 +70,15 @@ export default {
   color: red;
   background-color: black;
   margin: 150px 0 0 0;
+}
+
+.meio{
+  display: flex;
+  position: absolute;
+  height: auto;
+  width: 71.72%;
+  margin-left: 14.4%;
+  z-index: 1000;
 }
 
 #teste1 {

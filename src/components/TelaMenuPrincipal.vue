@@ -10,7 +10,7 @@
               <li @click="IrParaTelaPedidos">DELIVERY</li>
               <li @click="Cardapio">CARDÁPIO</li>
               <li @click="IrParaTelaLogin">SOBRE</li>
-              <li @click="IrParaTelaCadastro">PERFIL</li>
+              <li @click="Cadastro">PERFIL</li>
                <li @click="IrParaTelaAdmin">ADMIN</li>
             </ul>
           </nav>
@@ -21,10 +21,10 @@
               <input type="password" placeholder="Senha" class="inputs" v-model="senha" />
               <button id="botao-entrar" @click="entrar">Entrar</button>
               <br />
-              <router-link
-                to="ViewTelaCadastro"
+              <button
+                @click="Cadastro"
                 id="IrParaTelaCadastro"
-              >Cadastre-se caso ainda não possua uma conta</router-link>
+              >Cadastre-se caso ainda não possua uma conta</button>
             </div>
           </div>
 
@@ -40,8 +40,11 @@
         </div>
       </div>
       <div id="sombra-menu"></div>
-      <div v-if="visualizarCardapio">  
+      <div  v-if="visualizarCardapio">  
         <TelaCardapio />
+      </div>
+      <div v-if="visualizarCadastro">
+        <tela-cadastro />
       </div>
       <div id="menu-rodape"></div>
     </div>
@@ -51,9 +54,11 @@
 <script>
 const axios = require("axios");
 import TelaCardapio from "../components/TelaCardapio.vue";
+import TelaCadastro from "../components/TelaCadastro.vue";
 export default {
   components: {
-    TelaCardapio
+    TelaCardapio,
+    TelaCadastro
   },
   data: function() {
     return {
@@ -67,6 +72,7 @@ export default {
       ocultarBotaoLogin: true,
       botaoSair: false,
       visualizarCardapio: false,
+      visualizarCadastro: false,
       categorias:[]
     };
   },
@@ -110,8 +116,8 @@ export default {
     IrParaTelaLogin: function() {
       this.$router.push("/ViewTelaLogin");
     },
-    IrParaTelaCadastro: function() {
-      this.$router.push("/ViewTelaCadastro");
+    Cadastro: function() {
+      this.visualizarCadastro = true;
     },
     IrParaTelaAdmin: function() {
       this.$router.push("/ViewTelaMenuAdmin");
@@ -157,6 +163,7 @@ body {
 #container {
   display: flex;
 }
+
 #menu {
   display: flex;
   position: absolute;
@@ -164,6 +171,7 @@ body {
   margin: 0px 0px 0px 0px;
   width: 100%;
   height: 70px;
+  z-index: 1001;
   /* background-color: #006491; */
   background-color: #1f2023;
   -webkit-box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
