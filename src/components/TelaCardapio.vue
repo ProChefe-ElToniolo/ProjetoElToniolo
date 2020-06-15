@@ -1,27 +1,24 @@
 <template>
-    <div class="topo">
-      <h1>Bem-Vindo à tela de Cardapio</h1>
-      <button @change="categoriaa">teste</button>
-      <select v-model="catId" @change="listar">
-        <option value="0">Todas as categorias</option>
-        <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
-      </select>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Produto</th>
-            <th>Id Categoria</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="prod in produtos" :key="prod.id">
-            <td>{{prod.nome}}</td>
-            <td>{{prod.id_categoria}}</td>
-          </tr>
-        </tbody>
-      </table>
+  <div class="topo">
+    <h1>Bem-Vindo à tela de Cardapio</h1>
+    <button @change="categoriaa">teste</button>
+    <button @click="carrega">sla</button>
+    <select v-model="catId" @change="listar">
+      <option value="0">Todas as categorias</option>
+      <option v-for="(cat, index) in categoriasProdutos" :key="index">{{index}}</option>
+    </select>
+    <div id="Cats" v-if="catsPrincipal">
+      <div v-for="cat in categoriasProdutos" :key="cat" id="caixa">
+        <label class="legenda" v-if="cat.nome == 'Pizza'">{{cat}}</label>
+      </div>
     </div>
+    <div id="caixas" v-if="carregaCat">
+      <div id="caixa" v-for="prod in produtos" :key="prod.id" @click="filtrar">
+        <img src="../imagens/logopizza.png" id="imagemProd" />
+        <label class="legenda">{{prod.nome}}</label>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -34,7 +31,10 @@ export default {
       catId: 0,
       produtos: [],
       produtosSelecionados: [],
-      catsProds: []
+      catsProds: [],
+      catsPrincipal: true,
+      carregaCat: false,
+      categoriasProdutos: []
     };
   },
   methods: {
@@ -52,12 +52,22 @@ export default {
     categoriaa: function() {
       this.catsProds = this.produtosSelecionados.filter(u => {
         this.categorias.filter(e => {
-          if(e.id == u.id_categoria){
-            return e
+          if (e.id == u.id_categoria) {
+            return e;
           }
         });
       });
       console.log(this.catsProds);
+    },
+    carrega: function() {
+      this.categoriasProdutos = this.produtos.reduce((init, current) => {
+        if (init.length === 0 || init[init.length - 1] !== current.categoriaProd) {
+          alert(current.categoriaProd)
+          init.push(current.categoriaProd);
+        }
+        return init;
+      }, []);
+      console.log(this.categoriasProdutos)
     }
   },
   mounted() {
@@ -82,7 +92,7 @@ export default {
   margin: 150px 0 0 0;
 }
 
-.meio{
+.meio {
   display: flex;
   position: absolute;
   height: auto;
@@ -98,8 +108,40 @@ export default {
   cursor: pointer;
 }
 
-.topo{
+.topo {
   margin: 72px 0 0 0;
   height: auto;
+}
+
+#caixa {
+  width: 190px;
+  font-size: 11px;
+  text-align: center;
+  background-color: black;
+  height: 135px;
+  border: 1px solid white;
+  color: white;
+  margin: 15px 5px 0px 30px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  line-height: 20px;
+}
+#caixas {
+  margin: 20px 0px 0px 60px;
+  display: flex;
+  width: auto;
+  overflow: auto;
+  height: auto;
+  flex-wrap: wrap;
+}
+#imagemProd {
+  position: absolute;
+  margin: 0px 0px 0px 35px;
+  width: 120px;
+  height: 80px;
+}
+.legenda {
+  margin-top: 81px;
 }
 </style>
