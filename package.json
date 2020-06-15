@@ -11,6 +11,10 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
+<<<<<<< HEAD
+    "vue-jquery-mask": "^1.0.3",
+=======
+>>>>>>> 5a777a8fe17b7189d53657d2fb6aeb6f9cdba42b
     "vue-mask": "^1.0.0",
     "vue-router": "^3.1.6",
     "vue-the-mask": "^0.11.1",

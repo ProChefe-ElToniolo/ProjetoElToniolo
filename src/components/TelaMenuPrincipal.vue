@@ -4,7 +4,8 @@
       <!-- <img src="../imagens/transferir.jpg" id="imgFundo" /> -->
       <div id="menu">
         <div id="certo">
-          <nav>
+          <img src="../imagens/sinais.png" alt="" id="hamb">
+          <nav id="some">
             <ul class="list-menu">
               <li @click="Pedidos">DELIVERY</li>
               <li @click="Cardapio">CARDÁPIO</li>
@@ -16,8 +17,9 @@
           <div id="caixa-login" v-if="ocultarMenuLogin == false">
             <div id="menu-bar">
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
-              <input type="password" placeholder="Senha" class="inputs" v-model="senha" />
+              <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha"/>
               <button id="botao-entrar" @click="entrar">Entrar</button>
+              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox">
               <br />
               <button @click="Cadastro">Cadastre-se caso ainda não possua uma conta</button>
             </div>
@@ -81,7 +83,13 @@ export default {
       visualizarPedidos: false,
       visualizarSobre: false,
       visualizarCadastro: false,
+<<<<<<< HEAD
+      categorias:[],
+      checkbox:false,
+      logCorreto:false
+=======
       categorias: []
+>>>>>>> 5a777a8fe17b7189d53657d2fb6aeb6f9cdba42b
     };
   },
   methods: {
@@ -97,8 +105,14 @@ export default {
           this.ocultarMenuLogin = true;
           this.ocultarBotaoLogin = false;
           this.botaoSair = true;
+<<<<<<< HEAD
+          localStorage.setItem("usuarioLogado", JSON.stringify(c));
+          localStorage.getItem;
+          this.logCorreto = true
+=======
           sessionStorage.setItem("usuarioLogado", JSON.stringify(c));
           console.log(sessionStorage.getItem('usuarioLogado'));
+>>>>>>> 5a777a8fe17b7189d53657d2fb6aeb6f9cdba42b
         }
       });
       this.usuarios.filter(u => {
@@ -106,8 +120,24 @@ export default {
           alert("Logado como Admin");
           sessionStorage.setItem("usuarioLogado", JSON.stringify(u));
           this.$router.push("/ViewTelaMenuAdmin");
+          this.logCorreto = true
         }
       });
+      if(this.senha == "" || this.email == ""){
+        alert("Digite algo!")
+        }
+      else{
+        alert("erou")
+      }
+    },
+    mostrarSenha:function(){
+      var senha= document.getElementById("senha")
+      if(this.checkbox == true){
+        senha.type = "text"
+      }
+      else if(this.checkbox == false){
+      senha.type = "password"
+      }
     },
     trocar: function() {
       this.visualizarSobre = false;
@@ -177,11 +207,29 @@ body {
   overflow: hidden;
   overflow-y: auto;
 }
-@media (max-width: 900px) {
-  #menu {
+#hamb{
+  display: none;
+  position: absolute;
+  margin: 1% 0px 0px 0px;
+  width: 35px;
+  height: 35px;
+  margin-left: 70px;
+}
+
+@media (max-width: 899px) {
+  #some {
     display: none;
   }
+  #hamb{
+    display: inline;
+  }
 }
+@media (max-width: 900px) and (max-width: 1200px){
+    .list-menu li{
+      padding: 0px 10px 0px 10px;
+    }
+}
+
 #imgFundo {
   width: 100%;
   height: 800px;
@@ -225,7 +273,6 @@ body {
 .list-menu li {
   text-align: center;
   padding: 0 20px 0 20px;
-  /* margin: 0px 0px 0px 40px; */
   width: 120%;
   height: 70px;
 }
