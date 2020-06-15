@@ -17,7 +17,7 @@
     </div>
     <button @click="AlterarCategoria">Alterar Categoria</button>
 
-    <table border="5" style="cursor:pointer">
+    <table border="5" style="cursor:pointer" class="tabela-st">
       <thead>
         <tr>
           <th>ID</th>

@@ -18,7 +18,7 @@
     <br />
     <button @click="excluir">Excluir</button>
     <button @click="salvar">Salvar</button>
-    <table border="1" class="ingredientes">
+    <table border="1" class="tabela-st">
       <thead>
         <tr>
           <th>Nome</th>

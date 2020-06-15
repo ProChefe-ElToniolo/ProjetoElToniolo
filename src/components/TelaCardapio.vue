@@ -100,5 +100,6 @@ export default {
 
 .topo{
   margin: 72px 0 0 0;
+  height: auto;
 }
 </style>

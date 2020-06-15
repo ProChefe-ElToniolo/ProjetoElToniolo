@@ -9,7 +9,7 @@
     </select>
             
     </div>
-    <table border="5" style="cursor:pointer" id="tabela">
+    <table border="5" style="cursor:pointer" class="tabela-st">
       <thead>
         <tr>
           <th>ID Entregador</th>
