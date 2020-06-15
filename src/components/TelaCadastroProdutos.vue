@@ -32,7 +32,7 @@
       <button class="button" @click="excluir">Excluir</button>
     </div>
     <div class="pos-tabel">
-      <table class="produtos">
+      <table class="tabela-st">
         <thead>
           <tr>
             <th>Nome</th>
@@ -50,6 +50,9 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="cb" :value="ing.id" v-for="ing in ingredientes" :key="ing.id">
+      <input type="checkbox" id="cbIng" unchecked :value="ing.id" v-for="ing in ingredientes" :key="ing.id" />{{ing.nome}}
     </div>
     <select class="cbx" @change="filtro(filtrarCat)" v-model="filtrarCat">
       <option value="0">Todos Produtos</option>
@@ -76,7 +79,8 @@ export default {
       existe: false,
       invalido: false,
       todosProds: [],
-      medidas: []
+      medidas: [],
+      ingredientes: []
     };
   },
   methods: {
@@ -85,11 +89,13 @@ export default {
     },
     salvar: function() {
       this.prods.filter(e => {
-        if (e.id == this.ProdSelecionado.id) {
+        if (e.id == this.ProdSelecionado.id && this.ProdSelecionado[1] != "") {
           this.existe = true;
         }
       });
       if (this.existe) {
+        alert(this.existe);
+        alert("entrando");
         axios.put(
           "http://localhost:55537/api/Produto/" + this.ProdSelecionado.id,
           {
@@ -181,6 +187,10 @@ export default {
     axios
       .get("http://localhost:55537/api/Medida")
       .then(medida => (this.medidas = medida.data));
+    axios
+      .get("http://localhost:55537/api/Ingrediente")
+      .then(ing => (this.ingredientes = ing.data));
+    console.log(this.ingredientes);
   }
 };
 </script>
@@ -212,33 +222,33 @@ body {
   height: 90px;
   resize: none;
 }
-.produtos {
+.tabela-st {
   width: 500px;
   border-collapse: collapse;
 }
-.produtos tr:focus-within {
+.tabela-st tr:focus-within {
   background: rgba(214, 62, 62, 0.644);
   color: #ffffff;
 }
-.produtos,
+.tabela-st,
 th,
 td {
   border: 1px solid black;
 }
-.produtos th {
+.tabela-st th {
   color: white;
   background: rgb(34, 34, 34);
   text-align: left;
   padding: 10px;
 }
-.produtos td {
+.tabela-st td {
   padding: 5px;
 }
-.produtos tr:hover {
+.tabela-st tr:hover {
   background: rgba(73, 73, 73, 0.644);
   color: #ffffff;
 }
-.produtos tr {
+.tabela-st tr {
   cursor: pointer;
 }
 #ingredientes {
@@ -300,5 +310,13 @@ td {
   top: -25%;
   transition: 0.2s;
   z-index: 3;
+}
+.cb {
+  width: 200px;
+  height: 200px;
+  margin: 0px;
+}
+#cbIng{
+  margin: 0px;
 }
 </style>

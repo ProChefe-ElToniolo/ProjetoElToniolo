@@ -9,10 +9,15 @@
     </ul>
 
     <button @click="SalvarCategoria">Salvar Categoria</button>
-    <button @click="ExcluirCategoria">Excluir Categoria</button>
+    <button @click="trocar">Excluir Categoria</button>
+    <!-- v-bind:aparecer="true" -->
+    <div id="decidir" v-if="aparecer">
+      <button @click="decisao">OK</button>
+      <button @click="fechar">FECHAR</button>
+    </div>
     <button @click="AlterarCategoria">Alterar Categoria</button>
 
-    <table border="5" style="cursor:pointer">
+    <table border="5" style="cursor:pointer" class="tabela-st">
       <thead>
         <tr>
           <th>ID</th>
@@ -38,6 +43,7 @@ export default {
       nome: "",
       catId: 0,
       categorias: [],
+      aparecer: false,
       categoriasAlterar: [],
       verificado: false
     };
@@ -76,7 +82,7 @@ export default {
     AlterarCategoria: function() {
       axios
         .put(
-          "http://localhost:55537/api/Categoria/" + this.categoriasAlterar.id,
+          "http://localhost:55537/api/Categoria/"+this.categoriasAlterar[0].id,
           {
             nome: this.nome
           }
@@ -84,15 +90,25 @@ export default {
         .then(resp => console.log(resp.data));
       window.location.reload();
     },
+    decisao: function(){
+        this.ExcluirCategoria();
+        this.aparecer = false;
+    },
 
     ExcluirCategoria: function() {
       console.log(this.catId);
       axios
         .delete(
-          "http://localhost:55537/api/Categoria/" + this.categoriasAlterar.id
+          "http://localhost:55537/api/Categoria/"+this.categoriasAlterar.id
         )
         .then(resp => console.log(resp.data));
       window.location.reload();
+    },
+    trocar: function(){
+      this.aparecer = true;
+    },
+    fechar: function(){
+      this.aparecer = false;
     }
   },
 
@@ -105,4 +121,12 @@ export default {
 </script>
 
 <style>
+#decidir{
+  margin: 10px;
+  width: 100px;
+  height: 100px;
+  background-color: cadetblue;
+  border: 3px solid black;
+}
+
 </style>

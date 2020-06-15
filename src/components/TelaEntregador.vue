@@ -1,15 +1,13 @@
 <template>
-    <div>
-      
   <div>
-    <h1>Bem Vindo a Tela de Entregador</h1>
-    <select v-model="nomeEntregador" @change="SelecionarPedido(nomeEntregador)">
-      <option value="0" selected disabled>Selecione o ID do entregador</option>
-      <option v-for="user in usuarios" :key="user.id">{{user.nome}}</option>
-    </select>
-            
+    <div>
+      <h1>Bem Vindo a Tela de Entregador</h1>
+      <select v-model="nomeEntregador" @change="SelecionarPedido(nomeEntregador)">
+        <option value="0" selected disabled>Selecione o ID do entregador</option>
+        <option v-for="user in listarEntregador" :key="user.id">{{user.nome}}</option>
+      </select>
     </div>
-    <table border="5" style="cursor:pointer" id="tabela">
+    <table border="5" style="cursor:pointer" class="tabela-st">
       <thead>
         <tr>
           <th>ID Entregador</th>
@@ -32,12 +30,13 @@
 </template>
 
 <script>
-const axios = require('axios')
+const axios = require("axios");
 
 export default {
-data:function(){
-    return{
+  data: function() {
+    return {
       usuarios: [],
+      usuariosEntregador: [],
       pedidos: [],
       pedidosEntregador: [],
       nomeEntregador: "",
@@ -47,8 +46,8 @@ data:function(){
   },
   methods: {
     SelecionarPedido: function(nome) {
-      this.pedidosEntregador.splice(0, this.pedidosEntregador.length) 
-      this.usuarios.filter(u => {
+      this.pedidosEntregador.splice(0, this.pedidosEntregador.length);
+      this.usuariosEntregador.filter(u => {
         if (u.nome == nome) {
           this.entregadorSelecionado = u;
         }
@@ -77,15 +76,30 @@ data:function(){
           processamento: true
         })
         .then(resp => console.log(resp.data));
-    }, IrParaTelaMenuAdmin:function(){
-        this.$router.push("/")
+    },
+    IrParaTelaMenuAdmin: function() {
+      this.$router.push("/");
     }
-},
-mounted(){
-    axios.get("http://localhost:55537/api/Usuario").then(usuario => this.usuarios = usuario.data)
-    axios.get("http://localhost:55537/api/Pedidos").then(pedido => this.pedidos = pedido.data)
-}
-}
+  },
+  mounted() {
+    axios
+      .get("http://localhost:55537/api/Usuario")
+      .then(usuario => (this.usuarios = usuario.data));
+    axios
+      .get("http://localhost:55537/api/Pedidos")
+      .then(pedido => (this.pedidos = pedido.data));
+  },
+  computed: {
+    listarEntregador() {
+      this.usuarios.filter(u => {
+        if (u.tipo_usuario == 3) {
+          this.usuariosEntregador.push(u);
+        }
+      });
+      return this.usuariosEntregador;
+    }
+  }
+};
 </script>
 
 <style>
