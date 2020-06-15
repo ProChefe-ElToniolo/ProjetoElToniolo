@@ -32,7 +32,7 @@
       <button class="button" @click="excluir">Excluir</button>
     </div>
     <div class="pos-tabel">
-      <table class="produtos">
+      <table class="tabela-st">
         <thead>
           <tr>
             <th>Nome</th>
@@ -222,33 +222,33 @@ body {
   height: 90px;
   resize: none;
 }
-.produtos {
+.tabela-st {
   width: 500px;
   border-collapse: collapse;
 }
-.produtos tr:focus-within {
+.tabela-st tr:focus-within {
   background: rgba(214, 62, 62, 0.644);
   color: #ffffff;
 }
-.produtos,
+.tabela-st,
 th,
 td {
   border: 1px solid black;
 }
-.produtos th {
+.tabela-st th {
   color: white;
   background: rgb(34, 34, 34);
   text-align: left;
   padding: 10px;
 }
-.produtos td {
+.tabela-st td {
   padding: 5px;
 }
-.produtos tr:hover {
+.tabela-st tr:hover {
   background: rgba(73, 73, 73, 0.644);
   color: #ffffff;
 }
-.produtos tr {
+.tabela-st tr {
   cursor: pointer;
 }
 #ingredientes {

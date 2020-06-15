@@ -17,7 +17,7 @@
     </div>
     <button @click="AlterarCategoria">Alterar Categoria</button>
 
-    <table border="5" style="cursor:pointer">
+    <table border="5" style="cursor:pointer" class="tabela-st">
       <thead>
         <tr>
           <th>ID</th>
@@ -98,7 +98,11 @@ export default {
     ExcluirCategoria: function() {
       console.log(this.catId);
       axios
+<<<<<<< HEAD
       .delete(
+=======
+        .delete(
+>>>>>>> 5a777a8fe17b7189d53657d2fb6aeb6f9cdba42b
           "http://localhost:55537/api/Categoria/"+this.categoriasAlterar.id
         )
         .then(resp => console.log(resp.data));

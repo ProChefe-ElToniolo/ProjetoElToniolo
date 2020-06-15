@@ -1,5 +1,5 @@
 <template>
-  <div class="cadastro">
+  <div class="sla">
     <h1>CADASTRO</h1>
   <input class="geral" type="text" placeholder="Nome" maxlength="50" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" v-model="nome" />
     <br />
@@ -17,19 +17,13 @@
     <input class="geral" type="password" placeholder="Senha" maxlength="20" v-model="senha" />
     <br />
     <input
-      class="geral"
-      type="text"
-      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-      placeholder="CPF"
-      maxlength="11"
-      v-model="cpf"
+      input type="text" class="form-control cpf-mask" placeholder="Ex.: 000.000.000-00"
     />
     <br />
     <input
       class="geral"
       type="text"
       v-on:keyup.13="buscar"
-      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
       placeholder="CEP"
       maxlength="8"
       v-model="cep"
@@ -162,9 +156,7 @@ body {
   width: 100%;
   height: 100%;
 }
-.cadastro {
-  text-align: center;
-}
+
 
 .geral {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
@@ -186,5 +178,11 @@ body {
   color: white;
   background-color: black;
   cursor: pointer;
+}
+
+
+
+.sla{
+  margin: 72px 0 0 0;
 }
 </style>

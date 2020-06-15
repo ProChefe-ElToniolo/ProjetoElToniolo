@@ -1,17 +1,16 @@
 <template>
   <div id="container">
-
     <div class="scrollbar" id="style-14">
       <!-- <img src="../imagens/transferir.jpg" id="imgFundo" /> -->
       <div id="menu">
         <div id="certo">
-          <nav>
+          <img src="../imagens/sinais.png" alt="" id="hamb">
+          <nav id="some">
             <ul class="list-menu">
               <li @click="Pedidos">DELIVERY</li>
               <li @click="Cardapio">CARDÁPIO</li>
-              <li @click="IrParaTelaLogin">SOBRE</li>
-              <li @click="Cadastro">PERFIL</li>
-               <li @click="IrParaTelaAdmin">ADMIN</li>
+              <li @click="Sobre">SOBRE</li>
+              <li @click="Admin">ADMIN</li>
             </ul>
           </nav>
           <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
@@ -22,38 +21,37 @@
               <button id="botao-entrar" @click="entrar">Entrar</button>
               <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox">
               <br />
-              <button
-                @click="Cadastro"
-                id="IrParaTelaCadastro"
-              >Cadastre-se caso ainda não possua uma conta</button>
+              <button @click="Cadastro">Cadastre-se caso ainda não possua uma conta</button>
             </div>
           </div>
 
-          <img src="../imagens/logopizza.png" id="logo" />
+          <img src="../imagens/logopizza.png" id="logo" @click="Reset" />
           <button
             id="botao-logar"
             @click="logar"
             v-if="ocultarBotaoLogin"
           >FAZER LOGIN OU CADASTRAR-SE</button>
           <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
-          <img src="../imagens/comercial.png" id="userlogo" />
+          <img src="../imagens/comercial.png" id="userlogo" @click="Perfil"/>
           <label id="labelLogado" v-if="logado">Logado:{{NomePessoaLogada}}</label>
         </div>
       </div>
       <div id="sombra-menu"></div>
-      <div  v-if="visualizarCardapio">  
+      <div v-if="visualizarCardapio">
         <TelaCardapio />
       </div>
-      <div v-if="visualizarPedidos">  
-        <TelaPedidos/>
-        <div/>
-      <div v-if="visualizarCadastro">
-        <tela-cadastro />
+      <div v-if="visualizarPedidos">
+        <TelaPedidos />
+        </div>
+        <div v-if="visualizarCadastro">
+          <TelaCadastro/>
+        </div>
+        <div v-if="visualizarSobre">
+          <TelaSobre/>
+        </div>
       </div>
-      <div id="menu-rodape"></div>
+        <div id="menu-rodape"></div>
     </div>
-  </div>
-  </div>
 </template>
 
 <script>
@@ -61,11 +59,14 @@ const axios = require("axios");
 import TelaCardapio from "../components/TelaCardapio.vue";
 import TelaPedidos from "../components/TelaPedidos.vue";
 import TelaCadastro from "../components/TelaCadastro.vue";
+import TelaSobre from "../components/Sobre.vue";
+
 export default {
   components: {
     TelaCardapio,
     TelaPedidos,
-    TelaCadastro
+    TelaCadastro,
+    TelaSobre
   },
   data: function() {
     return {
@@ -80,10 +81,15 @@ export default {
       botaoSair: false,
       visualizarCardapio: false,
       visualizarPedidos: false,
+      visualizarSobre: false,
       visualizarCadastro: false,
+<<<<<<< HEAD
       categorias:[],
       checkbox:false,
       logCorreto:false
+=======
+      categorias: []
+>>>>>>> 5a777a8fe17b7189d53657d2fb6aeb6f9cdba42b
     };
   },
   methods: {
@@ -99,15 +105,20 @@ export default {
           this.ocultarMenuLogin = true;
           this.ocultarBotaoLogin = false;
           this.botaoSair = true;
+<<<<<<< HEAD
           localStorage.setItem("usuarioLogado", JSON.stringify(c));
           localStorage.getItem;
           this.logCorreto = true
+=======
+          sessionStorage.setItem("usuarioLogado", JSON.stringify(c));
+          console.log(sessionStorage.getItem('usuarioLogado'));
+>>>>>>> 5a777a8fe17b7189d53657d2fb6aeb6f9cdba42b
         }
       });
       this.usuarios.filter(u => {
         if (u.email == this.email && u.senha.trim() == this.senha.trim()) {
           alert("Logado como Admin");
-          localStorage.setItem("usuarioLogado", JSON.stringify(u));
+          sessionStorage.setItem("usuarioLogado", JSON.stringify(u));
           this.$router.push("/ViewTelaMenuAdmin");
           this.logCorreto = true
         }
@@ -128,7 +139,8 @@ export default {
       senha.type = "password"
       }
     },
-    trocar:function(){
+    trocar: function() {
+      this.visualizarSobre = false;
       this.visualizarCardapio = false;
       this.visualizarPedidos = false;
     },
@@ -137,6 +149,7 @@ export default {
       this.ocultarBotaoLogin = true;
       this.logado = false;
       this.botaoSair = false;
+      this.visualizarSobre = false;
     },
     Cardapio: function() {
       this.trocar();
@@ -146,23 +159,35 @@ export default {
       this.trocar();
       this.visualizarPedidos = true;
     },
-    IrParaTelaLogin: function() {
+    Perfil: function() {
+      // if(){
+
+      // }
+    },
+    Login: function() {
       this.$router.push("/ViewTelaLogin");
     },
-    Cadastro: function() {
-      this.visualizarCadastro = true;
+     Cadastro: function() {
+      this.$router.push("/ViewTelaCadastro");
     },
-    IrParaTelaAdmin: function() {
+    Admin: function() {
       this.$router.push("/ViewTelaMenuAdmin");
+    },
+    Reset: function() {
+      window.location.reload();
+    },
+    Sobre: function() {
+      this.trocar();
+      this.visualizarSobre = true;
     }
   },
   mounted() {
     axios
       .get("http://localhost:55537/api/Cliente")
-      .then(cliente => this.clientes = cliente.data);
+      .then(cliente => (this.clientes = cliente.data));
     axios
       .get("http://localhost:55537/api/Usuario")
-      .then(usuario => this.usuarios = usuario.data);
+      .then(usuario => (this.usuarios = usuario.data));
   }
 };
 </script>
@@ -182,11 +207,29 @@ body {
   overflow: hidden;
   overflow-y: auto;
 }
-@media (max-width: 900px) {
-  #menu {
+#hamb{
+  display: none;
+  position: absolute;
+  margin: 1% 0px 0px 0px;
+  width: 35px;
+  height: 35px;
+  margin-left: 70px;
+}
+
+@media (max-width: 899px) {
+  #some {
     display: none;
   }
+  #hamb{
+    display: inline;
+  }
 }
+@media (max-width: 900px) and (max-width: 1200px){
+    .list-menu li{
+      padding: 0px 10px 0px 10px;
+    }
+}
+
 #imgFundo {
   width: 100%;
   height: 800px;
@@ -230,7 +273,6 @@ body {
 .list-menu li {
   text-align: center;
   padding: 0 20px 0 20px;
-  /* margin: 0px 0px 0px 40px; */
   width: 120%;
   height: 70px;
 }
@@ -273,10 +315,11 @@ body {
   height: 65px;
 }
 #menu-rodape {
-  margin: 800px 0px 0px 0px;
+  margin: 872px 0px 0px 0px;
   width: 100%;
   height: 200px;
   background-color: rgb(24, 24, 24);
+  position: absolute ;
 }
 #cadastrar {
   margin: 3px 5px 0px 0px 80px;
