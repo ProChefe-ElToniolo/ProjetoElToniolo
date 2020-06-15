@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div class="topo">
       <h1>Bem-Vindo à tela de Cardapio</h1>
       <button @change="categoriaa">teste</button>
@@ -23,7 +22,6 @@
         </tbody>
       </table>
     </div>
-  </div>
 </template>
 
 <script>
@@ -82,6 +80,15 @@ export default {
   color: red;
   background-color: black;
   margin: 150px 0 0 0;
+}
+
+.meio{
+  display: flex;
+  position: absolute;
+  height: auto;
+  width: 71.72%;
+  margin-left: 14.4%;
+  z-index: 1000;
 }
 
 #teste1 {
