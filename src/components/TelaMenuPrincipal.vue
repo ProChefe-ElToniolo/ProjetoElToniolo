@@ -5,7 +5,8 @@
       <!-- <img src="../imagens/transferir.jpg" id="imgFundo" /> -->
       <div id="menu">
         <div id="certo">
-          <nav>
+          <img src="../imagens/sinais.png" alt="" id="hamb">
+          <nav id="some">
             <ul class="list-menu">
               <li @click="IrParaTelaPedidos">DELIVERY</li>
               <li @click="Cardapio">CARDÁPIO</li>
@@ -149,11 +150,29 @@ body {
   overflow: hidden;
   overflow-y: auto;
 }
-@media (max-width: 900px) {
-  #menu {
+#hamb{
+  display: none;
+  position: absolute;
+  margin: 1% 0px 0px 0px;
+  width: 35px;
+  height: 35px;
+  margin-left: 70px;
+}
+
+@media (max-width: 899px) {
+  #some {
     display: none;
   }
+  #hamb{
+    display: inline;
+  }
 }
+@media (max-width: 900px) and (max-width: 1200px){
+    .list-menu li{
+      padding: 0px 10px 0px 10px;
+    }
+}
+
 #imgFundo {
   width: 100%;
   height: 800px;
@@ -197,7 +216,6 @@ body {
 .list-menu li {
   text-align: center;
   padding: 0 20px 0 20px;
-  /* margin: 0px 0px 0px 40px; */
   width: 120%;
   height: 70px;
 }
