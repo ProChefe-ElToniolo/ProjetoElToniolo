@@ -7,7 +7,7 @@
         <div id="certo">
           <nav>
             <ul class="list-menu">
-              <li @click="IrParaTelaPedidos">DELIVERY</li>
+              <li @click="Pedidos">DELIVERY</li>
               <li @click="Cardapio">CARDÁPIO</li>
               <li @click="IrParaTelaLogin">SOBRE</li>
               <li @click="IrParaTelaCadastro">PERFIL</li>
@@ -43,6 +43,9 @@
       <div v-if="visualizarCardapio">  
         <TelaCardapio />
       </div>
+      <div v-if="visualizarPedidos">  
+        <TelaPedidos/>
+      </div>
       <div id="menu-rodape"></div>
     </div>
   </div>
@@ -51,9 +54,11 @@
 <script>
 const axios = require("axios");
 import TelaCardapio from "../components/TelaCardapio.vue";
+import TelaPedidos from "../components/TelaPedidos.vue";
 export default {
   components: {
-    TelaCardapio
+    TelaCardapio,
+    TelaPedidos
   },
   data: function() {
     return {
@@ -67,6 +72,7 @@ export default {
       ocultarBotaoLogin: true,
       botaoSair: false,
       visualizarCardapio: false,
+      visualizarPedidos: false,
       categorias:[]
     };
   },
@@ -95,6 +101,10 @@ export default {
         }
       });
     },
+    trocar:function(){
+      this.visualizarCardapio = false;
+      this.visualizarPedidos = false;
+    },
     sair: function() {
       this.NomePessoaLogada = "";
       this.ocultarBotaoLogin = true;
@@ -102,10 +112,12 @@ export default {
       this.botaoSair = false;
     },
     Cardapio: function() {
+      this.trocar();
       this.visualizarCardapio = true;
     },
-    IrParaTelaPedidos: function() {
-      this.$router.push("/ViewTelaPedidos");
+    Pedidos: function() {
+      this.trocar();
+      this.visualizarPedidos = true;
     },
     IrParaTelaLogin: function() {
       this.$router.push("/ViewTelaLogin");

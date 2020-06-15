@@ -5,7 +5,7 @@
     <h1>Bem Vindo a Tela de Entregador</h1>
     <select v-model="nomeEntregador" @change="SelecionarPedido(nomeEntregador)">
       <option value="0" selected disabled>Selecione o ID do entregador</option>
-      <option v-for="user in usuarios" :key="user.id">{{user.nome}}</option>
+      <option v-for="user in listarEntregador" :key="user.id">{{user.nome}}</option>
     </select>
             
     </div>
@@ -42,6 +42,7 @@ data:function(){
       pedidosEntregador: [],
       nomeEntregador: "",
       entregadorSelecionado: [],
+      usuariosEntregador: [],
       entregaCliente: 0
     };
   },
@@ -81,11 +82,25 @@ data:function(){
         this.$router.push("/")
     }
 },
+computed:{
+  listarEntregador(){
+      this.usuarios.filter(u => {
+        if(u.tipo_usuario == 3){
+          this.usuariosEntregador.push(u) 
+        }
+      }) 
+      return this.usuariosEntregador
+    }
+},
 mounted(){
     axios.get("http://localhost:55537/api/Usuario").then(usuario => this.usuarios = usuario.data)
     axios.get("http://localhost:55537/api/Pedidos").then(pedido => this.pedidos = pedido.data)
 }
 }
+
+
+
+
 </script>
 
 <style>

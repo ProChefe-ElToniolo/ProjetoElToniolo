@@ -51,6 +51,9 @@
         </tbody>
       </table>
     </div>
+    <div class="cb" :value="ing.id" v-for="ing in ingredientes" :key="ing.id">
+      <input type="checkbox" id="cbIng" unchecked :value="ing.id" v-for="ing in ingredientes" :key="ing.id" />{{ing.nome}}
+    </div>
     <select class="cbx" @change="filtro(filtrarCat)" v-model="filtrarCat">
       <option value="0">Todos Produtos</option>
       <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
@@ -76,7 +79,8 @@ export default {
       existe: false,
       invalido: false,
       todosProds: [],
-      medidas: []
+      medidas: [],
+      ingredientes: []
     };
   },
   methods: {
@@ -85,11 +89,13 @@ export default {
     },
     salvar: function() {
       this.prods.filter(e => {
-        if (e.id == this.ProdSelecionado.id) {
+        if (e.id == this.ProdSelecionado.id && this.ProdSelecionado[1] != "") {
           this.existe = true;
         }
       });
       if (this.existe) {
+        alert(this.existe);
+        alert("entrando");
         axios.put(
           "http://localhost:55537/api/Produto/" + this.ProdSelecionado.id,
           {
@@ -181,6 +187,10 @@ export default {
     axios
       .get("http://localhost:55537/api/Medida")
       .then(medida => (this.medidas = medida.data));
+    axios
+      .get("http://localhost:55537/api/Ingrediente")
+      .then(ing => (this.ingredientes = ing.data));
+    console.log(this.ingredientes);
   }
 };
 </script>
@@ -300,5 +310,13 @@ td {
   top: -25%;
   transition: 0.2s;
   z-index: 3;
+}
+.cb {
+  width: 200px;
+  height: 200px;
+  margin: 0px;
+}
+#cbIng{
+  margin: 0px;
 }
 </style>
