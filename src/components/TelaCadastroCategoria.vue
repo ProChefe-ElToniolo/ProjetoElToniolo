@@ -98,8 +98,13 @@ export default {
     ExcluirCategoria: function() {
       console.log(this.catId);
       axios
+<<<<<<< HEAD
+      .delete(
+          "http://localhost:55537/api/Categoria/" + this.categoriasAlterar.id
+=======
         .delete(
           "http://localhost:55537/api/Categoria/"+this.categoriasAlterar.id
+>>>>>>> e68238e572e655e1075f178a7191ce17e667786f
         )
         .then(resp => console.log(resp.data));
       window.location.reload();

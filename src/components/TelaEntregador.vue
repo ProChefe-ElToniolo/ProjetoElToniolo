@@ -8,6 +8,7 @@
       <option v-for="user in listarEntregador" :key="user.id">{{user.nome}}</option>
     </select>
             
+
     </div>
     <table border="5" style="cursor:pointer" class="tabela-st">
       <thead>
@@ -38,6 +39,7 @@ export default {
 data:function(){
     return{
       usuarios: [],
+      usuariosEntregador: [],
       pedidos: [],
       pedidosEntregador: [],
       nomeEntregador: "",
@@ -49,7 +51,7 @@ data:function(){
   methods: {
     SelecionarPedido: function(nome) {
       this.pedidosEntregador.splice(0, this.pedidosEntregador.length) 
-      this.usuarios.filter(u => {
+      this.usuariosEntregador.filter(u => {
         if (u.nome == nome) {
           this.entregadorSelecionado = u;
         }
@@ -80,7 +82,7 @@ data:function(){
         .then(resp => console.log(resp.data));
     }, IrParaTelaMenuAdmin:function(){
         this.$router.push("/")
-    }
+    }, 
 },
 computed:{
   listarEntregador(){
@@ -95,7 +97,17 @@ computed:{
 mounted(){
     axios.get("http://localhost:55537/api/Usuario").then(usuario => this.usuarios = usuario.data)
     axios.get("http://localhost:55537/api/Pedidos").then(pedido => this.pedidos = pedido.data)
-}
+    }, 
+    computed:{
+  listarEntregador(){
+      this.usuarios.filter(u => {
+        if(u.tipo_usuario == 3){
+          this.usuariosEntregador.push(u) 
+        }
+      }) 
+      return this.usuariosEntregador
+    }
+},
 }
 
 
