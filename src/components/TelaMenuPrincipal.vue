@@ -18,8 +18,9 @@
           <div id="caixa-login" v-if="ocultarMenuLogin == false">
             <div id="menu-bar">
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
-              <input type="password" placeholder="Senha" class="inputs" v-model="senha" />
+              <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha"/>
               <button id="botao-entrar" @click="entrar">Entrar</button>
+              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox">
               <br />
               <button
                 @click="Cadastro"
@@ -80,7 +81,9 @@ export default {
       visualizarCardapio: false,
       visualizarPedidos: false,
       visualizarCadastro: false,
-      categorias:[]
+      categorias:[],
+      checkbox:false,
+      logCorreto:false
     };
   },
   methods: {
@@ -98,6 +101,7 @@ export default {
           this.botaoSair = true;
           localStorage.setItem("usuarioLogado", JSON.stringify(c));
           localStorage.getItem;
+          this.logCorreto = true
         }
       });
       this.usuarios.filter(u => {
@@ -105,8 +109,24 @@ export default {
           alert("Logado como Admin");
           localStorage.setItem("usuarioLogado", JSON.stringify(u));
           this.$router.push("/ViewTelaMenuAdmin");
+          this.logCorreto = true
         }
       });
+      if(this.senha == "" || this.email == ""){
+        alert("Digite algo!")
+        }
+      else{
+        alert("erou")
+      }
+    },
+    mostrarSenha:function(){
+      var senha= document.getElementById("senha")
+      if(this.checkbox == true){
+        senha.type = "text"
+      }
+      else if(this.checkbox == false){
+      senha.type = "password"
+      }
     },
     trocar:function(){
       this.visualizarCardapio = false;
