@@ -44,6 +44,7 @@ data:function(){
       pedidosEntregador: [],
       nomeEntregador: "",
       entregadorSelecionado: [],
+      usuariosEntregador: [],
       entregaCliente: 0
     };
   },
@@ -83,6 +84,16 @@ data:function(){
         this.$router.push("/")
     }, 
 },
+computed:{
+  listarEntregador(){
+      this.usuarios.filter(u => {
+        if(u.tipo_usuario == 3){
+          this.usuariosEntregador.push(u) 
+        }
+      }) 
+      return this.usuariosEntregador
+    }
+},
 mounted(){
     axios.get("http://localhost:55537/api/Usuario").then(usuario => this.usuarios = usuario.data)
     axios.get("http://localhost:55537/api/Pedidos").then(pedido => this.pedidos = pedido.data)
@@ -98,6 +109,10 @@ mounted(){
     }
 },
 }
+
+
+
+
 </script>
 
 <style>

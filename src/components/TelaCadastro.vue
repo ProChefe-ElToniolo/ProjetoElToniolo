@@ -1,7 +1,7 @@
 <template>
   <div class="cadastro">
     <h1>CADASTRO</h1>
-  <input class="geral" type="text" placeholder="Nome" onkeypress="return event.charCode >64 && event.charCode <= 255" maxlength="50" v-model="nome" />
+  <input class="geral" type="text" placeholder="Nome" maxlength="50" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" v-model="nome" />
     <br />
     <input
       class="geral"
@@ -35,11 +35,11 @@
       v-model="cep"
     />
     <br />
-    <input class="geral" type="text" placeholder="Cidade" onkeypress="return event.charCode >64 && event.charCode <= 255" maxlength="20" v-model="cidade" />
+    <input class="geral" type="text" placeholder="Cidade" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="20" v-model="cidade" />
     <br />
-    <input class="geral" type="text" placeholder="Logradouro" onkeypress="return event.charCode >64 && event.charCode <= 255" maxlength="50" v-model="logradouro" />
+    <input class="geral" type="text" placeholder="Logradouro" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="50" v-model="logradouro" />
     <br />
-    <input class="geral" type="text" placeholder="Bairro" onkeypress="return event.charCode >64 && event.charCode <= 255" maxlength="25" v-model="bairro" />
+    <input class="geral" type="text" placeholder="Bairro" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="25" v-model="bairro" />
     <br />
     <input
       class="geral"
@@ -50,7 +50,7 @@
       v-model="numero"
     />
     <br />
-    <input class="geral" type="text" placeholder="UF" onkeypress="return event.charCode >64 && event.charCode <= 255" maxlength="2" v-model="uf" />
+    <input class="geral" type="text" placeholder="UF" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="2" v-model="uf" />
     <br />
     <input class="geral" type="text" placeholder="Complemento" maxlength="50" v-model="complemento" />
     <br />

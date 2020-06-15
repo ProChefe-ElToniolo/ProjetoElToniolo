@@ -1,13 +1,13 @@
 <template>
     <div class="princ">
         <h1>Tela Cadastro Usuario</h1>
-        <input type="text" placeholder="Nome" v-model="nomeUsuario">
+        <input type="text" placeholder="Nome" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" v-model="nomeUsuario">
         <br>
         <input type="text" placeholder="Email" v-model="email">
         <br>
 
         <select v-model="idTpUser">
-            <option selected disabled value="0">Selecione tpUser</option>
+            <option selected disabled value="0">Selecione o Tipo Usuário</option>
             <option :value="tpUser.id" v-for="tpUser in tipoUsuario" :key="tpUser.id">{{tpUser.nome}}</option>
         </select>
 
