@@ -83,14 +83,10 @@ export default {
       visualizarPedidos: false,
       visualizarSobre: false,
       visualizarCadastro: false,
-<<<<<<< HEAD
       categorias:[],
       checkbox:false,
       logCorreto:false
-=======
-      categorias: []
->>>>>>> 5a777a8fe17b7189d53657d2fb6aeb6f9cdba42b
-    };
+    }
   },
   methods: {
     logar: function() {
@@ -105,14 +101,8 @@ export default {
           this.ocultarMenuLogin = true;
           this.ocultarBotaoLogin = false;
           this.botaoSair = true;
-<<<<<<< HEAD
-          localStorage.setItem("usuarioLogado", JSON.stringify(c));
-          localStorage.getItem;
-          this.logCorreto = true
-=======
           sessionStorage.setItem("usuarioLogado", JSON.stringify(c));
           console.log(sessionStorage.getItem('usuarioLogado'));
->>>>>>> 5a777a8fe17b7189d53657d2fb6aeb6f9cdba42b
         }
       });
       this.usuarios.filter(u => {
