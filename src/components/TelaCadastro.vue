@@ -14,10 +14,16 @@
     <br />
     <input class="geral" type="text" placeholder="E-mail" maxlength="50" v-model="email" />
     <br />
-    <input class="geral" type="password" placeholder="Senha" maxlength="20" v-model="senha" />
+    <input class="geral" type="password" placeholder="Senha" maxlength="20" v-model="senha" id="senha" />
+    <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span>Exibir senha</span>
     <br />
     <input
-      input type="text" class="form-control cpf-mask" placeholder="Ex.: 000.000.000-00"
+      class="geral"
+      type="text"
+      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+      placeholder="CPF"
+      maxlength="11"
+      v-model="cpf"
     />
     <br />
     <input
@@ -79,6 +85,15 @@ export default {
   methods: {
     voltarMenu: function() {
       this.$router.push("/");
+    },
+    mostrarSenha: function(){
+      var senha = document.getElementById("senha")
+      if(this.checkbox == true){
+        senha.type = "text"
+      }
+      else if(this.checkbox == false){
+        senha.type = "password"
+      }
     },
     onlytext: function(evt){
       var theEvent = evt || window.event;

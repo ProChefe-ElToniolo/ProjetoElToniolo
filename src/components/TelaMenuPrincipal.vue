@@ -4,7 +4,17 @@
       <!-- <img src="../imagens/transferir.jpg" id="imgFundo" /> -->
       <div id="menu">
         <div id="certo">
-          <img src="../imagens/sinais.png" alt="" id="hamb">
+          <img  src="../imagens/sinais.png" alt="" id="hamb" @click="op">
+          <div v-if="open">
+            <nav id="">
+            <ul>
+              <li @click="Pedidos">DELIVERY</li>
+              <li @click="Cardapio">CARDÁPIO</li>
+              <li @click="Sobre">SOBRE</li>
+              <li @click="Admin">ADMIN</li>
+            </ul>
+          </nav>
+          </div>
           <nav id="some">
             <ul class="list-menu">
               <li @click="Pedidos">DELIVERY</li>
@@ -19,7 +29,7 @@
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
               <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha"/>
               <button id="botao-entrar" @click="entrar">Entrar</button>
-              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox">
+              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"> 
               <br />
               <button @click="Cadastro">Cadastre-se caso ainda não possua uma conta</button>
             </div>
@@ -83,7 +93,8 @@ export default {
       visualizarPedidos: false,
       visualizarSobre: false,
       visualizarCadastro: false,
-      categorias:[],
+      categorias: [],
+      open: false,
       checkbox:false,
       logCorreto:false
     }
@@ -169,6 +180,11 @@ export default {
     Sobre: function() {
       this.trocar();
       this.visualizarSobre = true;
+    },
+    op: function(){
+      // if(this.open==true){
+
+      // }
     }
   },
   mounted() {
@@ -183,7 +199,6 @@ export default {
 </script>
 
 <style>
-html,
 body {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
@@ -200,10 +215,10 @@ body {
 #hamb{
   display: none;
   position: absolute;
-  margin: 1% 0px 0px 0px;
+  margin: 17px 0px 0px 0px;
   width: 35px;
   height: 35px;
-  margin-left: 70px;
+  margin-left: 80px;
 }
 
 @media (max-width: 899px) {
@@ -214,9 +229,9 @@ body {
     display: inline;
   }
 }
-@media (max-width: 900px) and (max-width: 1200px){
+@media (min-width: 900px) and (max-width: 1000px){
     .list-menu li{
-      padding: 0px 10px 0px 10px;
+      padding: 0px 15px 0px 15px !important; 
     }
 }
 
