@@ -19,7 +19,7 @@
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
               <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha"/>
               <button id="botao-entrar" @click="entrar">Entrar</button>
-              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox">
+              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"> 
               <br />
               <button @click="Cadastro">Cadastre-se caso ainda não possua uma conta</button>
             </div>
