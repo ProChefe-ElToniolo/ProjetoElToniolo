@@ -1,15 +1,11 @@
 <template>
   <div class="topo">
     <h1>Bem-Vindo à tela de Cardapio</h1>
-    <button @change="categoriaa">teste</button>
     <button @click="carrega">sla</button>
-    <select v-model="catId" @change="listar">
-      <option value="0">Todas as categorias</option>
-      <option v-for="(cat, index) in categoriasProdutos" :key="index">{{index}}</option>
-    </select>
+
     <div id="Cats" v-if="catsPrincipal">
-      <div v-for="cat in categoriasProdutos" :key="cat" id="caixa">
-        <label class="legenda" v-if="cat.nome == 'Pizza'">{{cat}}</label>
+      <div v-for="cat in categoriasProdutos" :key="cat" id="caixona">
+        <label class="legenda">{{cat}}</label>
       </div>
     </div>
     <div id="caixas" v-if="carregaCat">
@@ -18,7 +14,7 @@
         <label class="legenda">{{prod.nome}}</label>
       </div>
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -62,7 +58,6 @@ export default {
     carrega: function() {
       this.categoriasProdutos = this.produtos.reduce((init, current) => {
         if (init.length === 0 || init[init.length - 1] !== current.categoriaProd) {
-          alert(current.categoriaProd)
           init.push(current.categoriaProd);
         }
         return init;
@@ -111,6 +106,7 @@ export default {
 .topo {
   margin: 72px 0 0 0;
   height: auto;
+  width: 100%;
 }
 
 #caixa {
@@ -143,5 +139,25 @@ export default {
 }
 .legenda {
   margin-top: 81px;
+}
+#caixona {
+  width: 450px;
+  font-size: 11px;
+  text-align: center;
+  background-color: black;
+  height: 500px;
+  border: 1px solid white;
+  color: white;
+  margin: 10px 5px 0px 30px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  line-height: 20px;
+}
+#Cats{
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  display: flex;
 }
 </style>

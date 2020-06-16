@@ -16,7 +16,7 @@
         placeholder="Descrição"
       ></textarea>
       <br />
-      <input type="text" v-model="preco" placeholder="Preço" class="inputFormulario" />
+      <input type="text" v-model="preco" v-mask="'#'" placeholder="Preço" class="inputFormulario" />
       <br />
       <select v-model="idCat" class="cbx">
         <option value="0" selected disabled>Categoria desejada</option>
@@ -51,13 +51,13 @@
         </tbody>
       </table>
     </div>
-    <div class="cb" :value="ing.id" v-for="ing in ingredientes" :key="ing.id">
-      <input type="checkbox" id="cbIng" unchecked :value="ing.id" v-for="ing in ingredientes" :key="ing.id" />{{ing.nome}}
-    </div>
     <select class="cbx" @change="filtro(filtrarCat)" v-model="filtrarCat">
       <option value="0">Todos Produtos</option>
       <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
     </select>
+    <div class="cb" :value="ing.id" v-for="ing in ingredientes" :key="ing.id">
+      <input type="checkbox" id="cbIng" unchecked/>{{ing.nome}}
+    </div>
   </div>
 </template>
 
@@ -280,7 +280,7 @@ td {
 }
 
 .input-nome {
-  width: 300px;
+  width: 250px;
   position: relative;
   font-size: 16px;
   color: #5b5b5b;
@@ -312,11 +312,12 @@ td {
   z-index: 3;
 }
 .cb {
-  width: 200px;
-  height: 200px;
+  width: auto;
+  height: auto;
   margin: 0px;
 }
 #cbIng{
+  width: auto;
   margin: 0px;
 }
 </style>
