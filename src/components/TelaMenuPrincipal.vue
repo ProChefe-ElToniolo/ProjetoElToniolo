@@ -27,8 +27,9 @@
           <div id="caixa-login" v-if="ocultarMenuLogin == false">
             <div id="menu-bar">
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
-              <input type="password" placeholder="Senha" class="inputs" v-model="senha" />
+              <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha"/>
               <button id="botao-entrar" @click="entrar">Entrar</button>
+              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"> 
               <br />
               <button @click="Cadastro">Cadastre-se caso ainda não possua uma conta</button>
             </div>
@@ -93,8 +94,10 @@ export default {
       visualizarSobre: false,
       visualizarCadastro: false,
       categorias: [],
-      open: false
-    };
+      open: false,
+      checkbox:false,
+      logCorreto:false
+    }
   },
   methods: {
     logar: function() {
@@ -118,8 +121,24 @@ export default {
           alert("Logado como Admin");
           sessionStorage.setItem("usuarioLogado", JSON.stringify(u));
           this.$router.push("/ViewTelaMenuAdmin");
+          this.logCorreto = true
         }
       });
+      if(this.senha == "" || this.email == ""){
+        alert("Digite algo!")
+        }
+      else{
+        alert("erou")
+      }
+    },
+    mostrarSenha:function(){
+      var senha= document.getElementById("senha")
+      if(this.checkbox == true){
+        senha.type = "text"
+      }
+      else if(this.checkbox == false){
+      senha.type = "password"
+      }
     },
     trocar: function() {
       this.visualizarSobre = false;

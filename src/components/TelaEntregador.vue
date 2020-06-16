@@ -76,21 +76,17 @@ export default {
           processamento: true
         })
         .then(resp => console.log(resp.data));
-    },
-    IrParaTelaMenuAdmin: function() {
-      this.$router.push("/");
-    }
-  },
-  mounted() {
-    axios
-      .get("http://localhost:55537/api/Usuario")
-      .then(usuario => (this.usuarios = usuario.data));
-    axios
-      .get("http://localhost:55537/api/Pedidos")
-      .then(pedido => (this.pedidos = pedido.data));
-  },
-  computed: {
-    listarEntregador() {
+        this.pedidosEntregador.splice(this.pedidosEntregador.indexOf(id), 1);
+    }, IrParaTelaMenuAdmin:function(){
+        this.$router.push("/")
+    }, 
+},
+mounted(){
+    axios.get("http://localhost:55537/api/Usuario").then(usuario => this.usuarios = usuario.data)
+    axios.get("http://localhost:55537/api/Pedidos").then(pedido => this.pedidos = pedido.data)
+    }, 
+    computed:{
+  listarEntregador(){
       this.usuarios.filter(u => {
         if (u.tipo_usuario == 3) {
           this.usuariosEntregador.push(u);
