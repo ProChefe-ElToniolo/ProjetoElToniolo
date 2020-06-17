@@ -2,38 +2,17 @@
   <div class="sla">
     <h1>CADASTRO</h1>
   <input class="geral" type="text" placeholder="Nome" maxlength="50" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" v-model="nome" />
-    <br />
-    <input
-      class="geral"
-      type="text"
-      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-      placeholder="Telefone"
-      maxlength="11"
-      v-model="telefone"
-    />
-    <br />
-    <input class="geral" type="text" placeholder="E-mail" maxlength="50" v-model="email" />
+    <br/>
+    <input class="geral" type="text" v-mask="'(##) #####-####'" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Telefone" v-model="telefone"/>
+    <br/>
+    <input class="geral" type="text" placeholder="E-mail" maxlength="50" v-model="email"/>
     <br />
     <input class="geral" type="password" placeholder="Senha" maxlength="20" v-model="senha" id="senha" />
     <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span>Exibir senha</span>
     <br />
-    <input
-      class="geral"
-      type="text"
-      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-      placeholder="CPF"
-      maxlength="11"
-      v-model="cpf"
-    />
-    <br />
-    <input
-      class="geral"
-      type="text"
-      v-on:keyup.13="buscar"
-      placeholder="CEP"
-      maxlength="8"
-      v-model="cep"
-    />
+    <input class="geral" v-mask="'###.###.###-##'" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF"  v-model="cpf" />
+    <br/>
+    <input class="geral" type="text" v-mask="'#####-###'" v-on:keyup.13="buscar" placeholder="CEP" v-model="cep"/>
     <br />
     <input class="geral" type="text" placeholder="Cidade" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="20" v-model="cidade" />
     <br />
@@ -41,21 +20,14 @@
     <br />
     <input class="geral" type="text" placeholder="Bairro" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="25" v-model="bairro" />
     <br />
-    <input
-      class="geral"
-      type="text"
-      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
-      placeholder="Numero"
-      maxlength="10"
-      v-model="numero"
-    />
-    <br />
+    <input class="geral" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Numero" maxlength="10" v-model="numero"/>
+    <br/>
     <input class="geral" type="text" placeholder="UF" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="2" v-model="uf" />
     <br />
     <input class="geral" type="text" placeholder="Complemento" maxlength="50" v-model="complemento" />
-    <br />
+    <br/>
     <button id="botãoCadastrar" @click="salvarCadastro">Cadastrar</button>
-    <br />
+    <br/>
     <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button>
   </div>
 </template>
@@ -171,7 +143,6 @@ body {
   width: 100%;
   height: 100%;
 }
-
 
 .geral {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,

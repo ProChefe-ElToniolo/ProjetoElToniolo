@@ -12,7 +12,7 @@
         <tr>
           <th>ID Entregador</th>
           <th>Pedidos</th>
-          <th>Vai trabaia vagabundo</th>
+          <th>Processamento</th>
         </tr>
       </thead>
       <tbody>
