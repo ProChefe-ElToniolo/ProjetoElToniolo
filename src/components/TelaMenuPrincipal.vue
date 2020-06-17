@@ -24,6 +24,16 @@
             </ul>
           </nav>
           <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
+          <div id="caixa-login" v-if="ocultarMenuLogin == false">
+            <div id="menu-bar">
+              <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
+              <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha"/>
+              <button id="botao-entrar" @click="entrar">Entrar</button>
+              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox">Mostrar Senha
+              <br />
+              <button @click="Cadastro">Cadastre-se caso ainda não possua uma conta</button>
+            </div>
+          </div>
 
           <img src="../imagens/logopizza.png" id="logo" @click="Reset" />
           <button
@@ -113,7 +123,8 @@ export default {
           this.ocultarBotaoLogin = false;
           this.botaoSair = true;
           sessionStorage.setItem("usuarioLogado", JSON.stringify(c));
-          console.log(sessionStorage.getItem("usuarioLogado"));
+          console.log(sessionStorage.getItem('usuarioLogado'));
+          this.logCorreto = true
         }
       });
       this.usuarios.filter(u => {

@@ -1,7 +1,7 @@
 <template>
   <div class="princ">
     <h1>Bem Vindo a Tela Cadastro Categoria</h1>
-    <input type="text" placeholder="Digite o nome da Categoria" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" id="txtCategoria" v-model="nome" />
+    <input type="text" placeholder="Digite o nome da Categoria" v-mask="'AAAAAAAAAAA'" id="txtCategoria" v-model="nome" />
     <span v-if="verificado">Digite algo!</span>
     <input type="file" />
     <ul>
@@ -45,7 +45,7 @@ export default {
       categorias: [],
       aparecer: false,
       categoriasAlterar: [],
-      verificado: false
+      verificado: false,
     };
   },
   methods: {
