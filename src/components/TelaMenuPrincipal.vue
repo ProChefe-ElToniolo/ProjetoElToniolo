@@ -114,6 +114,7 @@ export default {
           this.botaoSair = true;
           sessionStorage.setItem("usuarioLogado", JSON.stringify(c));
           console.log(sessionStorage.getItem('usuarioLogado'));
+          this.logCorreto = true
         }
       });
       this.usuarios.filter(u => {
@@ -127,7 +128,7 @@ export default {
       if(this.senha == "" || this.email == ""){
         alert("Digite algo!")
         }
-      else{
+      if(this.logCorreto == false && this.senha != "" && this.email != ""){
         alert("erou")
       }
     },
@@ -438,12 +439,5 @@ body {
 }
 ::-webkit-scrollbar-track {
   background-color: #1f2023;
-}
-#menuCardapio {
-  position: absolute;
-  border: springgreen 5px solid;
-  width: 100%;
-  height: 75%;
-  margin: 70px 0px 0px 0px;
 }
 </style>

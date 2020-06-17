@@ -3,7 +3,7 @@
     <div id="formulario">
       <br />
       <div class="meu-box">
-        <input type="text" class="input-nome" placeholder="Nome Completo" v-model="nome" />
+        <input type="text" class="inputz" placeholder="Nome Completo" v-model="nome" />
         <label for="nomeCompleto" class="label-nome">Nome Completo</label>
       </div>
       <br />
@@ -16,7 +16,10 @@
         placeholder="Descrição"
       ></textarea>
       <br />
-      <input type="text" v-model="preco" placeholder="Preço" class="inputFormulario" />
+      <div class="meu-box">
+        <input type="Number" class="inputz" v-model="preco" placeholder="Preço" />
+        <label for="nomeCompleto" class="label-nome">Preço</label>
+      </div>
       <br />
       <select v-model="idCat" class="cbx">
         <option value="0" selected disabled>Categoria desejada</option>
@@ -51,13 +54,14 @@
         </tbody>
       </table>
     </div>
-    <div class="cb" :value="ing.id" v-for="ing in ingredientes" :key="ing.id">
-      <input type="checkbox" id="cbIng" unchecked :value="ing.id" v-for="ing in ingredientes" :key="ing.id" />{{ing.nome}}
-    </div>
     <select class="cbx" @change="filtro(filtrarCat)" v-model="filtrarCat">
       <option value="0">Todos Produtos</option>
       <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
     </select>
+    <div class="cb" :value="ing.id" v-for="ing in ingredientes" :key="ing.id">
+      <input type="checkbox" id="cbIng" unchecked />
+      {{ing.nome}}
+    </div>
   </div>
 </template>
 
@@ -279,8 +283,8 @@ td {
   position: relative;
 }
 
-.input-nome {
-  width: 300px;
+.inputz {
+  width: 250px;
   position: relative;
   font-size: 16px;
   color: #5b5b5b;
@@ -291,7 +295,7 @@ td {
 }
 
 .label-nome {
-  width: 90px;
+  width:200px;
   height: 14px;
   margin-left: 5px;
   position: absolute;
@@ -305,18 +309,19 @@ td {
   transition: 0.5s;
 }
 
-.input-nome:focus + .label-nome {
-  color: rgb(90, 90, 90);
-  top: -25%;
-  transition: 0.2s;
+.inputz:focus + .label-nome {
   z-index: 3;
+  color: rgb(90, 90, 90);
+  top: -20%;
+  transition: 0.2s;
 }
 .cb {
-  width: 200px;
-  height: 200px;
+  width: auto;
+  height: auto;
   margin: 0px;
 }
-#cbIng{
+#cbIng {
+  width: auto;
   margin: 0px;
 }
 </style>
