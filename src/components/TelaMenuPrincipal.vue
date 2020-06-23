@@ -28,6 +28,8 @@
             <div id="menu-bar">
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
               <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha"/>
+              <br>
+              <label v-if="senhaIncorreta" id="labelSenhaIncorreta">Credenciais Incorretas</label>
               <button id="botao-entrar" @click="entrar">Entrar</button>
               <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox">Mostrar Senha
               <br />
@@ -96,7 +98,8 @@ export default {
       categorias: [],
       open: false,
       checkbox:false,
-      logCorreto:false
+      logCorreto:false,
+      senhaIncorreta: false
     }
   },
   methods: {
@@ -128,8 +131,9 @@ export default {
         alert("Digite algo!")
         }
       else{
-        alert("erou")
+        this.senhaIncorreta = true
       }
+        console.log(this.senhaIncorreta);
     },
     mostrarSenha:function(){
       var senha= document.getElementById("senha")
@@ -446,4 +450,14 @@ body {
   height: 75%;
   margin: 70px 0px 0px 0px;
 }
+
+#labelSenhaIncorreta{
+  color: red;
+  background-color: green;
+  cursor: pointer;
+  position: absolute;
+  width: 130px;
+  border: 2px solid yellow;
+  margin: 10px 0 0 40px;
+  }
 </style>

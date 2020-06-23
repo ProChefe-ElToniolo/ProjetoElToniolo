@@ -47,6 +47,7 @@ export default {
   methods: {
     SelecionarPedido: function(nome) {
       this.pedidosEntregador.splice(0, this.pedidosEntregador.length);
+
       this.usuariosEntregador.filter(u => {
         if (u.nome == nome) {
           this.entregadorSelecionado = u;
@@ -60,8 +61,12 @@ export default {
           this.pedidosEntregador.push(p);
         }
       });
-      console.log(this.pedidosEntregador);
+      
+      if(this.pedidosEntregador == 0){
+        alert("Esse entregador não possui pedidos!")
+      }
     },
+
     pedidoFinalizado: function(id) {
       this.pedidos.filter(n => {
         if (id == n.id) {
@@ -77,7 +82,9 @@ export default {
         })
         .then(resp => console.log(resp.data));
         this.pedidosEntregador.splice(this.pedidosEntregador.indexOf(id), 1);
-    }, IrParaTelaMenuAdmin:function(){
+    }, 
+    
+    IrParaTelaMenuAdmin:function(){
         this.$router.push("/")
     }, 
 },

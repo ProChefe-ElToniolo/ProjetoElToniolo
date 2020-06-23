@@ -46,6 +46,7 @@ export default {
       aparecer: false,
       categoriasAlterar: [],
       verificado: false,
+      produtos:[]
     };
   },
   methods: {
@@ -90,9 +91,21 @@ export default {
         .then(resp => console.log(resp.data));
       window.location.reload();
     },
+
     decisao: function(){
         this.ExcluirCategoria();
         this.aparecer = false;
+    },
+
+    utilizaOuNProdutoCategoria:function(){
+      let contador = 0
+      this.produtos.filter(p => {
+        if(this.categoriasAlterar.id == p.id_categoria && contador < 1){
+          alert("Existe um produto que utiiza desta categoria")
+          contador++
+          this.aparecer = false;
+        }
+      })
     },
 
     ExcluirCategoria: function() {
@@ -103,9 +116,12 @@ export default {
         .then(resp => console.log(resp.data));
       window.location.reload();
     },
+
     trocar: function(){
       this.aparecer = true;
+      this.utilizaOuNProdutoCategoria();
     },
+
     fechar: function(){
       this.aparecer = false;
     }
@@ -115,6 +131,10 @@ export default {
     axios
       .get("http://localhost:55537/api/Categoria")
       .then(categoria => (this.categorias = categoria.data));
+
+    axios
+      .get("http://localhost:55537/api/Produto")
+      .then(produto => (this.produtos = produto.data))
   }
 };
 </script>
