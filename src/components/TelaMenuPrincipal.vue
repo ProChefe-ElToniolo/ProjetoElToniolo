@@ -4,16 +4,16 @@
       <!-- <img src="../imagens/transferir.jpg" id="imgFundo" /> -->
       <div id="menu">
         <div id="certo">
-          <img  src="../imagens/sinais.png" alt="" id="hamb" @click="op">
-          <div v-if="open">
-            <nav id="">
-            <ul>
-              <li @click="Pedidos">DELIVERY</li>
-              <li @click="Cardapio">CARDÁPIO</li>
-              <li @click="Sobre">SOBRE</li>
-              <li @click="Admin">ADMIN</li>
-            </ul>
-          </nav>
+          <img src="../imagens/sinais.png" alt id="hamb" @click="op" />
+          <div v-if="open" id="caixaV">
+            <nav id="vertical">
+              <ul>
+                <li @click="Pedidos">DELIVERY</li>
+                <li @click="Cardapio">CARDÁPIO</li>
+                <li @click="Sobre">SOBRE</li>
+                <li @click="Admin">ADMIN</li>
+              </ul>
+            </nav>
           </div>
           <nav id="some">
             <ul class="list-menu">
@@ -44,9 +44,19 @@
             v-if="ocultarBotaoLogin"
           >FAZER LOGIN OU CADASTRAR-SE</button>
           <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
-          <img src="../imagens/comercial.png" id="userlogo" @click="Perfil"/>
+          <img src="../imagens/comercial.png" id="userlogo" @click="Perfil" />
           <label id="labelLogado" v-if="logado">Logado:{{NomePessoaLogada}}</label>
         </div>
+         
+            <div id="menu-bar" v-if="ocultarMenuLogin == false">
+              <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
+              <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha" />
+              <button id="botao-entrar" @click="entrar">Entrar</button>
+              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox" />
+              <br />
+              <button @click="Cadastro">Cadastre-se caso ainda não possua uma conta</button>
+            </div>
+          
       </div>
       <div id="sombra-menu"></div>
       <div v-if="visualizarCardapio">
@@ -54,16 +64,16 @@
       </div>
       <div v-if="visualizarPedidos">
         <TelaPedidos />
-        </div>
-        <div v-if="visualizarCadastro">
-          <TelaCadastro/>
-        </div>
-        <div v-if="visualizarSobre">
-          <TelaSobre/>
-        </div>
       </div>
-        <div id="menu-rodape"></div>
+      <div v-if="visualizarCadastro">
+        <TelaCadastro />
+      </div>
+      <div v-if="visualizarSobre">
+        <TelaSobre />
+      </div>
     </div>
+    <div id="menu-rodape"></div>
+  </div>
 </template>
 
 <script>
@@ -97,10 +107,16 @@ export default {
       visualizarCadastro: false,
       categorias: [],
       open: false,
+<<<<<<< HEAD
       checkbox:false,
       logCorreto:false,
       senhaIncorreta: false
     }
+=======
+      checkbox: false,
+      logCorreto: false
+    };
+>>>>>>> 64e33a9eb4b7b9204c04dcf6b5f7f115c154088a
   },
   methods: {
     logar: function() {
@@ -117,6 +133,7 @@ export default {
           this.botaoSair = true;
           sessionStorage.setItem("usuarioLogado", JSON.stringify(c));
           console.log(sessionStorage.getItem('usuarioLogado'));
+          this.logCorreto = true
         }
       });
       this.usuarios.filter(u => {
@@ -124,24 +141,30 @@ export default {
           alert("Logado como Admin");
           sessionStorage.setItem("usuarioLogado", JSON.stringify(u));
           this.$router.push("/ViewTelaMenuAdmin");
-          this.logCorreto = true
+          this.logCorreto = true;
         }
       });
+<<<<<<< HEAD
       if(this.senha == "" || this.email == ""){
         alert("Digite algo!")
         }
       else{
         this.senhaIncorreta = true
+=======
+      if (this.senha == "" || this.email == "") {
+        alert("Digite algo!");
+      } else {
+        alert("erou");
+>>>>>>> 64e33a9eb4b7b9204c04dcf6b5f7f115c154088a
       }
         console.log(this.senhaIncorreta);
     },
-    mostrarSenha:function(){
-      var senha= document.getElementById("senha")
-      if(this.checkbox == true){
-        senha.type = "text"
-      }
-      else if(this.checkbox == false){
-      senha.type = "password"
+    mostrarSenha: function() {
+      var senha = document.getElementById("senha");
+      if (this.checkbox == true) {
+        senha.type = "text";
+      } else if (this.checkbox == false) {
+        senha.type = "password";
       }
     },
     trocar: function() {
@@ -159,20 +182,21 @@ export default {
     Cardapio: function() {
       this.trocar();
       this.visualizarCardapio = true;
+      this.open=false
     },
     Pedidos: function() {
       this.trocar();
       this.visualizarPedidos = true;
+      this.open=false
     },
     Perfil: function() {
       // if(){
-
       // }
     },
     Login: function() {
       this.$router.push("/ViewTelaLogin");
     },
-     Cadastro: function() {
+    Cadastro: function() {
       this.$router.push("/ViewTelaCadastro");
     },
     Admin: function() {
@@ -184,11 +208,14 @@ export default {
     Sobre: function() {
       this.trocar();
       this.visualizarSobre = true;
+      this.open=false
     },
-    op: function(){
-      // if(this.open==true){
-
-      // }
+    op: function() {
+      if(this.open==false){
+        this.open = true;
+      }else{
+        this.open=false
+      }
     }
   },
   mounted() {
@@ -203,40 +230,23 @@ export default {
 </script>
 
 <style>
+html,
 body {
-  font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
-    sans-serif;
-  font-size: 14px;
-  font-weight: 600;
   height: 100%;
   width: 100%;
   padding: 0px;
   margin: 0px;
   background-color: #f6f6f6;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
+    sans-serif;
   overflow: hidden;
-  overflow-y: auto;
-}
-#hamb{
-  display: none;
-  position: absolute;
-  margin: 17px 0px 0px 0px;
-  width: 35px;
-  height: 35px;
-  margin-left: 80px;
+  overflow-y: scroll;
 }
 
-@media (max-width: 899px) {
-  #some {
-    display: none;
-  }
-  #hamb{
-    display: inline;
-  }
-}
-@media (min-width: 900px) and (max-width: 1000px){
-    .list-menu li{
-      padding: 0px 15px 0px 15px !important; 
-    }
+#container {
+  display: flex;
 }
 
 #imgFundo {
@@ -245,8 +255,34 @@ body {
   position: absolute;
   opacity: 0.9;
 }
-#container {
-  display: flex;
+
+#hamb {
+  display: none;
+  position: absolute;
+  margin: 17px 0px 0px 0px;
+  width: 35px;
+  height: 35px;
+  margin-left: 80px;
+  cursor: pointer;
+}
+
+@media (max-width: 899px) {
+  #some {
+    display: none;
+  }
+  #hamb {
+    display: inline;
+  }
+}
+@media (min-width: 900px) and (max-width: 1000px) {
+  .list-menu li {
+    padding: 0px 15px 0px 15px !important;
+  }
+}
+@media (min-width:899px){
+  #vertical{
+    display: none;
+  }
 }
 
 #menu {
@@ -257,12 +293,12 @@ body {
   width: 100%;
   height: 70px;
   z-index: 1001;
-  /* background-color: #006491; */
   background-color: #1f2023;
   -webkit-box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
   -moz-box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
   box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
 }
+
 #certo {
   display: flex;
   position: absolute;
@@ -270,6 +306,44 @@ body {
   width: 71.72%;
   margin-left: 14.4%;
 }
+
+#caixaV{
+  z-index: 1005;
+  height: 100px;  
+  margin: 0px 0px 0px 125px;
+  background-color: #1f2023;
+  width: 80px;
+  border: 2px solid black;
+  border-radius: 5px;
+  position: absolute;
+  text-align: center;
+}
+
+#vertical {
+  color: white;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+
+}
+
+#vertical ul{
+  padding: 0;
+  margin: 0;
+  width: 80px;
+}
+
+#vertical ul li {
+  list-style: none;  
+  height: 25px;
+  line-height: 25px;
+  cursor: pointer;
+}
+
+#vertical ul li:hover{
+  background-color: black;
+}
+
 .list-menu {
   color: white;
   position: absolute;
@@ -279,15 +353,18 @@ body {
   list-style: none;
   line-height: 70px;
 }
+
 .list-menu li {
   text-align: center;
   padding: 0 20px 0 20px;
   width: 120%;
   height: 70px;
 }
+
 .list-menu li:hover {
   background-color: black;
 }
+
 #botao-logar {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
@@ -305,31 +382,36 @@ body {
   background-color: black;
   height: 70px;
 }
+
 #title {
   line-height: 38px;
   font-family: fantasy;
   font-size: 34px;
   color: white;
 }
+
 #userlogo {
   margin: 20px 0px 0px 61.7%;
   position: absolute;
   width: 30px;
   height: 30px;
 }
+
 #logo {
   position: absolute;
   margin: 0.2% 0px 0px 0px;
   width: 65px;
   height: 65px;
 }
+
 #menu-rodape {
   margin: 872px 0px 0px 0px;
   width: 100%;
   height: 200px;
   background-color: rgb(24, 24, 24);
-  position: absolute ;
+  position: absolute;
 }
+
 #cadastrar {
   margin: 3px 5px 0px 0px 80px;
   outline: none;
@@ -337,66 +419,73 @@ body {
   color: rgb(0, 0, 0);
   text-decoration-color: rgba(0, 0, 0, 0.568);
 }
+
 .inputs {
-  margin: 40px 30px 0px 30px;
+  margin: 10% 7% 0px 7%;
   padding: 7px;
-  width: 230px;
-  height: 30px;
-  border-radius: 20px;
+  width: 60%;
+  height: 8.5%;
+  border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.555);
   border: 2px solid rgba(0, 0, 0, 0.671);
   outline: none;
 }
+
 #botao-entrar {
-  margin: 40px 0px 10px 0px;
-  width: 110px;
-  height: 40px;
-  border-radius: 20px;
+  margin: 10% 0px 4% 0px;
+  width: 25%;
+  height: 10%;
+  border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.555);
   border: 2px solid rgba(0, 0, 0, 0.384);
   outline: none;
   cursor: pointer;
 }
+
 #menu-bar {
   text-align: center;
   position: absolute;
-  margin: 17px 0px 0px 50px;
-  width: 396px;
-  height: 420px;
+  margin: 10% 0px 0px 40%;
+  width: 25%;
+  height: 450%;
   border: 1px rgb(0, 0, 0) solid;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.877);
 }
-#caixa-login {
+
+/* #caixa-login {
   text-align: center;
   position: absolute;
   display: flex;
-  margin: 110px 0px 0px 440px;
-  width: 380px;
-  height: 440px;
-}
+  margin: 10% 0px 0px 40%;
+  width: 50%;
+  height: 50%;
+} */
+
 #IrParaTelaCadastro {
   color: rgba(255, 255, 255, 0.555);
 }
+
 ::-webkit-input-placeholder {
   color: black;
   font: 14px verdana, arial, sans-serif;
 }
+
 :-moz-placeholder {
   color: black;
   font: 14px verdana, arial, sans-serif;
 }
+
 ::-moz-placeholder {
   color: black;
   font: 14px verdana, arial, sans-serif;
 }
+
 :-ms-input-placeholder {
   color: black;
   font: 14px verdana, arial, sans-serif;
 }
-#botaoIrParaMenuAdmin {
-  color: pink;
-}
+
 #labelLogado {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
@@ -414,6 +503,7 @@ body {
   width: auto;
   height: 70px;
 }
+
 #botaoSair {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
@@ -433,16 +523,20 @@ body {
   background-color: #006491;
   cursor: pointer;
 }
+
 ::-webkit-scrollbar {
   width: 11px;
   height: 10px;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: rgb(0, 0, 0);
 }
+
 ::-webkit-scrollbar-track {
   background-color: #1f2023;
 }
+<<<<<<< HEAD
 #menuCardapio {
   position: absolute;
   border: springgreen 5px solid;
@@ -460,4 +554,6 @@ body {
   border: 2px solid yellow;
   margin: 10px 0 0 40px;
   }
+=======
+>>>>>>> 64e33a9eb4b7b9204c04dcf6b5f7f115c154088a
 </style>
