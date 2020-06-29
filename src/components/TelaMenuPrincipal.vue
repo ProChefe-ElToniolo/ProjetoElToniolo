@@ -8,8 +8,8 @@
           <div v-if="open">
             <nav id="">
             <ul>
-              <li @click="Pedidos">DELIVERY</li>
               <li @click="Cardapio">CARDÁPIO</li>
+              <li @click="Pedidos">DELIVERY</li>
               <li @click="Sobre">SOBRE</li>
               <li @click="Admin">ADMIN</li>
             </ul>
@@ -60,7 +60,7 @@
           <TelaSobre/>
         </div>
       </div>
-        <div id="menu-rodape"></div>
+        <!-- <div id="menu-rodape"></div> -->
     </div>
 </template>
 
@@ -320,13 +320,13 @@ body {
   width: 65px;
   height: 65px;
 }
-#menu-rodape {
+/* #menu-rodape {
   margin: 872px 0px 0px 0px;
   width: 100%;
   height: 200px;
   background-color: rgb(24, 24, 24);
-  position: absolute ;
-}
+  position: absolute;
+} */
 #cadastrar {
   margin: 3px 5px 0px 0px 80px;
   outline: none;

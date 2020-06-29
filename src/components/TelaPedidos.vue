@@ -1,11 +1,6 @@
 <template>
   <div class="topo">
     <h1>Bem Vindo a Tela Pedidos</h1>
-    <ul>
-      <li @click="filtrar">Pizzas</li>
-      <li @click="filtrar">Bebidas</li>
-    </ul>
-
     <div v-for="prods in produtos" :key="prods.id">
       <div id="pizzas">
         {{prods.nome}}

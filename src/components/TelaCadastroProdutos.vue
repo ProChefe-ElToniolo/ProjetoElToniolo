@@ -32,8 +32,11 @@
       </select>
       <br />
       <button class="button" @click="salvar">Salvar</button>
-      <button class="button" @click="excluir">Excluir</button>
     </div>
+    <select class="cbx" @change="filtro(filtrarCat)" v-model="filtrarCat">
+      <option value="0">Todos Produtos</option>
+      <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
+    </select>
     <div class="pos-tabel">
       <table class="tabela-st">
         <thead>
@@ -42,6 +45,7 @@
             <th>Categoria</th>
             <th>Descrição</th>
             <th>Preço</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -50,14 +54,11 @@
             <td>{{prod.categoriaProd}}</td>
             <td>{{prod.descricao}}</td>
             <td>{{"R$ " + (prod.preco)}}</td>
+            <td @click="excluir(prod.id)"><img id="lixo" src="../imagens/lixo.png" alt=""></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <select class="cbx" @change="filtro(filtrarCat)" v-model="filtrarCat">
-      <option value="0">Todos Produtos</option>
-      <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
-    </select>
     <div class="cb" :value="ing.id" v-for="ing in ingredientes" :key="ing.id">
       <input type="checkbox" id="cbIng" unchecked />
       {{ing.nome}}
@@ -84,7 +85,8 @@ export default {
       invalido: false,
       todosProds: [],
       medidas: [],
-      ingredientes: []
+      ingredientes: [],
+      idExcluir: ""
     };
   },
   methods: {
@@ -93,13 +95,12 @@ export default {
     },
     salvar: function() {
       this.prods.filter(e => {
+        console.log("e");
         if (e.id == this.ProdSelecionado.id && this.ProdSelecionado[1] != "") {
           this.existe = true;
         }
       });
       if (this.existe) {
-        alert(this.existe);
-        alert("entrando");
         axios.put(
           "http://localhost:55537/api/Produto/" + this.ProdSelecionado.id,
           {
@@ -117,7 +118,7 @@ export default {
         this.medida != 0 &&
         this.idCat != 0
       ) {
-        alert("entrou");
+        alert("entrouPra salvar");
         axios.post("http://localhost:55537/api/Produto", {
           nome: this.nome,
           descricao: this.descricao,
@@ -125,21 +126,22 @@ export default {
           medida_tamanho: this.medida,
           id_categoria: this.idCat,
           imagem: this.imagem
-        });
+        }).then(res => (this.idExcluir = res.data));
         this.prods.push({
+          id: this.idExcluir,
           nome: this.nome,
           descricao: this.descricao,
           preco: this.preco,
           medida_tamanho: this.medida,
           id_categoria: this.idCat,
-          categoriaProd: this.categorias.filter(u => u.id == this.idCat)[0]
-            .nome,
+          categoriaProd: this.categorias.filter(u => u.id == this.idCat)[0].nome,
           imagem: this.imagem
         });
       } else {
         alert("PREENCHE TUDO TLGD");
       }
       this.existe = false;
+      this.limpa();
     },
     selecionar: function(id) {
       this.selecionado = id;
@@ -156,18 +158,26 @@ export default {
       this.idCat = this.ProdSelecionado.id_categoria;
       this.imagem = this.ProdSelecionado.imagem;
     },
-    excluir: function() {
-      if (this.ProdSelecionado.id != null) {
+    excluir: function(id) {
+      if (id != null) {
         axios.delete(
-          "http://localhost:55537/api/Produto/" + this.ProdSelecionado.id
+          "http://localhost:55537/api/Produto/" + id
         );
-        console.log(this.prods);
-        alert(this.prods.indexOf(this.ProdSelecionado));
-        this.prods.splice(this.prods.indexOf(this.ProdSelecionado), 1);
+        alert(this.prods.indexOf(id));
+        this.prods.splice(this.prods.indexOf(id), 1);
         this.invalido = false;
       } else {
         this.invalido = true;
       }
+      this.limpa();
+    },
+    limpa: function() {
+      this.nome = "";
+      this.descricao = "";
+      this.preco = "";
+      this.medida = 0;
+      this.idCat = 0;
+      this.imagem = "";
     },
     filtro: function() {
       this.prods = this.todosProds;
@@ -195,6 +205,9 @@ export default {
       .get("http://localhost:55537/api/Ingrediente")
       .then(ing => (this.ingredientes = ing.data));
     console.log(this.ingredientes);
+        axios
+      .get("http://localhost:55537/api/Produto")
+      .then(produto => (this.todosProds = produto.data));
   }
 };
 </script>
@@ -253,6 +266,7 @@ td {
   color: #ffffff;
 }
 .tabela-st tr {
+  height: auto;
   cursor: pointer;
 }
 #ingredientes {
@@ -295,7 +309,7 @@ td {
 }
 
 .label-nome {
-  width:200px;
+  width: 200px;
   height: 14px;
   margin-left: 5px;
   position: absolute;
@@ -323,5 +337,8 @@ td {
 #cbIng {
   width: auto;
   margin: 0px;
+}
+#lixo{
+  margin: 0px 0px 0px 18px;
 }
 </style>

@@ -1,29 +1,29 @@
 <template>
   <div class="topo">
-    <div id="Cats" v-if="catsPrincipal">
+    <div class="Cats" v-if="catsPrincipal">
       <div v-for="cat in catProd" :key="cat" id="caixona">
-        <img src="../imagens/produto.jpg" id="img-prod" @click="listar(cat)">
+        <img src="../imagens/produto.jpg" id="img-prod" @click="listar(cat)" />
         <div id="descricao">
           <label class="legenda">{{cat}}</label>
         </div>
       </div>
-      <div v-if="mostrarProds">
-         <div v-for="prod in produtosSelecionados" :key="prod" id="caixona">
-          <label>{{prod[1].nome}}</label>
-      </div>
+    </div>
+    <div class="Prod" v-if="mostrarProds">
+      <div v-for="prod in produtosSelecionados" :key="prod" id="prod">
+        <h4>{{prod.nome}}</h4>
       </div>
     </div>
-      <!-- <select class="cbx"> 
+    <!-- <select class="cbx"> 
       <option >Todos Produtos</option>
       <option v-for="(prod,index) in carreProd" :key="index">{{prod[index].nome}}</option>
-    </select> -->
+    </select>-->
     <!-- <div id="caixas" v-if="carregaCat">
       <div id="caixa" v-for="prod in produtos" :key="prod.id" @click="filtrar">
         <img src="../imagens/logopizza.png" id="imagemProd" />
         <label class="legenda">{{prod.nome}}</label>
       </div>
-    </div> -->
-    </div>
+    </div>-->
+  </div>
 </template>
 
 <script>
@@ -39,24 +39,32 @@ export default {
       catsPrincipal: true,
       mostrarProds: false,
       carregaCat: false,
-      categoriasProdutos: [],
+      categoriasProdutos: []
       // sla: []
     };
   },
   methods: {
     listar: function(catSelect) {
-       this.produtosSelecionados = this.produtos.filter(p => {
-          if (p.categoriaProd == catSelect) {
-            return p
-          }
+      alert("eu");
+      if (this.mostrarProds == false) {
+        this.mostrarProds = true;
+        this.catsPrincipal = false;
+      } else {
+        this.mostrarProds = false;
+        this.catsPrincipal = true;
+      }
+      this.produtosSelecionados = this.produtos.filter(p => {
+        if (p.categoriaProd == catSelect) {
+          return p;
+        }
       });
-      console.log(this.produtosSelecionados)
-      this.catsPrincipal = false;
-      this.mostrarProds = true;
     },
     carrega: function() {
       this.categoriasProdutos = this.produtos.reduce((init, current) => {
-        if (init.length === 0 || init[init.length - 1] !== current.categoriaProd) {
+        if (
+          init.length === 0 ||
+          init[init.length - 1] !== current.categoriaProd
+        ) {
           init.push(current.categoriaProd);
         }
         return init;
@@ -70,8 +78,9 @@ export default {
     axios
       .get("http://localhost:55537/api/Produto")
       .then(produto => (this.produtos = produto.data));
-  }, computed:{
-    catProd(){
+  },
+  computed: {
+    catProd() {
       this.carrega();
       return this.categoriasProdutos;
     }
@@ -85,6 +94,11 @@ export default {
 </script>
 
 <style>
+body{
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
 #teste {
   border: 2px solid black;
   color: red;
@@ -159,13 +173,12 @@ export default {
   cursor: pointer;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+  border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   display: flex;
   line-height: 20px;
-
 }
-#Cats{
+.Cats {
   position: absolute;
   margin: 0px 0px 0px 210px;
   width: 100%;
@@ -173,7 +186,7 @@ export default {
   align-items: center;
   display: flex;
 }
-#descricao{
+#descricao {
   position: absolute;
   margin-top: 300px;
   height: 200px;
@@ -182,10 +195,36 @@ export default {
   border-bottom-right-radius: 20px;
   background-color: rgba(58, 58, 58, 0.575);
 }
-#img-prod{
-height: 300px;
-width: 450px;
-    border-top-left-radius: 20px;
+#img-prod {
+  height: 300px;
+  width: 450px;
+  border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+}
+#prod{
+  width: 250px;
+  font-size: 11px;
+  text-align: center;
+  background-color: black;
+  height: 300px;
+  border: 1px solid white;
+  color: white;
+  margin: 40px 5px 0px 0px;
+  text-align: center;
+  cursor: pointer;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  line-height: 20px;
+}
+.Prod {
+  position: absolute;
+  margin: 0px 0px 0px 40px;
+  width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  display: flex;
 }
 </style>

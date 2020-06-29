@@ -13,6 +13,7 @@
     <input class="geral" v-mask="'###.###.###-##'" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF"  v-model="cpf" />
     <br/>
     <input class="geral" type="text" v-mask="'#####-###'" v-on:keyup.13="buscar" placeholder="CEP" v-model="cep"/>
+    <button  @click="buscarCep">cep</button>
     <br />
     <input class="geral" type="text" placeholder="Cidade" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="20" v-model="cidade" />
     <br />
@@ -88,11 +89,12 @@ export default {
         if (theEvent.preventDefault) theEvent.preventDefault();
       }
     },
-    buscar: function() {
-      // axios
-      //   .get("viacep.com.br/ws/" + this.cep + "/json/")
-      //   .then(cep => (this.sla = cep.data));
-      // console.log(this.sla);
+    buscarCep: function() {
+      let cep = 'https://viacep.com.br/ws/' + this.cep.replace(/\D/g,'') + '/json/';
+      axios
+        .get(cep)
+        .then(cep => (this.sla = cep.data));
+      console.log(this.sla);
     },
     salvarCadastro: function() {
         if (
@@ -112,11 +114,11 @@ export default {
           axios
             .post("http://localhost:55537/api/Cliente", {
               nome: this.nome,
-              telefone: this.telefone,
+              telefone: this.telefone.replace(/\D/g,''),
               email: this.email,
               senha: this.senha,
-              cpf: this.cpf,
-              cep: this.cep,
+              cpf: this.cpf.replace(/\D/g,''),
+              cep: this.cep.replace(/\D/g,''),
               cidade: this.cidade,
               logradouro: this.logradouro,
               bairro: this.bairro,
