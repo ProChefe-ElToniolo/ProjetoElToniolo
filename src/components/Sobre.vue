@@ -9,7 +9,7 @@
                 <ol>Dias de semana: </ol>
                 <ol>Finais de Semana e Feriados:</ol>
             </p>
-            <p>Email:eltoniolopizzaria@gmail.com</p>
+            <p>Email: eltoniolopizzaria@gmail.com</p>
             <i class="fa fa-envelope-o"></i>
             <input type="text" placeholder="Mande-nos sua opinião!">
             <img id="iconeEmail" src="https://img.icons8.com/ios-filled/50/000000/send-mass-email.png"/>
@@ -17,9 +17,9 @@
             <img id="iconeTelefone" src="https://img.icons8.com/ios-filled/50/000000/phone-not-being-used.png"/>
             <p title="Ligar!">Telefone: (47) 94865-2793</p>
             <p>Acesse nossas redes sociais:</p>
-            <a href="" title="Facebook"><img id="iconeFacebook" src="https://img.icons8.com/android/24/000000/facebook.png"/></a>
-            <a href="" title="Twitter"><img id="iconeTwitter" src="https://img.icons8.com/android/24/000000/twitter.png"/></a>
-            <a href="" title="Instagram"><img id="iconeInstagram" src="https://img.icons8.com/android/24/000000/instagram.png"/></a>
+            <a href="https://www.facebook.com/Pizzaria-El-Toniolo-111382537306668/" title="Facebook"><img id="iconeFacebook" src="https://img.icons8.com/android/24/000000/facebook.png"/></a>
+            <a href="https://twitter.com/ElToniolo" title="Twitter"><img id="iconeTwitter" src="https://img.icons8.com/android/24/000000/twitter.png"/></a>
+            <a href="https://www.instagram.com/pizzariaeltoniolo/" title="Instagram"><img id="iconeInstagram" src="https://img.icons8.com/android/24/000000/instagram.png"/></a>
         </div>
         <button @click="irDelivery" id="pedido">FAÇA SEU PEDIDO!</button>
         <div id="Sobre" v-if="telaPedidos">
