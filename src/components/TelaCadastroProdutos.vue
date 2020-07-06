@@ -1,12 +1,10 @@
 <template>
   <div id="fundo1">
     <div id="formulario">
-      <br />
       <div class="meu-box">
-        <input type="text" class="inputz" placeholder="Nome Completo" v-model="nome" />
-        <label for="nomeCompleto" class="label-nome">Nome Completo</label>
+        <input type="text" class="inputz" placeholder="Nome do Produto" v-model="nome" />
+        <label for="nomeCompleto" class="label-nome">Nome do Produto</label>
       </div>
-      <br />
       <textarea
         id="inputMulti"
         rows="10"
@@ -15,29 +13,28 @@
         maxlength="200"
         placeholder="Descrição"
       ></textarea>
-      <br />
+
       <div class="meu-box">
         <input type="Number" class="inputz" v-model="preco" placeholder="Preço" />
-        <label for="nomeCompleto" class="label-nome">Preço</label>
+        <label for="nomeCompleto" class="label-preco">Preço</label>
       </div>
-      <br />
+
       <select v-model="idCat" class="cbx">
         <option value="0" selected disabled>Categoria desejada</option>
         <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
       </select>
-      <br />
       <select v-model="medida" class="cbx">
         <option value="0" selected disabled>Unidade de Medida</option>
         <option :value="med.id" v-for="med in medidas" :key="med.id">{{med.nome}}</option>
       </select>
-      <br />
+           <br/>
       <button class="button" @click="salvar">Salvar</button>
-    </div>
-    <select class="cbx" @change="filtro(filtrarCat)" v-model="filtrarCat">
+      <br>
+      <label id="fil">FILTROS</label>
+    <select id="cbxFiltro" @change="filtro(filtrarCat)" v-model="filtrarCat">
       <option value="0">Todos Produtos</option>
       <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
     </select>
-    <div class="pos-tabel">
       <table class="tabela-st">
         <thead>
           <tr>
@@ -54,16 +51,20 @@
             <td>{{prod.categoriaProd}}</td>
             <td>{{prod.descricao}}</td>
             <td>{{"R$ " + (prod.preco)}}</td>
-            <td @click="excluir(prod.id)"><img id="lixo" src="../imagens/lixo.png" alt=""></td>
+            <td @click="excluir(prod.id)">
+              <img id="lixo" src="../imagens/lixo.png" alt />
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
+    <div id="listIng">
     <div class="cb" :value="ing.id" v-for="ing in ingredientes" :key="ing.id">
-      <input type="checkbox" id="cbIng" unchecked />
-      {{ing.nome}}
+      <input type="checkbox" id="cbIng" @change="addIng(ing.id)" />
+      <label id="ing">{{ing.nome}}</label>
     </div>
-  </div>
+    </div>
+    </div>
 </template>
 
 <script>
@@ -81,6 +82,7 @@ export default {
       medida: 0,
       prods: [],
       ProdSelecionado: [],
+      ingSelecionados: [],
       existe: false,
       invalido: false,
       todosProds: [],
@@ -95,7 +97,6 @@ export default {
     },
     salvar: function() {
       this.prods.filter(e => {
-        console.log("e");
         if (e.id == this.ProdSelecionado.id && this.ProdSelecionado[1] != "") {
           this.existe = true;
         }
@@ -119,29 +120,51 @@ export default {
         this.idCat != 0
       ) {
         alert("entrouPra salvar");
-        axios.post("http://localhost:55537/api/Produto", {
-          nome: this.nome,
-          descricao: this.descricao,
-          preco: this.preco,
-          medida_tamanho: this.medida,
-          id_categoria: this.idCat,
-          imagem: this.imagem
-        }).then(res => (this.idExcluir = res.data));
-        this.prods.push({
-          id: this.idExcluir,
-          nome: this.nome,
-          descricao: this.descricao,
-          preco: this.preco,
-          medida_tamanho: this.medida,
-          id_categoria: this.idCat,
-          categoriaProd: this.categorias.filter(u => u.id == this.idCat)[0].nome,
-          imagem: this.imagem
+        axios
+          .post("http://localhost:55537/api/Produto", {
+            nome: this.nome,
+            descricao: this.descricao,
+            preco: this.preco,
+            medida_tamanho: this.medida,
+            id_categoria: this.idCat,
+            imagem: this.imagem
+          }).then(res => (this.idExcluir = res.data))
+
+        setTimeout(function(){
+          this.prods.push({
+            id: this.idExcluir,
+            nome: this.nome,
+            descricao: this.descricao,
+            preco: this.preco,
+            medida_tamanho: this.medida,
+            id_categoria: this.idCat,
+            categoriaProd: this.categorias.filter(u => u.id == this.idCat)[0].nome,
+            imagem: this.imagem
+          });
+        this.ingSelecionados.forEach(e => {
+          alert(this.idExcluir);
+          axios.post("http://localhost:55537/api/Produto_Ingrediente", {
+            id_produto: this.idExcluir,
+            id_ingrediente: e
+          });
         });
+        }, 2000)
       } else {
         alert("PREENCHE TUDO TLGD");
       }
       this.existe = false;
       this.limpa();
+    },
+    addIng: function(ingId) {
+      alert(ingId);
+      var cb = document.getElementById("cbIng");
+      var ja = this.ingSelecionados.indexOf(ingId);
+      alert(ja);
+      if (cb.checked && ja == -1) {
+        this.ingSelecionados.push(ingId);
+      } else {
+        this.ingSelecionados.splice(this.ingSelecionados.indexOf(ingId), 1);
+      }
     },
     selecionar: function(id) {
       this.selecionado = id;
@@ -160,9 +183,7 @@ export default {
     },
     excluir: function(id) {
       if (id != null) {
-        axios.delete(
-          "http://localhost:55537/api/Produto/" + id
-        );
+        axios.delete("http://localhost:55537/api/Produto/" + id);
         alert(this.prods.indexOf(id));
         this.prods.splice(this.prods.indexOf(id), 1);
         this.invalido = false;
@@ -205,7 +226,7 @@ export default {
       .get("http://localhost:55537/api/Ingrediente")
       .then(ing => (this.ingredientes = ing.data));
     console.log(this.ingredientes);
-        axios
+    axios
       .get("http://localhost:55537/api/Produto")
       .then(produto => (this.todosProds = produto.data));
   }
@@ -213,34 +234,44 @@ export default {
 </script>
 
 <style>
-body {
+body, html{
   width: 100%;
   height: 100%;
+  background-color: rgba(133, 131, 131, 0.76);
+  overflow: auto;
 }
 #formulario {
+  border-radius: 3px solid black;
   margin: 20px 5% 0px 5%;
 }
 #fundo1 {
-  display: relative;
+  background-color: rgba(133, 131, 131, 0.76);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
 }
 #imgProd {
   width: 80px;
   height: 80px;
-}
-.pos-tabel {
-  margin: 20px 0px 0px 8%;
 }
 #output {
   width: 80px;
   height: 80px;
 }
 #inputMulti {
+  padding: 10px;
+  color: white;
+  background-color: #1f2023;
   word-wrap: break-word;
   height: 90px;
+  margin: 0px 0px 0px 10px;
   resize: none;
 }
 .tabela-st {
-  width: 500px;
+  position: absolute;
+  margin: 30px 0px 40px 10px;
+  width: 77%;
   border-collapse: collapse;
 }
 .tabela-st tr:focus-within {
@@ -266,6 +297,8 @@ td {
   color: #ffffff;
 }
 .tabela-st tr {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.445);
   height: auto;
   cursor: pointer;
 }
@@ -273,17 +306,35 @@ td {
   position: absolute;
 }
 .cbx {
-  margin: 10px 0px 0px 0px;
-  border: 1px solid black;
-  height: 20px;
-  color: rgba(0, 0, 0, 0.788);
+  position: relative;
+  margin: 10px 0px 0px 10px;
+  border: 2px rgba(83, 83, 83, 0.658) solid;
+  height: auto;
+  background: rgb(34, 34, 34);
+  color: rgba(255, 255, 255, 0.822);
+  border-radius: 6px;
+}
+#cbxFiltro{
+  position: absolute;
+  margin: 0px 0px 15px 20px;
+  border: 2px rgba(83, 83, 83, 0.658) solid;
+  height: auto;
+  color: white;
+  background: rgb(34, 34, 34);
   border-radius: 6px;
 }
 .inputFormulario {
   margin: 10px 0px 0px 0px;
 }
 .button {
-  margin: 10px 0px 0px 0px;
+  height: 40px;
+  width: 120px;
+  text-align: center;
+  font-size: 14px;
+  margin: 30px 0px 20px 96px;
+  background-color: #1f2023;
+  color: white;
+  border: 3px rgba(83, 83, 83, 0.658) solid;
 }
 
 /* d */
@@ -301,44 +352,104 @@ td {
   width: 250px;
   position: relative;
   font-size: 16px;
-  color: #5b5b5b;
+  color: #ffffff;
   border: 1px rgba(83, 83, 83, 0.658) solid;
+  margin: 10px;
+  background-color: #1f2023;
   padding: 10px 10px 10px 15px;
   box-sizing: content-box;
   z-index: 2;
 }
 
 .label-nome {
-  width: 200px;
+  text-align: center;
+  border-radius: 2px;
+  width: 110px;
   height: 14px;
-  margin-left: 5px;
+  margin: 0px 0px 0px 5px;
   position: absolute;
-  background: white;
-  color: rgb(90, 90, 90);
+  background-color: #1f2023;
+  color: rgb(255, 255, 255);
   font-weight: bold;
-  top: 0;
+  top: 17%;
   bottom: 0;
-  left: 0;
+  left: 3%;
   right: 0;
   transition: 0.5s;
 }
-
+.label-preco {
+  text-align: center;
+  border-radius: 2px;
+  width: 50px;
+  height: 14px;
+  margin: 0px 0px 0px 5px;
+  position: absolute;
+  background-color: #1f2023;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  top: 16%;
+  bottom: 0;
+  left: 3%;
+  right: 0;
+  transition: 0.5s;
+}
+/*DESATIVA AS SETAS DE NÚMERO*/
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 .inputz:focus + .label-nome {
+  /* margin: 10px; */
   z-index: 3;
-  color: rgb(90, 90, 90);
-  top: -20%;
+  color: rgb(255, 255, 255);
+  top: -0%;
+  left: 3%;
   transition: 0.2s;
 }
-.cb {
-  width: auto;
-  height: auto;
-  margin: 0px;
+.inputz:focus + .label-preco {
+  /* margin: 10px; */
+  z-index: 3;
+  color: rgb(255, 255, 255);
+  top: -0%;
+  left: 3%;
+  transition: 0.2s;
 }
 #cbIng {
   width: auto;
-  margin: 0px;
+  font-size: 14px;
+  margin: 8px 0px 0px 10px;
 }
-#lixo{
-  margin: 0px 0px 0px 18px;
+#lixo {
+  margin: 0px 15px 0px 20px;
 }
+
+#fil{
+  margin: 0px 0px 0px 10px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: rgb(0, 0, 0);
+}
+/*TROCA A COR DA PLACEHOLDER*/
+::-webkit-input-placeholder {
+   color: white;
+}
+#listIng{
+  margin: 30px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.664);
+  border-radius: 5px;
+  color: rgb(255, 255, 255);  
+  width: 300px;
+  height: 300px;
+  overflow: auto;
+  background-color: #1f2023;
+}
+#ing{
+  margin: 0px 0px 0px 5px;
+  font-size: 14px;
+  font-weight:inherit;
+}
+
 </style>

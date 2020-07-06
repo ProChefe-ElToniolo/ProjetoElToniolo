@@ -1,13 +1,8 @@
 <template>
   <div class="topo">
     <h1>Bem Vindo a Tela Pedidos</h1>
-    <div v-for="prods in produtos" :key="prods.id">
-      <div id="pizzas">
-        {{prods.nome}}
-        </div>
     </div>
 
-  </div>
 </template>
 
 <script>

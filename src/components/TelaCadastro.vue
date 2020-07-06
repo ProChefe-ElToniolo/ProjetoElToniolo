@@ -12,8 +12,7 @@
     <br />
     <input class="geral" v-mask="'###.###.###-##'" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF"  v-model="cpf" />
     <br/>
-    <input class="geral" type="text" v-mask="'#####-###'" v-on:keyup.13="buscar" placeholder="CEP" v-model="cep"/>
-    <button  @click="buscarCep">cep</button>
+    <input class="geral" type="text" v-mask="'#####-###'" placeholder="CEP" v-model="cep" @change="buscarCep"/>
     <br />
     <input class="geral" type="text" placeholder="Cidade" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="20" v-model="cidade" />
     <br />
@@ -32,9 +31,9 @@
     <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button>
   </div>
 </template>
-
 <script>
 const axios = require("axios");
+import cep from 'cep-promise'
 export default {
   data: function() {
     return {
@@ -50,6 +49,7 @@ export default {
       uf: "",
       complemento: "",
       numero: "",
+      checkbox: false,
       endereco: [],
       sla: [],
       existe: false
@@ -90,11 +90,8 @@ export default {
       }
     },
     buscarCep: function() {
-      let cep = 'https://viacep.com.br/ws/' + this.cep.replace(/\D/g,'') + '/json/';
-      axios
-        .get(cep)
-        .then(cep => (this.sla = cep.data));
-      console.log(this.sla);
+      var cepLimpo = this.cep.replace(/\D/g, '')
+         cep(cepLimpo).then(console.log)
     },
     salvarCadastro: function() {
         if (

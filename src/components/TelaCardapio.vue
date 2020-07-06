@@ -4,7 +4,7 @@
       <div v-for="cat in catProd" :key="cat" id="caixona">
         <img src="../imagens/produto.jpg" id="img-prod" @click="listar(cat)" />
         <div id="descricao">
-          <label class="legenda">{{cat}}</label>
+          <label id="legenda">{{cat}}</label>
         </div>
       </div>
     </div>
@@ -60,15 +60,14 @@ export default {
       });
     },
     carrega: function() {
-      this.categoriasProdutos = this.produtos.reduce((init, current) => {
-        if (
-          init.length === 0 ||
-          init[init.length - 1] !== current.categoriaProd
-        ) {
-          init.push(current.categoriaProd);
-        }
-        return init;
-      }, []);
+      this.categoriasProdutos = this.categoriasProdutos.sort()
+      console.log(this.categoriasProdutos)
+      // this.categoriasProdutos = this.produtos.reduce((init, current) => {
+      //   if (init.length === 0 || init[init.length - 1] !== current.categoriaProd) {
+      //     init.push(current.categoriaProd);
+      //   }
+      //   return init;
+      // }, []);
     }
   },
   mounted() {
@@ -156,10 +155,6 @@ body{
   width: 120px;
   height: 80px;
 }
-.legenda {
-  margin-top: 81px;
-  color: black;
-}
 #caixona {
   width: 450px;
   font-size: 11px;
@@ -191,9 +186,15 @@ body{
   margin-top: 300px;
   height: 200px;
   width: 450px;
+  color: white;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   background-color: rgba(58, 58, 58, 0.575);
+}
+#legenda{
+  margin: 50px;
+  color: white;
+  font-size: 60px;
 }
 #img-prod {
   height: 300px;

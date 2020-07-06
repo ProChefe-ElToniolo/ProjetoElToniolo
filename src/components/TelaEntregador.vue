@@ -2,8 +2,8 @@
   <div>
     <div>
       <h1>Bem Vindo a Tela de Entregador</h1>
-      <select v-model="nomeEntregador" @change="SelecionarPedido(nomeEntregador)">
-        <option value="0" selected disabled>Selecione o ID do entregador</option>
+      <select v-model="nomeEntregador" @change="SelecionarPedido(nomeEntregador)" class="cbx">
+        <option value="0" selected disabled>Entregador</option>
         <option v-for="user in listarEntregador" :key="user.id">{{user.nome}}</option>
       </select>
     </div>
@@ -25,7 +25,6 @@
         </tr>
       </tbody>
     </table>
-    <button @click="IrParaTelaMenuAdmin">Voltar a Tela Menu Admin</button>
   </div>
 </template>
 
@@ -39,7 +38,7 @@ export default {
       usuariosEntregador: [],
       pedidos: [],
       pedidosEntregador: [],
-      nomeEntregador: "",
+      nomeEntregador: 0,
       entregadorSelecionado: [],
       entregaCliente: 0
     };
