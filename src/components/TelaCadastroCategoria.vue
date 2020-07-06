@@ -111,7 +111,8 @@ export default {
             this.contador++
             this.aparecer = true
           } 
-        }).then(resp => console.log("eae"))
+        })
+        // .then(resp => console.log("eae", resp))
       if(vetorProdutoIngrediente == 0 || this.contador == 0){
         console.log("oi");
           this.aparecer = false

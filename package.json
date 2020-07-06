@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "cep-promise": "^3.0.9",
     "core-js": "^3.6.4",
     "v-mask": "^2.2.1",
     "vue": "^2.6.11",

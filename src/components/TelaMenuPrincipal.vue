@@ -142,8 +142,9 @@ export default {
         alert("Digite algo!")
         }
       else{
-                alert("erou");
-        this.senhaIncorreta = true
+        this.senhaIncorreta = true        
+        this.email = "",
+        this.senha = ""
       }
         console.log(this.senhaIncorreta);
     },
