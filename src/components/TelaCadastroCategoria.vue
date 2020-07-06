@@ -9,7 +9,6 @@
     </ul>
 
     <button @click="SalvarCategoria">Salvar Categoria</button>
-    <button @click="trocar">Excluir Categoria</button>
     <!-- v-bind:aparecer="true" -->
     <div id="decidir" v-if="aparecer">
       <button @click="decisao">OK</button>
@@ -22,12 +21,14 @@
         <tr>
           <th>ID</th>
           <th>Nome</th>
+          <th>Excluir</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="cat in categorias" :key="cat.id" @click="SelecionarCategoria(cat.id)">
           <td>{{cat.id}}</td>
           <td>{{cat.nome}}</td>
+          <td @click="Utiliza"><img id="lixo" src="../imagens/lixo.png" alt=""></td>
         </tr>
       </tbody>
     </table>
@@ -46,7 +47,9 @@ export default {
       aparecer: false,
       categoriasAlterar: [],
       verificado: false,
-      produtos:[]
+      produtos:[],
+      ingredientes:[],
+      contador: 0
     };
   },
   methods: {
@@ -97,15 +100,22 @@ export default {
         this.aparecer = false;
     },
 
-    utilizaOuNProdutoCategoria:function(){
-      let contador = 0
-      this.produtos.filter(p => {
-        if(this.categoriasAlterar.id == p.id_categoria && contador < 1){
-          alert("Existe um produto que utiiza desta categoria")
-          contador++
-          this.aparecer = false;
-        }
-      })
+    Utiliza:function(){
+      this.contador = 0
+      this.aparecer = false
+      let vetorProdutoIngrediente = [].concat(this.produtos, this.ingredientes)
+      console.log(vetorProdutoIngrediente);
+      vetorProdutoIngrediente.filter(p => {
+          if(this.categoriasAlterar.id == p.id_categoria && this.contador == 0){
+            alert("Existe um produto ou ingrediente que utiiza desta categoria")
+            this.contador++
+            this.aparecer = true
+          } 
+        }).then(resp => console.log("eae"))
+      if(vetorProdutoIngrediente == 0 || this.contador == 0){
+        console.log("oi");
+          this.aparecer = false
+      }
     },
 
     ExcluirCategoria: function() {
@@ -115,11 +125,6 @@ export default {
         )
         .then(resp => console.log(resp.data));
       window.location.reload();
-    },
-
-    trocar: function(){
-      this.aparecer = true;
-      this.utilizaOuNProdutoCategoria();
     },
 
     fechar: function(){
@@ -135,6 +140,10 @@ export default {
     axios
       .get("http://localhost:55537/api/Produto")
       .then(produto => (this.produtos = produto.data))
+
+    axios
+      .get("http://localhost:55537/api/Ingrediente")
+      .then(ingrediente => (this.ingredientes = ingrediente.data))
   }
 };
 </script>
@@ -148,4 +157,7 @@ export default {
   border: 3px solid black;
 }
 
+#lixo{
+  margin: 0px 0px 0px 18px;
+}
 </style>
