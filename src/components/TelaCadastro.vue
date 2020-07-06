@@ -12,8 +12,7 @@
     <br />
     <input class="geral" v-mask="'###.###.###-##'" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF"  v-model="cpf" />
     <br/>
-    <input class="geral" type="text" v-mask="'#####-###'" v-on:keyup.13="buscar" placeholder="CEP" v-model="cep"/>
-    <button  @click="buscarCep">cep</button>
+    <input class="geral" type="text" @change="buscarCep" v-mask="'#####-###'" v-on:keyup.13="buscar" placeholder="CEP" v-model="cep"/>
     <br />
     <input class="geral" type="text" placeholder="Cidade" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="20" v-model="cidade" />
     <br />
@@ -35,6 +34,7 @@
 
 <script>
 const axios = require("axios");
+import * as cep from 'cep-promise'
 export default {
   data: function() {
     return {
@@ -51,8 +51,7 @@ export default {
       complemento: "",
       numero: "",
       endereco: [],
-      sla: [],
-      existe: false
+      checkbox: false
     };
   },
   methods: {
@@ -67,34 +66,17 @@ export default {
       else if(this.checkbox == false){
         senha.type = "password"
       }
-    },
-    onlytext: function(evt){
-      var theEvent = evt || window.event;
-      var key = theEvent.keyCode || theEvent.which;
-      key = String.fromCharCode(key);
-      var regex = ("^[a-zA-Z]+$");
-      if(!regex.test(key)){
-        theEvent.returnValue = false;
-        if (theEvent.preventDefault) theEvent.preventDefault();
-      }
-    },
-    onlynumber: function(evt) {
-      var theEvent = evt || window.event;
-      var key = theEvent.keyCode || theEvent.which;
-      key = String.fromCharCode(key);
-      //var regex = /^[0-9.,]+$/;
-      var regex = /^[0-9.]+$/;
-      if (!regex.test(key)) {
-        theEvent.returnValue = false;
-        if (theEvent.preventDefault) theEvent.preventDefault();
-      }
-    },
+    },    
     buscarCep: function() {
-      let cep = 'https://viacep.com.br/ws/' + this.cep.replace(/\D/g,'') + '/json/';
-      axios
-        .get(cep)
-        .then(cep => (this.sla = cep.data));
-      console.log(this.sla);
+      if(this.cep.length == 9){
+        let cepLimpo = this.cep.replace(/\D/g,'');
+        this.endereco = cep(cepLimpo).then(data =>{
+        this.cidade = data.city
+        this.bairro = data.neighborhood
+        this.logradouro = data.street
+        this.uf = data.state
+        })
+      }
     },
     salvarCadastro: function() {
         if (
