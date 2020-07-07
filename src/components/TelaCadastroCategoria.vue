@@ -104,7 +104,6 @@ export default {
       this.contador = 0
       this.aparecer = false
       let vetorProdutoIngrediente = [].concat(this.produtos, this.ingredientes)
-      console.log(vetorProdutoIngrediente);
       vetorProdutoIngrediente.filter(p => {
           if(this.categoriasAlterar.id == p.id_categoria && this.contador == 0){
             alert("Existe um produto ou ingrediente que utiiza desta categoria")
@@ -114,13 +113,11 @@ export default {
         })
         // .then(resp => console.log("eae", resp))
       if(vetorProdutoIngrediente == 0 || this.contador == 0){
-        console.log("oi");
           this.aparecer = false
       }
     },
 
     ExcluirCategoria: function() {
-      console.log(this.catId);
       axios.delete(
           "http://localhost:55537/api/Categoria/"+this.categoriasAlterar.id
         )
