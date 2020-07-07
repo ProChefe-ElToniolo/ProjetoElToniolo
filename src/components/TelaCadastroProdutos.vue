@@ -5,6 +5,7 @@
         <input type="text" class="inputz" placeholder="Nome do Produto" v-model="nome" />
         <label for="nomeCompleto" class="label-nome">Nome do Produto</label>
       </div>
+
       <textarea
         id="inputMulti"
         rows="10"
@@ -27,14 +28,14 @@
         <option value="0" selected disabled>Unidade de Medida</option>
         <option :value="med.id" v-for="med in medidas" :key="med.id">{{med.nome}}</option>
       </select>
-           <br/>
+      <br />
       <button class="button" @click="salvar">Salvar</button>
-      <br>
+      <br />
       <label id="fil">FILTROS</label>
-    <select id="cbxFiltro" @change="filtro(filtrarCat)" v-model="filtrarCat">
-      <option value="0">Todos Produtos</option>
-      <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
-    </select>
+      <select id="cbxFiltro" @change="filtro(filtrarCat)" v-model="filtrarCat">
+        <option value="0">Todos Produtos</option>
+        <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
+      </select>
       <table class="tabela-st">
         <thead>
           <tr>
@@ -59,12 +60,12 @@
       </table>
     </div>
     <div id="listIng">
-    <div class="cb" :value="ing.id" v-for="ing in ingredientes" :key="ing.id">
-      <input type="checkbox" id="cbIng" @change="addIng(ing.id)" />
-      <label id="ing">{{ing.nome}}</label>
+      <div class="cb" :value="ing.id" v-for="ing in ingredientes" :key="ing.id">
+        <input type="checkbox" id="cbIng" @change="addIng(ing.id)" />
+        <label id="ing">{{ing.nome}}</label>
+      </div>
     </div>
-    </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -128,9 +129,11 @@ export default {
             medida_tamanho: this.medida,
             id_categoria: this.idCat,
             imagem: this.imagem
-          }).then(res => (this.idExcluir = res.data))
-
-        setTimeout(function(){
+          })
+          .then(res => (this.idExcluir = res.data));
+        setTimeout(function() {
+          alert("alo");
+          console.log(this.prods)
           this.prods.push({
             id: this.idExcluir,
             nome: this.nome,
@@ -138,17 +141,19 @@ export default {
             preco: this.preco,
             medida_tamanho: this.medida,
             id_categoria: this.idCat,
-            categoriaProd: this.categorias.filter(u => u.id == this.idCat)[0].nome,
+            categoriaProd: this.categorias.filter(u => u.id == this.idCat)[0]
+              .nome,
             imagem: this.imagem
           });
-        this.ingSelecionados.forEach(e => {
-          alert(this.idExcluir);
-          axios.post("http://localhost:55537/api/Produto_Ingrediente", {
-            id_produto: this.idExcluir,
-            id_ingrediente: e
+          console.log(this.prods);
+          this.ingSelecionados.forEach(e => {
+            alert(this.idExcluir);
+            axios.post("http://localhost:55537/api/Produto_Ingrediente", {
+              id_produto: this.idExcluir,
+              id_ingrediente: e
+            });
           });
-        });
-        }, 2000)
+        }, 2000);
       } else {
         alert("PREENCHE TUDO TLGD");
       }
@@ -234,7 +239,8 @@ export default {
 </script>
 
 <style>
-body, html{
+body,
+html {
   width: 100%;
   height: 100%;
   background-color: rgba(133, 131, 131, 0.76);
@@ -314,7 +320,7 @@ td {
   color: rgba(255, 255, 255, 0.822);
   border-radius: 6px;
 }
-#cbxFiltro{
+#cbxFiltro {
   position: absolute;
   margin: 0px 0px 15px 20px;
   border: 2px rgba(83, 83, 83, 0.658) solid;
@@ -394,10 +400,10 @@ td {
   transition: 0.5s;
 }
 /*DESATIVA AS SETAS DE NÚMERO*/
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 .inputz:focus + .label-nome {
   /* margin: 10px; */
@@ -424,32 +430,32 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0px 15px 0px 20px;
 }
 
-#fil{
+#fil {
   margin: 0px 0px 0px 10px;
   font-size: 15px;
   font-weight: bold;
-  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: rgb(0, 0, 0);
 }
 /*TROCA A COR DA PLACEHOLDER*/
 ::-webkit-input-placeholder {
-   color: white;
+  color: white;
 }
-#listIng{
+#listIng {
   margin: 30px;
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.664);
   border-radius: 5px;
-  color: rgb(255, 255, 255);  
+  color: rgb(255, 255, 255);
   width: 300px;
   height: 300px;
   overflow: auto;
   background-color: #1f2023;
 }
-#ing{
+#ing {
   margin: 0px 0px 0px 5px;
   font-size: 14px;
-  font-weight:inherit;
+  font-weight: inherit;
 }
-
 </style>

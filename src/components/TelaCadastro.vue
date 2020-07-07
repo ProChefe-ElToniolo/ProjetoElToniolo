@@ -91,7 +91,12 @@ export default {
     },
     buscarCep: function() {
       var cepLimpo = this.cep.replace(/\D/g, '')
-         cep(cepLimpo).then(console.log)
+      cep(cepLimpo).then(data =>{
+        this.cidade = data.city
+        this.bairro = data.neighborhood
+        this.logradouro = data.street
+        this.uf = data.state
+      })
     },
     salvarCadastro: function() {
         if (

@@ -224,7 +224,6 @@ body {
   width: 100%;
   padding: 0px;
   margin: 0px;
-  background-color: #f6f6f6;
   font-size: 14px;
   font-weight: 600;
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,

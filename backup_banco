@@ -1,0 +1,241 @@
+USE [pro_chefe]
+GO
+/****** Object:  Table [dbo].[categoria]    Script Date: 07/07/2020 13:38:07 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[categoria](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_categoria] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[cliente]    Script Date: 07/07/2020 13:38:07 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[cliente](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](200) NOT NULL,
+	[telefone] [varchar](50) NOT NULL,
+	[cpf] [varchar](50) NOT NULL,
+	[cep] [varchar](50) NOT NULL,
+	[logradouro] [varchar](255) NOT NULL,
+	[numero] [varchar](50) NOT NULL,
+	[complemento] [varchar](255) NULL,
+	[bairro] [varchar](50) NOT NULL,
+	[uf] [varchar](50) NOT NULL,
+	[cidade] [varchar](255) NOT NULL,
+	[email] [varchar](200) NOT NULL,
+	[senha] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_cliente] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ingrediente]    Script Date: 07/07/2020 13:38:07 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ingrediente](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](60) NOT NULL,
+	[estoque] [int] NULL,
+	[id_categoria] [int] NULL,
+	[id_medida] [int] NULL,
+ CONSTRAINT [PK_ingredientes] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[itens_pedido]    Script Date: 07/07/2020 13:38:07 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[itens_pedido](
+	[id_pedido] [int] NOT NULL,
+	[id_produto] [int] NOT NULL,
+	[quantidade] [int] NOT NULL,
+ CONSTRAINT [PK_itens_pedido] PRIMARY KEY CLUSTERED 
+(
+	[id_pedido] ASC,
+	[id_produto] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[medida]    Script Date: 07/07/2020 13:38:07 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[medida](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](50) NOT NULL,
+	[qnt_sabores] [int] NULL,
+ CONSTRAINT [PK_medida] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[pedidos]    Script Date: 07/07/2020 13:38:07 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[pedidos](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[id_cliente] [int] NOT NULL,
+	[id_entregador] [int] NULL,
+	[processamento] [bit] NOT NULL,
+ CONSTRAINT [PK_delivery] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[produto]    Script Date: 07/07/2020 13:38:08 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[produto](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](50) NOT NULL,
+	[descricao] [varchar](255) NULL,
+	[preco] [decimal](18, 2) NOT NULL,
+	[id_categoria] [int] NOT NULL,
+	[imagem] [varchar](50) NULL,
+	[medida_tamanho] [int] NULL,
+ CONSTRAINT [PK_produto] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[produto_ingrediente]    Script Date: 07/07/2020 13:38:08 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[produto_ingrediente](
+	[id_produto] [int] NOT NULL,
+	[id_ingrediente] [int] NOT NULL,
+	[preco_saida] [decimal](18, 2) NULL,
+ CONSTRAINT [PK_produto_ingrediente_1] PRIMARY KEY CLUSTERED 
+(
+	[id_produto] ASC,
+	[id_ingrediente] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tipo_usuario]    Script Date: 07/07/2020 13:38:08 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tipo_usuario](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_tipo_usuario] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[usuario]    Script Date: 07/07/2020 13:38:08 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[usuario](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](60) NOT NULL,
+	[email] [varchar](200) NOT NULL,
+	[senha] [char](8) NULL,
+	[tipo_usuario] [int] NOT NULL,
+ CONSTRAINT [PK_usuario_1] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[pedidos] ADD  CONSTRAINT [DF_delivery_processamento]  DEFAULT ((0)) FOR [processamento]
+GO
+ALTER TABLE [dbo].[ingrediente]  WITH CHECK ADD  CONSTRAINT [FK_ingrediente_categoria] FOREIGN KEY([id_categoria])
+REFERENCES [dbo].[categoria] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[ingrediente] CHECK CONSTRAINT [FK_ingrediente_categoria]
+GO
+ALTER TABLE [dbo].[ingrediente]  WITH CHECK ADD  CONSTRAINT [FK_ingrediente_ingrediente] FOREIGN KEY([id])
+REFERENCES [dbo].[ingrediente] ([id])
+GO
+ALTER TABLE [dbo].[ingrediente] CHECK CONSTRAINT [FK_ingrediente_ingrediente]
+GO
+ALTER TABLE [dbo].[ingrediente]  WITH CHECK ADD  CONSTRAINT [FK_ingrediente_medida] FOREIGN KEY([id_medida])
+REFERENCES [dbo].[medida] ([id])
+GO
+ALTER TABLE [dbo].[ingrediente] CHECK CONSTRAINT [FK_ingrediente_medida]
+GO
+ALTER TABLE [dbo].[itens_pedido]  WITH CHECK ADD  CONSTRAINT [FK_itens_produto] FOREIGN KEY([id_produto])
+REFERENCES [dbo].[produto] ([id])
+GO
+ALTER TABLE [dbo].[itens_pedido] CHECK CONSTRAINT [FK_itens_produto]
+GO
+ALTER TABLE [dbo].[pedidos]  WITH CHECK ADD  CONSTRAINT [FK_cliente_delivery] FOREIGN KEY([id_cliente])
+REFERENCES [dbo].[cliente] ([id])
+GO
+ALTER TABLE [dbo].[pedidos] CHECK CONSTRAINT [FK_cliente_delivery]
+GO
+ALTER TABLE [dbo].[pedidos]  WITH CHECK ADD  CONSTRAINT [FK_entregador_delivery] FOREIGN KEY([id_entregador])
+REFERENCES [dbo].[usuario] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[pedidos] CHECK CONSTRAINT [FK_entregador_delivery]
+GO
+ALTER TABLE [dbo].[produto]  WITH CHECK ADD  CONSTRAINT [FK_produto_categoria] FOREIGN KEY([id_categoria])
+REFERENCES [dbo].[categoria] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[produto] CHECK CONSTRAINT [FK_produto_categoria]
+GO
+ALTER TABLE [dbo].[produto]  WITH CHECK ADD  CONSTRAINT [FK_produto_medida] FOREIGN KEY([medida_tamanho])
+REFERENCES [dbo].[medida] ([id])
+GO
+ALTER TABLE [dbo].[produto] CHECK CONSTRAINT [FK_produto_medida]
+GO
+ALTER TABLE [dbo].[produto_ingrediente]  WITH CHECK ADD  CONSTRAINT [FK_ingrediente_produto_ingrediente] FOREIGN KEY([id_ingrediente])
+REFERENCES [dbo].[ingrediente] ([id])
+GO
+ALTER TABLE [dbo].[produto_ingrediente] CHECK CONSTRAINT [FK_ingrediente_produto_ingrediente]
+GO
+ALTER TABLE [dbo].[produto_ingrediente]  WITH CHECK ADD  CONSTRAINT [FK_produto_produto_ingrediente] FOREIGN KEY([id_produto])
+REFERENCES [dbo].[produto] ([id])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[produto_ingrediente] CHECK CONSTRAINT [FK_produto_produto_ingrediente]
+GO
+ALTER TABLE [dbo].[usuario]  WITH CHECK ADD  CONSTRAINT [FK_tipo_usuario] FOREIGN KEY([tipo_usuario])
+REFERENCES [dbo].[tipo_usuario] ([id])
+GO
+ALTER TABLE [dbo].[usuario] CHECK CONSTRAINT [FK_tipo_usuario]
+GO
+ALTER TABLE [dbo].[usuario]  WITH CHECK ADD  CONSTRAINT [FK_usuario_usuario] FOREIGN KEY([id])
+REFERENCES [dbo].[usuario] ([id])
+GO
+ALTER TABLE [dbo].[usuario] CHECK CONSTRAINT [FK_usuario_usuario]
+GO

@@ -6,7 +6,7 @@
       <label id="label-Ing">Nome do Ingrediente</label>
     </div>
      <div class="meu-box">
-      <input type="Number" class="inputz" placeholder="Quantidade" v-model="estoque" />
+      <input type="text" class="inputz" placeholder="Quantidade" v-model="estoque" />
       <label id="label-qtd">Quantidade</label>
     </div>
 
@@ -32,7 +32,7 @@
           <td>{{ing.nome}}</td>
           <td>{{ing.nomeCategoria}}</td>
           <td>{{ing.estoque}}</td>
-          <td @click="excluir(prod.id)">
+          <td @click="excluir(ing.id)">
             <img id="imgLixo" src="../imagens/lixo.png" alt />
           </td>
         </tr>
@@ -49,8 +49,9 @@ export default {
       ingredientes: [],
       categorias: [],
       nome: "",
-      estoque: 0,
+      estoque: "",
       idCatIng: 0,
+      idExclur: "",
       ingEscolhido: [],
       existe: false
     };
@@ -71,7 +72,7 @@ export default {
             id_categoria: this.idCatIng,
             estoque: this.estoque
           }
-        );
+        )
       } else {
         axios.post("http://localhost:55537/api/Ingrediente", {
           nome: this.nome,
@@ -92,11 +93,11 @@ export default {
       this.idCatIng = this.ingEscolhido.id_categoria;
       this.estoque = this.ingEscolhido.estoque;
     },
-    excluir: function() {
-      console.log(this.ingEscolhido.id);
+    excluir: function(idIng) {
       axios.delete(
-        "http://localhost:55537/api/Ingrediente/" + this.ingEscolhido.id
+        "http://localhost:55537/api/Ingrediente/" + idIng
       );
+      // this.pedidosEntregador.splice(this.pedidosEntregador.indexOf(id), 1);
     }
   },
   mounted() {
