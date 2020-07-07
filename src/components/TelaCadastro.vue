@@ -49,7 +49,6 @@ export default {
       uf: "",
       complemento: "",
       numero: "",
-      checkbox: false,
       endereco: [],
       checkbox: false
     };
@@ -70,7 +69,7 @@ export default {
     buscarCep: function() {
       if(this.cep.length == 9){
         let cepLimpo = this.cep.replace(/\D/g,'');
-        this.endereco = cep(cepLimpo).then(data =>{
+        cep(cepLimpo).then(data =>{
         this.cidade = data.city
         this.bairro = data.neighborhood
         this.logradouro = data.street
@@ -123,7 +122,6 @@ export default {
 <style>
 html,
 body {
-  background-color: #f6f6f6;
   width: 100%;
   height: 100%;
 }

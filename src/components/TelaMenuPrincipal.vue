@@ -64,7 +64,7 @@
         <TelaCardapio />
       </div>
       <div v-if="visualizarPedidos">
-        <TelaPedidos />
+        <Delivery />
       </div>
       <div v-if="visualizarCadastro">
         <TelaCadastro />
@@ -80,16 +80,16 @@
 <script>
 const axios = require("axios");
 import TelaCardapio from "../components/TelaCardapio.vue";
-import TelaPedidos from "../components/TelaPedidos.vue";
 import TelaCadastro from "../components/TelaCadastro.vue";
 import TelaSobre from "../components/Sobre.vue";
+import Delivery from "../components/Delivery.vue"
 
 export default {
   components: {
     TelaCardapio,
-    TelaPedidos,
     TelaCadastro,
-    TelaSobre
+    TelaSobre,
+    Delivery
   },
   data: function() {
     return {
@@ -220,8 +220,7 @@ export default {
 </script>
 
 <style>
-html,
-body {
+body,html {
   height: 100%;
   width: 100%;
   padding: 0px;
@@ -232,13 +231,14 @@ body {
     sans-serif;
   overflow: hidden;
   overflow-y: scroll;
-}
+} 
 
 #container {
-  position: absolute;
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
+  background-color: rgba(133, 131, 131, 0.76);
 }
 
 #imgFundo {

@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import ViewTelaPrincipal from '../views/ViewTelaPrincipal.vue'
 import ViewTelaCadastro from '../views/ViewTelaCadastro.vue'
 import ViewTelaMenuAdmin from '../views/ViewTelaMenuAdmin.vue'
-import GerenciamentoPedidos from '../views/GerenciamentoPedidos.vue'
 import Ingredientes from '../views/Ingredientes.vue'
 
 Vue.use(VueRouter)
@@ -21,10 +20,6 @@ const routes = [
     path: '/ViewTelaMenuAdmin',
     name: 'ViewTelaMenuAdmin',
     component: ViewTelaMenuAdmin
-  }, {
-    path: '/GerenciamentoPedidos',
-    name: 'GerenciamentoPedidos',
-    component: GerenciamentoPedidos
   }, {
     path: '/Ingredientes',
     name: 'Ingredientes',

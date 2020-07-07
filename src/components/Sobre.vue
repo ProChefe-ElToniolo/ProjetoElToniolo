@@ -46,10 +46,6 @@ export default {
 </script>
 
 <style>
-body, html{
-  width: 100%;
-  height: 100%;
-}
 #contato{
   width: 300px;
   height: 320px;
