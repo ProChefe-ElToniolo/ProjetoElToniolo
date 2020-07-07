@@ -29,6 +29,9 @@
     <button id="botãoCadastrar" @click="salvarCadastro">Cadastrar</button>
     <br/>
     <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button>
+    <br>
+    <span v-if="mostrarSucesso">Cadastrado com sucesso!</span>
+    <span v-if="preencherCorreto">Preencha os dados corretamente</span>
   </div>
 </template>
 <script>
@@ -50,7 +53,9 @@ export default {
       complemento: "",
       numero: "",
       checkbox: false,
-      endereco: []
+      endereco: [],
+      mostrarSucesso: false,
+      preencherCorreto: false
     };
   },
   methods: {
@@ -78,6 +83,7 @@ export default {
       }
     },
     salvarCadastro: function() {
+      this.preencherCorreto = false
         if (
           this.nome != "" &&
           this.telefone != "" &&
@@ -109,10 +115,23 @@ export default {
             .then(resp => {
               console.log(resp.data);
             });
-            alert("Cadastrado com sucesso!")
-            window.location.reload()
+            // alert("Cadastrado com sucesso!")
+            this.nome = "",
+            this.telefone = "",
+            this.email = "",
+            this.senha = "",
+            this.cpf = "",
+            this.cep = "",
+            this.cidade = "",
+            this.logradouro = "",
+            this.bairro = "",
+            this.numero = "",
+            this.uf = "",
+            this.complemento = ""
+
+            this.mostrarSucesso = true
         } else{
-            alert("Preencha os dados corretamente!")
+            this.preencherCorreto = true
         }
       }
     }
