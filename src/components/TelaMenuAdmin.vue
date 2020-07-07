@@ -132,7 +132,7 @@ export default {
   height: 100%;
   width: 100%;
   padding: 0px;
-  background-color: #f6f6f6;
+  background-color: rgba(133, 131, 131, 0.76);
 }
 #imgFundo {
   width: 100%;
