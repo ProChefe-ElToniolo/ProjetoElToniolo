@@ -31,12 +31,15 @@
       </table>
     </div>
 
+<<<<<<< HEAD
     <!-- zoeira (pode excluir) -->
     <div id="zoeirinha"></div>
     <div id="hiagoNoia"></div>
     <div id="toniolo"></div>
 
   </div>
+=======
+>>>>>>> 9d92d74fd9209b8f1aeb9d4e5d6b6a56be38bf4e
 </template>
 
 <script>

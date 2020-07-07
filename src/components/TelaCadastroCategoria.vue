@@ -110,8 +110,7 @@ export default {
             this.contador++
             this.aparecer = true
           } 
-        })
-        // .then(resp => console.log("eae", resp))
+        }).then(resp => console.log("eae"+resp))
       if(vetorProdutoIngrediente == 0 || this.contador == 0){
           this.aparecer = false
       }
@@ -147,6 +146,7 @@ export default {
 </script>
 
 <style>
+
 #decidir{
   margin: 10px;
   width: 100px;

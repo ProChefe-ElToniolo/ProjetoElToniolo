@@ -24,18 +24,7 @@
             </ul>
           </nav>
           <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
-          <div id="caixa-login" v-if="ocultarMenuLogin == false">
-            <div id="menu-bar">
-              <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
-              <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha"/>
-              <br>
-              <label v-if="senhaIncorreta" id="labelSenhaIncorreta">Credenciais Incorretas</label>
-              <button id="botao-entrar" @click="entrar">Entrar</button>
-              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox">Mostrar Senha
-              <br />
-              <button @click="Cadastro">Cadastre-se caso ainda não possua uma conta</button>
-            </div>
-          </div>
+          
 
           <img src="../imagens/logopizza.png" id="logo" @click="Reset" />
           <button
@@ -43,22 +32,31 @@
             @click="logar"
             v-if="ocultarBotaoLogin"
           >FAZER LOGIN OU CADASTRAR-SE</button>
+          <!-- CLICAR ABRE O PERFIL -->
+          <button id="perfil" v-if="logado">
+            <img src="../imagens/comercial.png" id="userlogo" @click="Perfil" />
+            <label id="labelLogado">{{NomePessoaLogada}}</label>
+          </button>
           <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
-          <img src="../imagens/comercial.png" id="userlogo" @click="Perfil" />
-          <label id="labelLogado" v-if="logado">Logado:{{NomePessoaLogada}}</label>
         </div>
-         
+            <transition name="bounce">         
+          <div id="modal-login"  v-if="ocultarMenuLogin == false">
             <div id="menu-bar" v-if="ocultarMenuLogin == false">
+              <button id="fecharLogin" @click="logar">x</button>
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
               <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha" />
-              <button id="botao-entrar" @click="entrar">Entrar</button>
+              <br>
               <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox" />
+              <br>
+              <button id="botao-entrar" @click="entrar">Entrar</button>
               <br />
-              <button @click="Cadastro">Cadastre-se caso ainda não possua uma conta</button>
-            </div>
-          
+              <button @click="Cadastro" id="cadastrarse" >Cadastre-se caso ainda não possua uma conta</button>
+            </div>  
+          </div>        
+            </transition>
       </div>
-      <div id="sombra-menu"></div>
+      <!-- <div id="sombra-menu"></div> -->
+      
       <div v-if="visualizarCardapio">
         <TelaCardapio />
       </div>
@@ -72,7 +70,7 @@
         <TelaSobre />
       </div>
     </div>
-    <div id="menu-rodape"></div>
+    <!-- <div id="menu-rodape"></div> -->
   </div>
 </template>
 
@@ -107,14 +105,18 @@ export default {
       visualizarCadastro: false,
       categorias: [],
       open: false,
-      checkbox:false,
-      logCorreto:false,
+      checkbox: false,
+      logCorreto: false,
       senhaIncorreta: false
-    }
+    };
   },
   methods: {
     logar: function() {
+      if(this.ocultarMenuLogin == true){
       return (this.ocultarMenuLogin = false);
+      }else{
+        return (this.ocultarMenuLogin = true);
+      }
     },
     entrar: function() {
       this.clientes.filter(c => {
@@ -126,8 +128,8 @@ export default {
           this.ocultarBotaoLogin = false;
           this.botaoSair = true;
           sessionStorage.setItem("usuarioLogado", JSON.stringify(c));
-          console.log(sessionStorage.getItem('usuarioLogado'));
-          this.logCorreto = true
+          console.log(sessionStorage.getItem("usuarioLogado"));
+          this.logCorreto = true;
         }
       });
       this.usuarios.filter(u => {
@@ -146,7 +148,7 @@ export default {
         this.email = "",
         this.senha = ""
       }
-        console.log(this.senhaIncorreta);
+      console.log(this.senhaIncorreta);
     },
     mostrarSenha: function() {
       var senha = document.getElementById("senha");
@@ -171,12 +173,12 @@ export default {
     Cardapio: function() {
       this.trocar();
       this.visualizarCardapio = true;
-      this.open=false
+      this.open = false;
     },
     Pedidos: function() {
       this.trocar();
       this.visualizarPedidos = true;
-      this.open=false
+      this.open = false;
     },
     Perfil: function() {
       // if(){
@@ -197,13 +199,13 @@ export default {
     Sobre: function() {
       this.trocar();
       this.visualizarSobre = true;
-      this.open=false
+      this.open = false;
     },
     op: function() {
-      if(this.open==false){
+      if (this.open == false) {
         this.open = true;
-      }else{
-        this.open=false
+      } else {
+        this.open = false;
       }
     }
   },
@@ -225,18 +227,47 @@ body {
   width: 100%;
   padding: 0px;
   margin: 0px;
-  background-color: #f6f6f6;
+  background-color: rgba(133, 131, 131, 0.76);
   font-size: 14px;
   font-weight: 600;
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
   overflow: hidden;
   overflow-y: scroll;
+  
+}
+
+.bounce-enter-active {
+  animation: bounce-in .5s;
+}
+.bounce-leave-active {
+  animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 #container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: flex;
+  background-color: rgba(133, 131, 131, 0.76);
 }
+
+/* #tlgd{
+  margin-top: 72px;
+  width: 71.72%;
+  margin-left: 14.4%;
+} */
 
 #imgFundo {
   width: 100%;
@@ -268,8 +299,8 @@ body {
     padding: 0px 15px 0px 15px !important;
   }
 }
-@media (min-width:899px){
-  #vertical{
+@media (min-width: 899px) {
+  #vertical {
     display: none;
   }
 }
@@ -296,9 +327,9 @@ body {
   margin-left: 14.4%;
 }
 
-#caixaV{
+#caixaV {
   z-index: 1005;
-  height: 100px;  
+  height: 100px;
   margin: 0px 0px 0px 125px;
   background-color: #1f2023;
   width: 80px;
@@ -313,23 +344,22 @@ body {
   position: absolute;
   padding: 0;
   margin: 0;
-
 }
 
-#vertical ul{
+#vertical ul {
   padding: 0;
   margin: 0;
   width: 80px;
 }
 
 #vertical ul li {
-  list-style: none;  
+  list-style: none;
   height: 25px;
   line-height: 25px;
   cursor: pointer;
 }
 
-#vertical ul li:hover{
+#vertical ul li:hover {
   background-color: black;
 }
 
@@ -380,8 +410,8 @@ body {
 }
 
 #userlogo {
-  margin: 20px 0px 0px 61.7%;
   position: absolute;
+  margin: -15px 0px 0px -80px;
   width: 30px;
   height: 30px;
 }
@@ -415,7 +445,7 @@ body {
   width: 60%;
   height: 8.5%;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.555);
+  background-color: rgb(141, 141, 141);
   border: 2px solid rgba(0, 0, 0, 0.671);
   outline: none;
 }
@@ -425,31 +455,55 @@ body {
   width: 25%;
   height: 10%;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.555);
+  background-color: rgb(141, 141, 141);
   border: 2px solid rgba(0, 0, 0, 0.384);
   outline: none;
   cursor: pointer;
 }
 
-#menu-bar {
-  text-align: center;
-  position: absolute;
-  margin: 10% 0px 0px 40%;
-  width: 25%;
-  height: 450%;
-  border: 1px rgb(0, 0, 0) solid;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.877);
+#modal-login{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  right: 0px;
 }
 
-/* #caixa-login {
-  text-align: center;
+#fecharLogin{
+  background-color: rgb(141, 141, 141);
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
   position: absolute;
-  display: flex;
-  margin: 10% 0px 0px 40%;
-  width: 50%;
+  top: -15px;
+  right: -15px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 4px 4px 0 rgba(0,0,0,.4);
+  cursor: pointer;
+  outline: none;
+}
+
+#cadastrarse{
+  background-color: rgb(15, 15, 15);
+  border: none;
+  outline: none;
+  color: white;
+}
+
+#menu-bar {
+  border: 10px solid rgb(32, 32, 32);
+  border-radius: 20px;  
+  text-align: center;
+  position: relative;
+  width: 30%;
   height: 50%;
-} */
+  background-color: rgb(15, 15, 15);
+}
 
 #IrParaTelaCadastro {
   color: rgba(255, 255, 255, 0.555);
@@ -481,16 +535,24 @@ body {
   letter-spacing: 0.05rem;
   font-weight: 700;
   position: absolute;
-  color: red;
+  color: rgb(255, 255, 255);
   border: none;
   font-size: 18px;
   padding-right: 4%;
   padding-left: 7%;
   text-align: right;
-  margin: 25px 0px 0px 60%;
+  margin: -9px 0px 0px -105px;
   outline: none;
   width: auto;
   height: 70px;
+}
+#perfil {
+  width: 200px;
+  height: 70px;
+  background-color: black;
+  margin: 0px 0px 0px 65%;
+  border: none;
+  outline: none;
 }
 
 #botaoSair {
@@ -499,17 +561,18 @@ body {
   letter-spacing: 0.05rem;
   font-weight: 700;
   position: absolute;
-  color: red;
   border: none;
+  outline: none;
+  color: white;
   font-size: 18px;
   padding-right: 3%;
   padding-left: 3%;
   text-align: right;
-  margin: 0px 0px 0px 75%;
+  background-color: black;
+  margin: 0px 0px 0px 90%;
   outline: none;
   width: auto;
   height: 70px;
-  background-color: #006491;
   cursor: pointer;
 }
 
@@ -533,7 +596,7 @@ body {
   margin: 70px 0px 0px 0px;
 }
 
-#labelSenhaIncorreta{
+#labelSenhaIncorreta {
   color: red;
   background-color: green;
   cursor: pointer;

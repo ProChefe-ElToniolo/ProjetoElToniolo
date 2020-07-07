@@ -147,11 +147,11 @@ export default {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
   font-size: 14px;
-  font-weight: 600;
   height: 100%;
+  margin: 0px;
   width: 100%;
   padding: 0px;
-  background-color: #f6f6f6;
+  background-color: rgba(133, 131, 131, 0.76);
 }
 #imgFundo {
   width: 100%;
@@ -215,7 +215,7 @@ export default {
   background-color: rgb(255, 255, 255);
 }
 #menu-lateral {
-  position: absolute;
+  position: fixed;
   width: 150px;
   height: 100%;
   background-color: #1f2023;
