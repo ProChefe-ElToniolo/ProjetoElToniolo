@@ -50,8 +50,7 @@ export default {
       complemento: "",
       numero: "",
       checkbox: false,
-      endereco: [],
-      checkbox: false
+      endereco: []
     };
   },
   methods: {
@@ -69,8 +68,8 @@ export default {
     },    
     buscarCep: function() {
       if(this.cep.length == 9){
-        let cepLimpo = this.cep.replace(/\D/g,'');
-        this.endereco = cep(cepLimpo).then(data =>{
+        var cepLimpo = this.cep.replace(/\D/g, '')
+        cep(cepLimpo).then(data =>{
         this.cidade = data.city
         this.bairro = data.neighborhood
         this.logradouro = data.street
@@ -90,8 +89,7 @@ export default {
           this.logradouro != "" &&
           this.bairro != "" &&
           this.numero != "" &&
-          this.uf != "" &&
-          this.complemento != ""
+          this.uf != "" 
         ) {
           axios
             .post("http://localhost:55537/api/Cliente", {
@@ -111,10 +109,11 @@ export default {
             .then(resp => {
               console.log(resp.data);
             });
+            alert("Cadastrado com sucesso!")
+            window.location.reload()
         } else{
             alert("Preencha os dados corretamente!")
         }
-          window.location.reload()
       }
     }
   }
