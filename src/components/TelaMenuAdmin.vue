@@ -2,10 +2,9 @@
   <div id="container">
     <div id="menu-lateral">
       <div id="slogan">
-        <h4>
-          El Toniolo
-          <img src="../imagens/chef.png" class="img-slogan" />
-        </h4>
+        <br>
+        <button id="botao-login" @click="voltarMenu">El Toniolo</button>
+        <img src="../imagens/chef.png" class="img-slogan" />
       </div>
       <nav>
         <ul class="list-vertical">
@@ -117,19 +116,39 @@ export default {
     Pedidos: function() {
       this.fechar();
       this.pedidosVisualizar = true;
+    },
+    voltarMenu: function(){
+      this.produtosVisualizar = false;
+      this.ingredientesVisualizar = false;
+      this.categoriasVisualizar = false;
+      this.usuarioVisualizar = false;
+      this.entregadorVisualizar = false;
+      this.pedidosVisualizar = false;
     }
   }
 };
 </script>
 
 <style>
+#botao-login{
+  color: white;
+  background-color: #1f2023;
+  border: transparent;
+  font-size: 18px;
+  font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
+    sans-serif;
+  cursor: pointer;
+  font-weight: bold;
+  outline: transparent;
+}
+
 #container {
   display: flex;
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
   font-size: 14px;
-  font-weight: 600;
   height: 100%;
+  margin: 0px;
   width: 100%;
   padding: 0px;
   background-color: rgba(133, 131, 131, 0.76);
@@ -182,6 +201,7 @@ export default {
 }
 .img-li {
   margin: 10px;
+  cursor: pointer;
 }
 #logoPizza {
   position: absolute;
@@ -195,7 +215,7 @@ export default {
   background-color: rgb(255, 255, 255);
 }
 #menu-lateral {
-  position: absolute;
+  position: fixed;
   width: 150px;
   height: 100%;
   background-color: #1f2023;

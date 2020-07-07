@@ -32,9 +32,12 @@
             @click="logar"
             v-if="ocultarBotaoLogin"
           >FAZER LOGIN OU CADASTRAR-SE</button>
+          <!-- CLICAR ABRE O PERFIL -->
+          <button id="perfil" v-if="logado">
+            <img src="../imagens/comercial.png" id="userlogo" @click="Perfil" />
+            <label id="labelLogado">{{NomePessoaLogada}}</label>
+          </button>
           <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
-          <img src="../imagens/comercial.png" id="userlogo" @click="Perfil" />
-          <label id="labelLogado" v-if="logado">Logado:{{NomePessoaLogada}}</label>
         </div>
             <transition name="bounce">         
           <div id="modal-login"  v-if="ocultarMenuLogin == false">
@@ -102,10 +105,10 @@ export default {
       visualizarCadastro: false,
       categorias: [],
       open: false,
-      checkbox:false,
-      logCorreto:false,
+      checkbox: false,
+      logCorreto: false,
       senhaIncorreta: false
-    }
+    };
   },
   methods: {
     logar: function() {
@@ -125,9 +128,9 @@ export default {
           this.ocultarBotaoLogin = false;
           this.botaoSair = true;
           sessionStorage.setItem("usuarioLogado", JSON.stringify(c));
-          console.log(sessionStorage.getItem('usuarioLogado'));
-          this.logCorreto = true
-          }
+          console.log(sessionStorage.getItem("usuarioLogado"));
+          this.logCorreto = true;
+        }
       });
       this.usuarios.filter(u => {
         if (u.email == this.email && u.senha.trim() == this.senha.trim()) {
@@ -141,10 +144,11 @@ export default {
         alert("Digite algo!")
         }
       else{
-                alert("erou");
-        this.senhaIncorreta = true
+        this.senhaIncorreta = true        
+        this.email = "",
+        this.senha = ""
       }
-        console.log(this.senhaIncorreta);
+      console.log(this.senhaIncorreta);
     },
     mostrarSenha: function() {
       var senha = document.getElementById("senha");
@@ -169,12 +173,12 @@ export default {
     Cardapio: function() {
       this.trocar();
       this.visualizarCardapio = true;
-      this.open=false
+      this.open = false;
     },
     Pedidos: function() {
       this.trocar();
       this.visualizarPedidos = true;
-      this.open=false
+      this.open = false;
     },
     Perfil: function() {
       // if(){
@@ -195,13 +199,13 @@ export default {
     Sobre: function() {
       this.trocar();
       this.visualizarSobre = true;
-      this.open=false
+      this.open = false;
     },
     op: function() {
-      if(this.open==false){
+      if (this.open == false) {
         this.open = true;
-      }else{
-        this.open=false
+      } else {
+        this.open = false;
       }
     }
   },
@@ -295,8 +299,8 @@ body {
     padding: 0px 15px 0px 15px !important;
   }
 }
-@media (min-width:899px){
-  #vertical{
+@media (min-width: 899px) {
+  #vertical {
     display: none;
   }
 }
@@ -323,9 +327,9 @@ body {
   margin-left: 14.4%;
 }
 
-#caixaV{
+#caixaV {
   z-index: 1005;
-  height: 100px;  
+  height: 100px;
   margin: 0px 0px 0px 125px;
   background-color: #1f2023;
   width: 80px;
@@ -340,23 +344,22 @@ body {
   position: absolute;
   padding: 0;
   margin: 0;
-
 }
 
-#vertical ul{
+#vertical ul {
   padding: 0;
   margin: 0;
   width: 80px;
 }
 
 #vertical ul li {
-  list-style: none;  
+  list-style: none;
   height: 25px;
   line-height: 25px;
   cursor: pointer;
 }
 
-#vertical ul li:hover{
+#vertical ul li:hover {
   background-color: black;
 }
 
@@ -407,8 +410,8 @@ body {
 }
 
 #userlogo {
-  margin: 20px 0px 0px 61.7%;
   position: absolute;
+  margin: -15px 0px 0px -80px;
   width: 30px;
   height: 30px;
 }
@@ -532,16 +535,24 @@ body {
   letter-spacing: 0.05rem;
   font-weight: 700;
   position: absolute;
-  color: red;
+  color: rgb(255, 255, 255);
   border: none;
   font-size: 18px;
   padding-right: 4%;
   padding-left: 7%;
   text-align: right;
-  margin: 25px 0px 0px 60%;
+  margin: -9px 0px 0px -105px;
   outline: none;
   width: auto;
   height: 70px;
+}
+#perfil {
+  width: 200px;
+  height: 70px;
+  background-color: black;
+  margin: 0px 0px 0px 65%;
+  border: none;
+  outline: none;
 }
 
 #botaoSair {
@@ -550,17 +561,18 @@ body {
   letter-spacing: 0.05rem;
   font-weight: 700;
   position: absolute;
-  color: red;
   border: none;
+  outline: none;
+  color: white;
   font-size: 18px;
   padding-right: 3%;
   padding-left: 3%;
   text-align: right;
-  margin: 0px 0px 0px 75%;
+  background-color: black;
+  margin: 0px 0px 0px 90%;
   outline: none;
   width: auto;
   height: 70px;
-  background-color: #006491;
   cursor: pointer;
 }
 
@@ -584,7 +596,7 @@ body {
   margin: 70px 0px 0px 0px;
 }
 
-#labelSenhaIncorreta{
+#labelSenhaIncorreta {
   color: red;
   background-color: green;
   cursor: pointer;

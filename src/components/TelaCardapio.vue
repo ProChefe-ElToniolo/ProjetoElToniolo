@@ -1,17 +1,17 @@
 <template>
   <div class="topo">
-    <div class="Cats" v-if="catsPrincipal">
-      <div v-for="cat in catProd" :key="cat" id="caixona">
-        <img src="../imagens/produto.jpg" id="img-prod" @click="listar(cat)" />
-        <div id="descricao">
-          <label class="legenda">{{cat}}</label>
+      <div class="Cats" v-if="catsPrincipal">
+        <div v-for="cat in exibirCats" :key="cat" id="caixona">
+          <img src="../imagens/produto.jpg" id="img-prod" @click="listar(cat)" />
+          <div id="descricao">
+            <label id="legenda">{{cat}}</label>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="Prod" v-if="mostrarProds">
-      <div v-for="prod in produtosSelecionados" :key="prod" id="prod">
-        <h4>{{prod.nome}}</h4>
-      </div>
+      <div class="Prod" v-if="mostrarProds">
+        <div v-for="prod in produtosSelecionados" :key="prod" id="prod">
+          <h4>{{prod.nome}}</h4>
+        </div>
     </div>
     <!-- <select class="cbx"> 
       <option >Todos Produtos</option>
@@ -37,10 +37,10 @@ export default {
       produtosSelecionados: [],
       catsProds: [],
       catsPrincipal: true,
+      exibirCats: [],
       mostrarProds: false,
       carregaCat: false,
       categoriasProdutos: []
-      // sla: []
     };
   },
   methods: {
@@ -60,15 +60,13 @@ export default {
       });
     },
     carrega: function() {
-      this.categoriasProdutos = this.produtos.reduce((init, current) => {
-        if (
-          init.length === 0 ||
-          init[init.length - 1] !== current.categoriaProd
-        ) {
-          init.push(current.categoriaProd);
-        }
-        return init;
-      }, []);
+      console.log(this.produtos);
+      var aux = [];
+      this.produtos.filter(u => {
+        aux.push(u.categoriaProd);
+      });
+      this.exibirCats = [...new Set(aux)];
+      console.log(this.exibirCats);
     }
   },
   mounted() {
@@ -77,25 +75,13 @@ export default {
       .then(categoria => (this.categorias = categoria.data));
     axios
       .get("http://localhost:55537/api/Produto")
-      .then(produto => (this.produtos = produto.data));
-  },
-  computed: {
-    catProd() {
-      this.carrega();
-      return this.categoriasProdutos;
-    }
-    // ,
-    // carreProd(){
-    //   this.sla = this.produtosSelecionados
-    //   return this.sla;
-    // }
+      .then(produto => ((this.produtos = produto.data), this.carrega()));
   }
 };
 </script>
 
 <style>
-body{
-  overflow: auto;
+body {
   width: 100%;
   height: 100%;
 }
@@ -159,10 +145,6 @@ body{
   width: 120px;
   height: 80px;
 }
-.legenda {
-  margin-top: 81px;
-  color: black;
-}
 #caixona {
   width: 450px;
   font-size: 11px;
@@ -194,9 +176,15 @@ body{
   margin-top: 300px;
   height: 200px;
   width: 450px;
+  color: white;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   background-color: rgba(58, 58, 58, 0.575);
+}
+#legenda {
+  margin: 50px;
+  color: white;
+  font-size: 60px;
 }
 #img-prod {
   height: 300px;
@@ -204,7 +192,7 @@ body{
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
-#prod{
+#prod {
   width: 250px;
   font-size: 11px;
   text-align: center;
