@@ -155,7 +155,7 @@ export default {
           });
         }, 2000);
       } else {
-        alert("PREENCHE TUDO TLGD");
+        alert("Preencha todos os campos!");
       }
       this.existe = false;
       this.limpa();

@@ -139,11 +139,13 @@ export default {
           this.logCorreto = true;
         }
       });
-      if (this.senha == "" || this.email == "") {
-        alert("Digite algo!");
-      } else {
-        alert("erou");
-        this.senhaIncorreta = true;
+      if(this.senha == "" || this.email == ""){
+        alert("Digite algo!")
+        }
+      else{
+        this.senhaIncorreta = true        
+        this.email = "",
+        this.senha = ""
       }
       console.log(this.senhaIncorreta);
     },
