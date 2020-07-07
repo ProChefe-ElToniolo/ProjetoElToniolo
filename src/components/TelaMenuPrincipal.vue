@@ -24,18 +24,7 @@
             </ul>
           </nav>
           <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
-          <div id="caixa-login" v-if="ocultarMenuLogin == false">
-            <div id="menu-bar">
-              <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
-              <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha" />
-              <br />
-              <label v-if="senhaIncorreta" id="labelSenhaIncorreta">Credenciais Incorretas</label>
-              <button id="botao-entrar" @click="entrar">Entrar</button>
-              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox" />Mostrar Senha
-              <br />
-              <button @click="Cadastro">Cadastre-se caso ainda não possua uma conta</button>
-            </div>
-          </div>
+          
 
           <img src="../imagens/logopizza.png" id="logo" @click="Reset" />
           <button
@@ -50,16 +39,24 @@
           </button>
           <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
         </div>
-        <div id="menu-bar" v-if="ocultarMenuLogin == false">
-          <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
-          <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha" />
-          <button id="botao-entrar" @click="entrar">Entrar</button>
-          <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox" />
-          <br />
-          <button @click="Cadastro">Cadastre-se caso ainda não possua uma conta</button>
-        </div>
+            <transition name="bounce">         
+          <div id="modal-login"  v-if="ocultarMenuLogin == false">
+            <div id="menu-bar" v-if="ocultarMenuLogin == false">
+              <button id="fecharLogin" @click="logar">x</button>
+              <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
+              <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha" />
+              <br>
+              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox" />
+              <br>
+              <button id="botao-entrar" @click="entrar">Entrar</button>
+              <br />
+              <button @click="Cadastro" id="cadastrarse" >Cadastre-se caso ainda não possua uma conta</button>
+            </div>  
+          </div>        
+            </transition>
       </div>
-      <div id="sombra-menu"></div>
+      <!-- <div id="sombra-menu"></div> -->
+      
       <div v-if="visualizarCardapio">
         <TelaCardapio />
       </div>
@@ -73,7 +70,7 @@
         <TelaSobre />
       </div>
     </div>
-    <div id="menu-rodape"></div>
+    <!-- <div id="menu-rodape"></div> -->
   </div>
 </template>
 
@@ -115,7 +112,11 @@ export default {
   },
   methods: {
     logar: function() {
+      if(this.ocultarMenuLogin == true){
       return (this.ocultarMenuLogin = false);
+      }else{
+        return (this.ocultarMenuLogin = true);
+      }
     },
     entrar: function() {
       this.clientes.filter(c => {
@@ -226,12 +227,32 @@ body {
   width: 100%;
   padding: 0px;
   margin: 0px;
+  background-color: rgba(133, 131, 131, 0.76);
   font-size: 14px;
   font-weight: 600;
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
   overflow: hidden;
   overflow-y: scroll;
+  
+}
+
+.bounce-enter-active {
+  animation: bounce-in .5s;
+}
+.bounce-leave-active {
+  animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 #container {
@@ -239,7 +260,14 @@ body {
   width: 100%;
   height: 100%;
   display: flex;
+  background-color: rgba(133, 131, 131, 0.76);
 }
+
+/* #tlgd{
+  margin-top: 72px;
+  width: 71.72%;
+  margin-left: 14.4%;
+} */
 
 #imgFundo {
   width: 100%;
@@ -417,7 +445,7 @@ body {
   width: 60%;
   height: 8.5%;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.555);
+  background-color: rgb(141, 141, 141);
   border: 2px solid rgba(0, 0, 0, 0.671);
   outline: none;
 }
@@ -427,31 +455,55 @@ body {
   width: 25%;
   height: 10%;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.555);
+  background-color: rgb(141, 141, 141);
   border: 2px solid rgba(0, 0, 0, 0.384);
   outline: none;
   cursor: pointer;
 }
 
-#menu-bar {
-  text-align: center;
-  position: absolute;
-  margin: 10% 0px 0px 40%;
-  width: 25%;
-  height: 450%;
-  border: 1px rgb(0, 0, 0) solid;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.877);
+#modal-login{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0px;
+  right: 0px;
 }
 
-/* #caixa-login {
-  text-align: center;
+#fecharLogin{
+  background-color: rgb(141, 141, 141);
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
   position: absolute;
-  display: flex;
-  margin: 10% 0px 0px 40%;
-  width: 50%;
+  top: -15px;
+  right: -15px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 4px 4px 0 rgba(0,0,0,.4);
+  cursor: pointer;
+  outline: none;
+}
+
+#cadastrarse{
+  background-color: rgb(15, 15, 15);
+  border: none;
+  outline: none;
+  color: white;
+}
+
+#menu-bar {
+  border: 10px solid rgb(32, 32, 32);
+  border-radius: 20px;  
+  text-align: center;
+  position: relative;
+  width: 30%;
   height: 50%;
-} */
+  background-color: rgb(15, 15, 15);
+}
 
 #IrParaTelaCadastro {
   color: rgba(255, 255, 255, 0.555);
@@ -552,5 +604,5 @@ body {
   width: 130px;
   border: 2px solid yellow;
   margin: 10px 0 0 40px;
-}
+  }
 </style>
