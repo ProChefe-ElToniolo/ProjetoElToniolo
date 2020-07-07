@@ -138,7 +138,7 @@ export default {
           imagem: this.imagem
         });
       } else {
-        alert("PREENCHE TUDO TLGD");
+        alert("Preencha todos os campos!");
       }
       this.existe = false;
       this.limpa();
