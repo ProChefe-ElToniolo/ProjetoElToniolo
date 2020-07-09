@@ -17,6 +17,9 @@
         <br>
         <input type="text" placeholder="Email" v-model="email">
         <br>
+        <input type="password" placeholder="Senha" v-model="senha" id="senha">
+        <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span>Exibir/Ocultar senha</span>
+        <br>
         <select v-model="idTpUser">
             <option selected disabled value="0">Selecione o Tipo Usuário</option>
             <option :value="tpUser.id" v-for="tpUser in tipoUsuario" :key="tpUser.id">{{tpUser.nome}}</option>
@@ -34,21 +37,33 @@ const axios = require("axios");
 export default {
 data:function(){
     return{
-        nome: '',
-        nomeUsuario: '',
-        email: '',
+        nome: "",
+        nomeUsuario: "",
+        email: "",
+        senha: "",
         idTpUser: 0,
         tipoUsuario: [],
         user: [], 
         mostrarCadastroU: false,
         mostrarCadastroTP: false, 
         preencherCertoUsuario: false,
-        preencherCertoTP: false
+        preencherCertoTP: false,
+        checkbox: false
     } 
 }, methods:{
     IrParaTelaMenuAdmin:function(){
         this.$router.push("/ViewTelaMenuAdmin")
-    },cadastrarTipoUsuario: function(){
+    },
+    mostrarSenha:function(){
+        var senha = document.getElementById("senha")
+        if(this.checkbox == true){
+            senha.type = "text"
+        }
+        else if(this.checkbox == false){
+            senha.type = "password"
+        }
+    },
+    cadastrarTipoUsuario: function(){
         this.preencherCertoTP = false
         if(this.nome != ""){
         axios.post("http://localhost:55537/api/TipoUsuario",{
@@ -66,6 +81,7 @@ data:function(){
         this.preencherCertoUsuario = false
         if(this.nomeUsuario != "" &&
            this.email != "" && 
+           this.senha != "" &&
            this.idTpUser != 0
         ) {
             axios.post("http://localhost:55537/api/Usuario",{
@@ -78,6 +94,7 @@ data:function(){
             });
                 this.nomeUsuario = ""
                 this.email = ""
+                this.senha = ""
                 this.idTpUser = 0
                 this.mostrarCadastroU = true;
         }

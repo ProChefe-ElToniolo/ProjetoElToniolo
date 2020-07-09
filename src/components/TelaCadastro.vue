@@ -8,7 +8,7 @@
     <input class="geral" type="text" placeholder="E-mail" maxlength="50" v-model="email"/>
     <br />
     <input class="geral" type="password" placeholder="Senha" maxlength="20" v-model="senha" id="senha" />
-    <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span>Exibir senha</span>
+    <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span>Exibir/Ocultar senha</span>
     <br />
     <input class="geral" v-mask="'###.###.###-##'" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF"  v-model="cpf" />
     <br/>
