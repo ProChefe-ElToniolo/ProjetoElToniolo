@@ -1,7 +1,8 @@
 <template>
+        <div id="meiuca">
       <div class="topo">
-        <h1>Bem-Vindo à tela sobre</h1>
-        <p>Olá, nós somos El Toniolo Pizzaria</p>
+        <h1>Olá, nós somos ElToniolo Pizzaria</h1>
+        <br>
         <p>História</p>
         <div id="contato">
             <p>Contato</p>
@@ -25,6 +26,7 @@
         <div id="Sobre" v-if="telaPedidos">
             <TelaPedidos/>
         </div>
+        </div>
       </div>
 </template>
 <script>
@@ -46,10 +48,23 @@ export default {
 </script>
 
 <style>
+html, body{
+  width: 100%;
+  height: 100%;
+}
+
 #contato{
   width: 300px;
   height: 320px;
   border: 2px solid black;
+}
+
+#meiuca{
+  display: flex;
+  position: absolute;
+  height: auto;
+  width: 71.72%;
+  margin-left: 14.4%;
 }
 
 #pedido{

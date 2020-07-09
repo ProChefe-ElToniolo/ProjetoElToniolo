@@ -133,7 +133,6 @@ export default {
 }
 
 #princ {
-  background-color: rgba(133, 131, 131, 0.76);
   width: 100%;
   height: 100%;
   position: absolute;

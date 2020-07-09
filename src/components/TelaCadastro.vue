@@ -89,8 +89,7 @@ export default {
           this.logradouro != "" &&
           this.bairro != "" &&
           this.numero != "" &&
-          this.uf != "" &&
-          this.complemento != ""
+          this.uf != "" 
         ) {
           axios
             .post("http://localhost:55537/api/Cliente", {
@@ -110,10 +109,11 @@ export default {
             .then(resp => {
               console.log(resp.data);
             });
+            alert("Cadastrado com sucesso!")
+            window.location.reload()
         } else{
             alert("Preencha os dados corretamente!")
         }
-          window.location.reload()
       }
     }
   }

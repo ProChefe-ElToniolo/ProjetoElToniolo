@@ -105,9 +105,11 @@ export default {
 }
 
 .topo {
-  margin: 72px 0 0 0;
+  margin: 100px 0 0 0;
   height: auto;
-  width: 100%;
+  width: 1220px;
+  text-align: center;
+  display: flex;
 }
 
 #caixa {
@@ -158,8 +160,8 @@ export default {
 }
 .Cats {
   position: absolute;
-  margin: 0px 0px 0px 210px;
-  width: 100%;
+  margin: 0px 0px 0px 14.4%;
+  width: auto;
   flex-wrap: wrap;
   align-items: center;
   display: flex;

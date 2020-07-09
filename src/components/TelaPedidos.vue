@@ -1,7 +1,7 @@
 <template>
   <div class="topo">
     <h1>Bem Vindo a Tela Pedidos</h1>
-      <select id="selectPedidos" @change="selecionaTipo()" v-model="filtrarTipo">
+      <select class="cbx" @change="selecionaTipo()" v-model="filtrarTipo">
         <option value="0" selected disabled>Selecione algum pedido</option>
         <option value="1">Todos</option>
         <option value="2">Processados</option>
