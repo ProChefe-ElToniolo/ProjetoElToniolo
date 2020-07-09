@@ -115,7 +115,6 @@ export default {
             .then(resp => {
               console.log(resp.data);
             });
-            // alert("Cadastrado com sucesso!")
             this.nome = "",
             this.telefone = "",
             this.email = "",
