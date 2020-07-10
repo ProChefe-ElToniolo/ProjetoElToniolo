@@ -189,6 +189,7 @@ export default {
       if (id != null) {
         axios.delete("http://localhost:55537/api/Produto/" + id);
         alert(this.prods.indexOf(id));
+        console.log(this.prods)
         this.prods.splice(this.prods.indexOf(id), 1);
         this.invalido = false;
       } else {
@@ -238,13 +239,6 @@ export default {
 </script>
 
 <style>
-body,
-html {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(133, 131, 131, 0.76);
-  overflow: auto;
-}
 #formulario {
   border-radius: 3px solid black;
   margin: 20px 5% 0px 5%;

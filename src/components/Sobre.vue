@@ -1,8 +1,8 @@
 <template>
         <div id="meiuca">
       <div class="topo">
-        <h1>Bem-Vindo à tela sobre</h1>
-        <p>Olá, nós somos El Toniolo Pizzaria</p>
+        <h1>Olá, nós somos ElToniolo Pizzaria</h1>
+        <br>
         <p>História</p>
         <div id="contato">
             <p>Contato</p>
@@ -59,13 +59,13 @@ html, body{
   border: 2px solid black;
 }
 
-/* #meiuca{
+#meiuca{
   display: flex;
   position: absolute;
   height: auto;
   width: 71.72%;
   margin-left: 14.4%;
-} */
+}
 
 #pedido{
   color: black;

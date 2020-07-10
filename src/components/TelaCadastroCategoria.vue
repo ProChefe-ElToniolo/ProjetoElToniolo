@@ -3,11 +3,6 @@
     <h1>Bem Vindo a Tela Cadastro Categoria</h1>
     <input type="text" placeholder="Digite o nome da Categoria" v-mask="'AAAAAAAAAAA'" id="txtCategoria" v-model="nome" />
     <span v-if="verificado">Digite algo!</span>
-    <input type="file" />
-    <ul>
-      <li v-for="cat in categorias" :key="cat.id">{{cat.nome}}</li>
-    </ul>
-
     <button @click="SalvarCategoria">Salvar Categoria</button>
     <!-- v-bind:aparecer="true" -->
     <div id="decidir" v-if="aparecer">

@@ -1,5 +1,4 @@
 <template>
-  <div id="container">
     <div id="menu-lateral">
       <div id="slogan">
         <br>
@@ -34,7 +33,6 @@
           </li>
         </ul>
       </nav>
-    </div>
     <div id="fundo">
       <div v-if="produtosVisualizar">
         <TelaCadastroProdutos />
@@ -142,7 +140,7 @@ export default {
   outline: transparent;
 }
 
-#container {
+/* #container {
   display: flex;
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
@@ -152,7 +150,7 @@ export default {
   width: 100%;
   padding: 0px;
   background-color: rgba(133, 131, 131, 0.76);
-}
+} */
 #imgFundo {
   width: 100%;
   height: 800px;
@@ -211,6 +209,7 @@ export default {
 }
 #fundo {
   display: flex;
+  position: absolute;
   margin: 0px 0px 0px 150px;
   background-color: rgb(255, 255, 255);
 }

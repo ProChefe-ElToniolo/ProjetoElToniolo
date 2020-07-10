@@ -81,11 +81,6 @@ export default {
 </script>
 
 <style>
-body {
-  width: 100%;
-  height: 100%;
-}
-
 #teste {
   border: 2px solid black;
   color: red;

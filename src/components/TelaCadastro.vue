@@ -74,7 +74,7 @@ export default {
     },    
     buscarCep: function() {
       if(this.cep.length == 9){
-        var cepLimpo = this.cep.replace(/\D/g, '')
+        let cepLimpo = this.cep.replace(/\D/g,'');
         cep(cepLimpo).then(data =>{
         this.cidade = data.city
         this.bairro = data.neighborhood
@@ -141,7 +141,6 @@ export default {
 <style>
 html,
 body {
-  background-color: #f6f6f6;
   width: 100%;
   height: 100%;
   font-size: 16px;
