@@ -1,37 +1,38 @@
 <template>
   <div class="sla">
-    <h1>CADASTRO</h1>
-  <input class="geral" type="text" placeholder="Nome" maxlength="50" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" v-model="nome" />
+    <div class="partes" >
+    <h1 class="titulo">Cadastre-se:</h1>
+  <input id="nomeI" class="geral" type="text" placeholder="Nome" maxlength="50" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" v-model="nome" />
     <br/>
-    <input class="geral" type="text" v-mask="'(##) #####-####'" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Telefone" v-model="telefone"/>
-    <br/>
-    <input class="geral" type="text" placeholder="E-mail" maxlength="50" v-model="email"/>
+    <input id="telefoneI" class="geral" type="text" v-mask="'(##) #####-####'" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Telefone" v-model="telefone"/>
+    <input id="cpfI" class="geral" v-mask="'###.###.###-##'" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF"  v-model="cpf" />
+    <br/>    
+    <input id="emailI" class="geral" type="text" placeholder="E-mail" maxlength="50" v-model="email"/>
     <br />
     <input class="geral" type="password" placeholder="Senha" maxlength="20" v-model="senha" id="senha" />
-    <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span>Exibir senha</span>
+    <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span id="bagu" >Exibir senha</span>
     <br />
-    <input class="geral" v-mask="'###.###.###-##'" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="CPF"  v-model="cpf" />
+    <button class="butao" id="botãoCadastrar" @click="salvarCadastro">CADASTRAR</button>
     <br/>
-    <input class="geral" type="text" @change="buscarCep" v-mask="'#####-###'" v-on:keyup.13="buscar" placeholder="CEP" v-model="cep"/>
+    <span id="correto" v-if="mostrarSucesso">Cadastrado com sucesso!</span>
+    <span id="pren" v-if="preencherCorreto">Preencha os dados corretamente</span>
+    </div>
+    <div class="partes" >
+    <button class="butao" id="botãoVoltar" @click="voltarMenu">x</button>
+    <input id="cepI" class="geral" type="text" @change="buscarCep" v-mask="'#####-###'" v-on:keyup.13="buscar" placeholder="CEP" v-model="cep"/>
     <br />
-    <input class="geral" type="text" placeholder="Cidade" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="20" v-model="cidade" />
+    <input id="cidadeI" class="geral" type="text" placeholder="Cidade" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="20" v-model="cidade" />
+    <input id="ufI" class="geral" type="text" placeholder="UF" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="2" v-model="uf" />
     <br />
-    <input class="geral" type="text" placeholder="Logradouro" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="50" v-model="logradouro" />
+    <input id="logradouroI" class="geral" type="text" placeholder="Logradouro" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="50" v-model="logradouro" />
     <br />
-    <input class="geral" type="text" placeholder="Bairro" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="25" v-model="bairro" />
+    <input id="bairroI" class="geral" type="text" placeholder="Bairro" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="25" v-model="bairro" />
+    <input id="numeroI" class="geral" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Numero" maxlength="10" v-model="numero"/>
     <br />
-    <input class="geral" type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Numero" maxlength="10" v-model="numero"/>
+    <input id="complementoI" class="geral" type="text" placeholder="Complemento" maxlength="50" v-model="complemento" />
     <br/>
-    <input class="geral" type="text" placeholder="UF" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="2" v-model="uf" />
-    <br />
-    <input class="geral" type="text" placeholder="Complemento" maxlength="50" v-model="complemento" />
-    <br/>
-    <button id="botãoCadastrar" @click="salvarCadastro">Cadastrar</button>
-    <br/>
-    <button id="botãoVoltar" @click="voltarMenu">Voltar para o Menu Principal</button>
+    </div>
     <br>
-    <span v-if="mostrarSucesso">Cadastrado com sucesso!</span>
-    <span v-if="preencherCorreto">Preencha os dados corretamente</span>
   </div>
 </template>
 <script>
@@ -144,33 +145,133 @@ body {
   background-color: #f6f6f6;
   width: 100%;
   height: 100%;
+  font-size: 16px;
+}
+ .titulo{
+   color: white;
+   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
+    sans-serif;
+    position: relative;
+    margin: 5% 0 5% 10%;
+ }
+ .sla{
+   width: 100%;
+   height: 100%;
+   display: flex;
+ }
+
+#bagu{
+  color: white;
+}
+
+#pren{
+  margin-left: 12.5%;
+  color: rgb(185, 23, 23);
+}
+
+#correto{
+  margin-left: 12.5%;
+  color: rgb(32, 148, 38);
+}
+
+#botãoVoltar{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  position: absolute;
+  top: -20px;
+  right: -20px;
 }
 
 .geral {
-  font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
+  /* font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
   background-color: rgb(201, 201, 201);
   border: 2px solid black;
   padding: 5px;
+  border-radius: 5px; */
+  color: white;
+  padding:1.5%;
+  margin: 4% 4% 4% 12.5%;
+  width: 20%;
+  height: 4%;
   border-radius: 5px;
+  background-color: rgb(141, 141, 141);
+  border: 2px solid rgba(0, 0, 0, 0.671);
+  outline: none;
+  font-size: 16px;
+  -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 
-#botãoVoltar {
-  border: 2px solid white;
-  color: white;
-  background-color: black;
+.geral:focus{
+  transform: scale(1.07);
+}
+
+.butao{
+  border-radius: 5px;
+  margin: 1% 1% 1% 12.5%;
+  background-color: rgb(141, 141, 141);
+  border: 2px solid rgb(49, 49, 49);
+  outline: none;
   cursor: pointer;
+  padding: 1%;
+  -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
-#botãoCadastrar {
-  border: 2px solid white;
+
+.butao:hover{
+  background-color: rgb(71, 71, 71);
   color: white;
-  background-color: black;
-  cursor: pointer;
+  transform: scale(1.03);
 }
 
+.partes{
+  width: 50%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
 
-
-.sla{
-  margin: 72px 0 0 0;
+#nomeI{
+  width: 70%;
+}
+#telefoneI{
+width: 30%;
+}
+#emailI{
+  width: 70%;
+}
+#senha{
+  width: 46%;
+}
+#cpfI{
+  width: 30%;
+  margin-left: 2%;
+}
+#cepI{
+   width: 70%;
+   margin-top: 22%;
+}
+#cidadeI{
+   width: 50%;
+}
+#logradouroI{
+  width: 70%;
+}
+#bairroI{
+  width: 40%;
+}
+#numeroI{
+  width: 20%;
+  margin-left: 2%;
+}
+#ufI{
+   width: 10%;
+   margin-left: 2%;
+}
+#complementoI{
+  width: 70%;
 }
 </style>

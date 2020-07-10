@@ -24,7 +24,6 @@
             </ul>
           </nav>
           <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
-          
 
           <img src="../imagens/logopizza.png" id="logo" @click="Reset" />
           <button
@@ -39,32 +38,35 @@
           </button>
           <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
         </div>
-            <transition name="bounce">         
-          <div id="modal-login"  v-if="ocultarMenuLogin == false">
+        <transition name="bounce">
+          <div class="modal" v-if="ocultarMenuLogin == false">
             <div id="menu-bar" v-if="ocultarMenuLogin == false">
               <button id="fecharLogin" @click="logar">x</button>
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
               <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha" />
-              <br>
+              <br />
               <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox" />
-              <br>
+              <br />
               <button id="botao-entrar" @click="entrar">Entrar</button>
               <br />
-              <button @click="Cadastro" id="cadastrarse" >Cadastre-se caso ainda não possua uma conta</button>
-            </div>  
-          </div>        
-            </transition>
+              <button @click="Cadastro" id="cadastrarse">Cadastre-se caso ainda não possua uma conta</button>
+            </div>
+          </div>
+        </transition>
       </div>
+      <div class="modal">
+        <div id="cadastrin" v-if="visualizarCadastro">
+          <TelaCadastro />
+        </div>
+      </div>
+
       <!-- <div id="sombra-menu"></div> -->
-      
+
       <div v-if="visualizarCardapio">
         <TelaCardapio />
       </div>
       <div v-if="visualizarPedidos">
         <TelaPedidos />
-      </div>
-      <div v-if="visualizarCadastro">
-        <TelaCadastro />
       </div>
       <div v-if="visualizarSobre">
         <TelaSobre />
@@ -112,9 +114,9 @@ export default {
   },
   methods: {
     logar: function() {
-      if(this.ocultarMenuLogin == true){
-      return (this.ocultarMenuLogin = false);
-      }else{
+      if (this.ocultarMenuLogin == true) {
+        return (this.ocultarMenuLogin = false);
+      } else {
         return (this.ocultarMenuLogin = true);
       }
     },
@@ -140,13 +142,11 @@ export default {
           this.logCorreto = true;
         }
       });
-      if(this.senha == "" || this.email == ""){
-        alert("Digite algo!")
-        }
-      else{
-        this.senhaIncorreta = true        
-        this.email = "",
-        this.senha = ""
+      if (this.senha == "" || this.email == "") {
+        alert("Digite algo!");
+      } else {
+        this.senhaIncorreta = true;
+        (this.email = ""), (this.senha = "");
       }
       console.log(this.senhaIncorreta);
     },
@@ -188,7 +188,8 @@ export default {
       this.$router.push("/ViewTelaLogin");
     },
     Cadastro: function() {
-      this.$router.push("/ViewTelaCadastro");
+      this.visualizarCadastro = true;
+      this.logar();
     },
     Admin: function() {
       this.$router.push("/ViewTelaMenuAdmin");
@@ -234,24 +235,22 @@ body {
     sans-serif;
   overflow: hidden;
   overflow-y: scroll;
-  
 }
 
 .bounce-enter-active {
-  animation: bounce-in .5s;
+  animation: bounce-in 0.5s;
 }
 .bounce-leave-active {
-  animation: bounce-in .5s reverse;
+  animation: bounce-in 0.5s reverse;
 }
 @keyframes bounce-in {
   0% {
     transform: scale(0);
-  }
-  50% {
-    transform: scale(1.5);
+    opacity: 0;
   }
   100% {
     transform: scale(1);
+    opacity: 1;
   }
 }
 
@@ -274,6 +273,17 @@ body {
   height: 800px;
   position: absolute;
   opacity: 0.9;
+}
+
+#cadastrin {
+  border: 10px solid rgb(32, 32, 32);
+  border-radius: 20px;
+  display: flex;
+  position: relative;
+  width: 65%;
+  height: 75%;
+  margin-top: 5%;
+  background-color: rgb(15, 15, 15);
 }
 
 #hamb {
@@ -378,10 +388,14 @@ body {
   padding: 0 20px 0 20px;
   width: 120%;
   height: 70px;
+  -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+  cursor: pointer;
 }
 
 .list-menu li:hover {
   background-color: black;
+  font-size: 15px;
 }
 
 #botao-logar {
@@ -444,10 +458,11 @@ body {
   padding: 7px;
   width: 60%;
   height: 8.5%;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: rgb(141, 141, 141);
   border: 2px solid rgba(0, 0, 0, 0.671);
   outline: none;
+  
 }
 
 #botao-entrar {
@@ -461,7 +476,7 @@ body {
   cursor: pointer;
 }
 
-#modal-login{
+.modal {
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
@@ -473,7 +488,7 @@ body {
   right: 0px;
 }
 
-#fecharLogin{
+#fecharLogin {
   background-color: rgb(141, 141, 141);
   font-size: 18px;
   width: 40px;
@@ -483,12 +498,12 @@ body {
   right: -15px;
   border-radius: 50%;
   border: none;
-  box-shadow: 0 4px 4px 0 rgba(0,0,0,.4);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.4);
   cursor: pointer;
   outline: none;
 }
 
-#cadastrarse{
+#cadastrarse {
   background-color: rgb(15, 15, 15);
   border: none;
   outline: none;
@@ -497,7 +512,7 @@ body {
 
 #menu-bar {
   border: 10px solid rgb(32, 32, 32);
-  border-radius: 20px;  
+  border-radius: 20px;
   text-align: center;
   position: relative;
   width: 30%;
@@ -604,5 +619,5 @@ body {
   width: 130px;
   border: 2px solid yellow;
   margin: 10px 0 0 40px;
-  }
+}
 </style>
