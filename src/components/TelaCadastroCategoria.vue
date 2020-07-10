@@ -28,7 +28,7 @@
         <tr v-for="cat in categorias" :key="cat.id" @click="SelecionarCategoria(cat.id)">
           <td>{{cat.id}}</td>
           <td>{{cat.nome}}</td>
-          <td @click="Utiliza"><img id="lixo" src="../imagens/lixo.png" alt=""></td>
+          <td @click="Utiliza" v-if="catId == 0"><img id="lixo" src="../imagens/lixo.png"></td>
         </tr>
       </tbody>
     </table>
@@ -68,10 +68,10 @@ export default {
               nome: this.nome
             });
           });
+          window.location.reload();
       } else {
         this.verificado = true;
       }
-      window.location.reload();
     },
 
     SelecionarCategoria: function(id) {
@@ -104,16 +104,20 @@ export default {
       this.contador = 0
       this.aparecer = false
       let vetorProdutoIngrediente = [].concat(this.produtos, this.ingredientes)
+      console.log(this.produtos);
+      console.log(this.ingredientes);
+      console.log(vetorProdutoIngrediente);
+      console.log(this.catId);
       vetorProdutoIngrediente.filter(p => {
           if(this.categoriasAlterar.id == p.id_categoria && this.contador == 0){
             alert("Existe um produto ou ingrediente que utiiza desta categoria")
             this.contador++
-            this.aparecer = true
+            this.aparecer = false
           } 
-        }).then(resp => console.log("eae"+resp))
-      if(vetorProdutoIngrediente == 0 || this.contador == 0){
-          this.aparecer = false
-      }
+        })
+          if(vetorProdutoIngrediente.length == 0 || this.contador == 0){
+              this.aparecer = true
+          }
     },
 
     ExcluirCategoria: function() {

@@ -30,11 +30,7 @@
         </tbody>
       </table>
     </div>
-    
-    <!-- zoeira (pode excluir) -->
-    <div id="zoeirinha"></div>
-    <div id="hiagoNoia"></div>
-    <div id="toniolo"></div>
+
 
   </div>
 </template>
@@ -131,7 +127,7 @@ body {
   width: 381px;
   height: 677px;
   background-image: url("../imagens/hiagoGay.jpg");
-  margin: -700px 0 0 600px;
+  margin: -200px 0 0 600px;
   position: absolute;
 } 
 
@@ -140,6 +136,6 @@ body {
   height: 300px;
   background-image: url("../imagens/hiagoGay2.jpg");
   position: absolute;
-  margin: 0 0 0 650px;
+  margin: 500px 0 0 650px;
 }
 </style>

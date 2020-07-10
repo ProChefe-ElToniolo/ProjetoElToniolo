@@ -10,7 +10,7 @@
     <input id="emailI" class="geral" type="text" placeholder="E-mail" maxlength="50" v-model="email"/>
     <br />
     <input class="geral" type="password" placeholder="Senha" maxlength="20" v-model="senha" id="senha" />
-    <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span id="bagu" >Exibir senha</span>
+    <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span>Exibir/Ocultar senha</span>
     <br />
     <button class="butao" id="botãoCadastrar" @click="salvarCadastro">CADASTRAR</button>
     <br/>
@@ -116,7 +116,6 @@ export default {
             .then(resp => {
               console.log(resp.data);
             });
-            // alert("Cadastrado com sucesso!")
             this.nome = "",
             this.telefone = "",
             this.email = "",
