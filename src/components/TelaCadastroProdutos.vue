@@ -16,7 +16,7 @@
       ></textarea>
 
       <div class="meu-box">
-        <input type="Number" class="inputz" v-model="preco" placeholder="Preço" />
+        <input type="number" class="inputz"  v-model="preco" placeholder="Preço" />
         <label for="nomeCompleto" class="label-preco">Preço</label>
       </div>
 
@@ -120,7 +120,6 @@ export default {
         this.medida != 0 &&
         this.idCat != 0
       ) {
-        alert("entrouPra salvar");
         axios
           .post("http://localhost:55537/api/Produto", {
             nome: this.nome,
@@ -132,7 +131,7 @@ export default {
           })
           .then(res => (this.idExcluir = res.data));
         setTimeout(function() {
-          alert("alo");
+          alert("Cadastrado com sucesso!");
           console.log(this.prods)
           this.prods.push({
             id: this.idExcluir,

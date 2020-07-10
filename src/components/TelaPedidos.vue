@@ -8,8 +8,8 @@
         <option value="3">Abertos</option>
       </select>
 
-      <table>
-        <thead>
+      <table cellpadding="5" id="tabelaPedidos">
+        <thead> 
           <tr>
             <th>Nome Cliente</th>
             <th>ID Pedido</th>
@@ -19,12 +19,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="ped in pedidos" :key="ped.id">
+          <tr v-for="(ped, index) in pedSelected" :key="index">
             <td>{{ped.id_cliente}}</td>
             <td>{{ped.id}}</td>
             <td>{{ped.processamento}}</td>
             <td>produto</td>
-            <td><img id="lixo" src="../imagens/lixo.png"></td>
+            <td @click="Excluir(ped.id, index)" style="cursor:pointer" align="center"><img id="lixo" src="../imagens/lixo.png"></td>
           </tr>
         </tbody>
       </table>
@@ -41,33 +41,41 @@ export default {
       pedidos: [],
       filtrarTipo: 0,
       clientes:[],
-      processados:[],
-      abertos:[],
-      todos:[],
+      pedSelected:[],
+      pedSelectTable:[],
       itensPedidos:[],
     };
   },
   methods:{
     selecionaTipo:function(){        
       if(this.filtrarTipo == 2){
+        this.pedSelected = []
           this.pedidos.filter(p => {
           if(p.processamento == true){
-            this.pedidos.push(p);            
+            this.pedSelected.push(p);            
           }
         })
       }
       else if(this.filtrarTipo == 3){
+        this.pedSelected = [] 
         this.pedidos.filter(p => {
           if(p.processamento == false){
-            this.pedidos.push(p);
+            this.pedSelected.push(p);
           }
         })
       }
       else if(this.filtrarTipo == 1){
-        this.todos = [].concat(this.pedidos, this.abertos, this.processados)
-        console.log(this.todos);
-        this.pedidos = this.todos
+        this.pedSelected = []
+        this.pedSelected = this.pedidos
       }
+    }, 
+
+    Excluir:function(id, index){
+      axios.delete(
+        "http://localhost:55537/api/Pedidos/"+id
+        )
+      .then(resp => console.log(resp.data))
+      this.pedSelected.splice(index, 1)
     }
   },
   mounted(){
@@ -102,5 +110,29 @@ body {
   width: 60px;
   height: 60px;
   margin: 0px 0px 0px 5px;
+}
+
+#zoeirinha{
+  width: 500px;
+  height: 500px;
+  border: 2px black;
+  background-image: url("../imagens/torcedor mibr.jpeg");
+  background-size:contain;
+  }
+
+#hiagoNoia{
+  width: 381px;
+  height: 677px;
+  background-image: url("../imagens/hiagoGay.jpg");
+  margin: -200px 0 0 600px;
+  position: absolute;
+} 
+
+#toniolo{
+  width: 300px;
+  height: 300px;
+  background-image: url("../imagens/hiagoGay2.jpg");
+  position: absolute;
+  margin: 500px 0 0 650px;
 }
 </style>

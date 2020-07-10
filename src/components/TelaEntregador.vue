@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="cima">
     <div>
       <h1>Bem Vindo a Tela de Entregador</h1>
       <select v-model="nomeEntregador" @change="SelecionarPedido(nomeEntregador)" class="cbx">
@@ -105,4 +105,10 @@ mounted(){
 </script>
 
 <style>
+#cima{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(133, 131, 131, 0.76);
+  display:flex;
+}
 </style> 

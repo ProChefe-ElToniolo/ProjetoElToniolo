@@ -132,12 +132,7 @@ export default {
   width: 40%;
 }
 
-#princ {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  overflow: auto;
-}
+
 #imgLixo{
   margin: 0px 0px 0px 160px;
   padding: 2px;

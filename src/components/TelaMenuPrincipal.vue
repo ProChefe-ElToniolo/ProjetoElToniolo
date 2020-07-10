@@ -226,13 +226,14 @@ body,html {
   width: 100%;
   padding: 0px;
   margin: 0px;
+  position: absolute;
   background-color: rgba(133, 131, 131, 0.76);
   font-size: 14px;
   font-weight: 600;
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
-  overflow: hidden;
-  overflow-y: scroll;
+  overflow: auto;
+  /* overflow-y: scroll; */
   
 }
 
@@ -575,7 +576,7 @@ body,html {
   cursor: pointer;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 11px;
   height: 10px;
 }
@@ -586,7 +587,7 @@ body,html {
 
 ::-webkit-scrollbar-track {
   background-color: #1f2023;
-}
+} */
 #menuCardapio {
   position: absolute;
   border: springgreen 5px solid;
