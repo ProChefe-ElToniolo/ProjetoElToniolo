@@ -1,6 +1,7 @@
 <template>
-  <div class="topo">
-    <h1>Bem Vindo a Tela Pedidos</h1>
+  <div class="fundo1">
+    <div id="form-pedidos">
+      <h1>Bem Vindo a Tela Pedidos</h1>
       <select class="cbx" @change="selecionaTipo()" v-model="filtrarTipo">
         <option value="0" selected disabled>Selecione algum pedido</option>
         <option value="1">Todos</option>
@@ -9,7 +10,7 @@
       </select>
 
       <table cellpadding="5" id="tabelaPedidos">
-        <thead> 
+        <thead>
           <tr>
             <th>Nome Cliente</th>
             <th>ID Pedido</th>
@@ -24,12 +25,14 @@
             <td>{{ped.id}}</td>
             <td>{{ped.processamento}}</td>
             <td>produto</td>
-            <td @click="Excluir(ped.id, index)" style="cursor:pointer" align="center"><img id="lixo" src="../imagens/lixo.png"></td>
+            <td @click="Excluir(ped.id, index)" style="cursor:pointer" align="center">
+              <img id="lixo" src="../imagens/lixo.png" />
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
+  </div>
 </template>
 
 <script>
@@ -40,60 +43,57 @@ export default {
       produtos: [],
       pedidos: [],
       filtrarTipo: 0,
-      clientes:[],
-      pedSelected:[],
-      pedSelectTable:[],
-      itensPedidos:[],
+      clientes: [],
+      pedSelected: [],
+      pedSelectTable: [],
+      itensPedidos: []
     };
   },
-  methods:{
-    selecionaTipo:function(){        
-      if(this.filtrarTipo == 2){
-        this.pedSelected = []
-          this.pedidos.filter(p => {
-          if(p.processamento == true){
-            this.pedSelected.push(p);            
-          }
-        })
-      }
-      else if(this.filtrarTipo == 3){
-        this.pedSelected = [] 
+  methods: {
+    selecionaTipo: function() {
+      if (this.filtrarTipo == 2) {
+        this.pedSelected = [];
         this.pedidos.filter(p => {
-          if(p.processamento == false){
+          if (p.processamento == true) {
             this.pedSelected.push(p);
           }
-        })
+        });
+      } else if (this.filtrarTipo == 3) {
+        this.pedSelected = [];
+        this.pedidos.filter(p => {
+          if (p.processamento == false) {
+            this.pedSelected.push(p);
+          }
+        });
+      } else if (this.filtrarTipo == 1) {
+        this.pedSelected = [];
+        this.pedSelected = this.pedidos;
       }
-      else if(this.filtrarTipo == 1){
-        this.pedSelected = []
-        this.pedSelected = this.pedidos
-      }
-    }, 
+    },
 
-    Excluir:function(id, index){
-      axios.delete(
-        "http://localhost:55537/api/Pedidos/"+id
-        )
-      .then(resp => console.log(resp.data))
-      this.pedSelected.splice(index, 1)
+    Excluir: function(id, index) {
+      axios
+        .delete("http://localhost:55537/api/Pedidos/" + id)
+        .then(resp => console.log(resp.data));
+      this.pedSelected.splice(index, 1);
     }
   },
-  mounted(){
+  mounted() {
     axios
       .get("http://localhost:55537/api/Produto")
       .then(produto => (this.produtos = produto.data));
 
     axios
       .get("http://localhost:55537/api/Pedidos")
-      .then(pedido => this.pedidos = pedido.data)  
-    
+      .then(pedido => (this.pedidos = pedido.data));
+
     axios
       .get("http://localhost:55537/api/Usuario")
-      .then(cliente => this.clientes = cliente.data);  
+      .then(cliente => (this.clientes = cliente.data));
 
     axios
       .get("http://localhost:55537/api/Itens_Pedido")
-      .then(itensPedido => this.itensPedidos = itensPedido)  
+      .then(itensPedido => (this.itensPedidos = itensPedido));
   }
 };
 </script>
@@ -104,7 +104,7 @@ body {
   height: 100%;
   background-color: rgba(133, 131, 131, 0.76);
 }
-#pizzas{
+#pizzas {
   background-color: black;
   color: white;
   width: 60px;
@@ -112,27 +112,8 @@ body {
   margin: 0px 0px 0px 5px;
 }
 
-#zoeirinha{
-  width: 500px;
-  height: 500px;
-  border: 2px black;
-  background-image: url("../imagens/torcedor mibr.jpeg");
-  background-size:contain;
-  }
-
-#hiagoNoia{
-  width: 381px;
-  height: 677px;
-  background-image: url("../imagens/hiagoGay.jpg");
-  margin: -200px 0 0 600px;
-  position: absolute;
-} 
-
-#toniolo{
-  width: 300px;
-  height: 300px;
-  background-image: url("../imagens/hiagoGay2.jpg");
-  position: absolute;
-  margin: 500px 0 0 650px;
+#form-pedidos{
+  border: 3px solid black;
+  margin: 20px 5% 0px 5%;
 }
 </style>

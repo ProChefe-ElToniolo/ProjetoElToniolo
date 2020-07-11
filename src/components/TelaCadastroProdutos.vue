@@ -1,11 +1,10 @@
 <template>
-  <div id="fundo1">
+  <div class="fundo1">
     <div id="formulario">
       <div class="meu-box">
         <input type="text" class="inputz" placeholder="Nome do Produto" v-model="nome" />
         <label for="nomeCompleto" class="label-nome">Nome do Produto</label>
       </div>
-
       <textarea
         id="inputMulti"
         rows="10"
@@ -14,12 +13,10 @@
         maxlength="200"
         placeholder="Descrição"
       ></textarea>
-
       <div class="meu-box">
         <input type="number" class="inputz"  v-model="preco" placeholder="Preço" />
         <label for="nomeCompleto" class="label-preco">Preço</label>
       </div>
-
       <select v-model="idCat" class="cbx">
         <option value="0" selected disabled>Categoria desejada</option>
         <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
@@ -239,14 +236,19 @@ export default {
 </script>
 
 <style>
-#formulario {
-  border-radius: 3px solid black;
-  margin: 20px 5% 0px 5%;
-}
-#fundo1 {
-  background-color: rgba(133, 131, 131, 0.76);
+body{
   width: 100%;
   height: 100%;
+    background-color: rgba(133, 131, 131, 0.76);
+}
+#formulario {
+  border: 3px solid black;
+  margin: 20px 5% 0px 5%;
+}
+.fundo1 {
+  /* background-color: rgba(133, 131, 131, 0.76); */
+  width: auto;
+  height: auto;
   position: absolute;
   display: flex;
 }

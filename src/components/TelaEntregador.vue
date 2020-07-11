@@ -1,12 +1,11 @@
 <template>
   <div id="cima">
-    <div>
+    <div id="form-entregador">
       <h1>Bem Vindo a Tela de Entregador</h1>
       <select v-model="nomeEntregador" @change="SelecionarPedido(nomeEntregador)" class="cbx">
         <option value="0" selected disabled>Entregador</option>
         <option v-for="user in listarEntregador" :key="user.id">{{user.nome}}</option>
       </select>
-    </div>
     <table border="5" style="cursor:pointer" class="tabela-st">
       <thead>
         <tr>
@@ -25,6 +24,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </template>
 
@@ -60,9 +60,9 @@ export default {
           this.pedidosEntregador.push(p);
         }
       });
-      
-      if(this.pedidosEntregador == 0){
-        alert("Esse entregador não possui pedidos!")
+
+      if (this.pedidosEntregador == 0) {
+        alert("Esse entregador não possui pedidos!");
       }
     },
 
@@ -80,19 +80,23 @@ export default {
           processamento: true
         })
         .then(resp => console.log(resp.data));
-        this.pedidosEntregador.splice(this.pedidosEntregador.indexOf(id), 1);
-    }, 
-    
-    IrParaTelaMenuAdmin:function(){
-        this.$router.push("/")
-    }, 
-},
-mounted(){
-    axios.get("http://localhost:55537/api/Usuario").then(usuario => this.usuarios = usuario.data)
-    axios.get("http://localhost:55537/api/Pedidos").then(pedido => this.pedidos = pedido.data)
-    }, 
-    computed:{
-  listarEntregador(){
+      this.pedidosEntregador.splice(this.pedidosEntregador.indexOf(id), 1);
+    },
+
+    IrParaTelaMenuAdmin: function() {
+      this.$router.push("/");
+    }
+  },
+  mounted() {
+    axios
+      .get("http://localhost:55537/api/Usuario")
+      .then(usuario => (this.usuarios = usuario.data));
+    axios
+      .get("http://localhost:55537/api/Pedidos")
+      .then(pedido => (this.pedidos = pedido.data));
+  },
+  computed: {
+    listarEntregador() {
       this.usuarios.filter(u => {
         if (u.tipo_usuario == 3) {
           this.usuariosEntregador.push(u);
@@ -105,10 +109,14 @@ mounted(){
 </script>
 
 <style>
-#cima{
+#cima {
   width: 100%;
   height: 100%;
   background-color: rgba(133, 131, 131, 0.76);
-  display:flex;
+  display: flex;
+}
+#form-entregador {
+  border: 3px solid black;
+  margin: 20px 5% 0px 5%;
 }
 </style> 

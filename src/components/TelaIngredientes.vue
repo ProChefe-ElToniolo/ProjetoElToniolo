@@ -1,5 +1,7 @@
 <template>
-  <div id="princ">
+  <div class="fundo1">
+    <div id="form-ing">
+      
     <h4>INGREDIENTES</h4>
     <div class="meu-box">
       <input type="text" class="inputz" placeholder="Nome do Ingrediente" v-model="nome" />
@@ -38,6 +40,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 </template>
 
@@ -136,5 +139,9 @@ export default {
 #imgLixo{
   margin: 0px 0px 0px 160px;
   padding: 2px;
+}
+#form-ing{
+  border: 3px solid black;
+  margin: 20px 5% 0px 5%;
 }
 </style>
