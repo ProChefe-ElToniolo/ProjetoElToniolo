@@ -1,5 +1,7 @@
 <template>
-  <div class="princ">
+  <div class="fundo1">
+    <div id="form-cat">
+
     <h1>Bem Vindo a Tela Cadastro Categoria</h1>
     <input type="text" placeholder="Digite o nome da Categoria" v-mask="'AAAAAAAAAAA'" id="txtCategoria" v-model="nome" />
     <span v-if="verificado">Digite algo!</span>
@@ -27,6 +29,7 @@
         </tr>
       </tbody>
     </table>
+  </div>
   </div>
 </template>
 
@@ -156,5 +159,10 @@ export default {
 
 #lixo{
   margin: 0px 0px 0px 18px;
+}
+#form-cat{
+  border: 3px solid black;
+  margin: 20px 5% 0px 5%;
+  width: 85vw;
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+  <div>
     <div id="menu-lateral">
       <div id="slogan">
         <br>
@@ -33,6 +34,8 @@
           </li>
         </ul>
       </nav>
+  </div>
+    
     <div id="fundo">
       <div v-if="produtosVisualizar">
         <TelaCadastroProdutos />
@@ -53,6 +56,7 @@
         <TelaPedidos />
       </div>
     </div>
+
   </div>
 </template>
 
@@ -187,6 +191,9 @@ export default {
   border: 1px rgba(56, 56, 56, 0.301) solid;
   margin: 1px 0px 2px 0px;
   width: 148px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 
 #slogan {
@@ -208,7 +215,6 @@ export default {
   height: 40px;
 }
 #fundo {
-  display: flex;
   position: absolute;
   margin: 0px 0px 0px 150px;
   background-color: rgb(255, 255, 255);

@@ -1,11 +1,10 @@
 <template>
-  <div id="fundo1">
+  <div class="fundo1">
     <div id="formulario">
       <div class="meu-box">
         <input type="text" class="inputz" placeholder="Nome do Produto" v-model="nome" />
         <label for="nomeCompleto" class="label-nome">Nome do Produto</label>
       </div>
-
       <textarea
         id="inputMulti"
         rows="10"
@@ -14,12 +13,10 @@
         maxlength="200"
         placeholder="Descrição"
       ></textarea>
-
       <div class="meu-box">
         <input type="number" class="inputz"  v-model="preco" placeholder="Preço" />
         <label for="nomeCompleto" class="label-preco">Preço</label>
       </div>
-
       <select v-model="idCat" class="cbx">
         <option value="0" selected disabled>Categoria desejada</option>
         <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
@@ -31,7 +28,7 @@
       <br />
       <button class="button" @click="salvar">Salvar</button>
       <br />
-      <label id="fil">FILTROS</label>
+      <div id="fil">FILTROS:</div>
       <select id="cbxFiltro" @change="filtro(filtrarCat)" v-model="filtrarCat">
         <option value="0">Todos Produtos</option>
         <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
@@ -132,7 +129,6 @@ export default {
           .then(res => (this.idExcluir = res.data));
         setTimeout(function() {
           alert("Cadastrado com sucesso!");
-          console.log(this.prods)
           this.prods.push({
             id: this.idExcluir,
             nome: this.nome,
@@ -144,7 +140,6 @@ export default {
               .nome,
             imagem: this.imagem
           });
-          console.log(this.prods);
           this.ingSelecionados.forEach(e => {
             alert(this.idExcluir);
             axios.post("http://localhost:55537/api/Produto_Ingrediente", {
@@ -177,7 +172,6 @@ export default {
           this.ProdSelecionado = f;
         }
       });
-      console.log(this.ProdSelecionado);
       this.nome = this.ProdSelecionado.nome;
       this.descricao = this.ProdSelecionado.descricao;
       this.preco = this.ProdSelecionado.preco;
@@ -188,8 +182,6 @@ export default {
     excluir: function(id) {
       if (id != null) {
         axios.delete("http://localhost:55537/api/Produto/" + id);
-        alert(this.prods.indexOf(id));
-        console.log(this.prods)
         this.prods.splice(this.prods.indexOf(id), 1);
         this.invalido = false;
       } else {
@@ -214,7 +206,6 @@ export default {
           }
         });
       }
-      console.log(this.prods);
     }
   },
   mounted() {
@@ -230,7 +221,6 @@ export default {
     axios
       .get("http://localhost:55537/api/Ingrediente")
       .then(ing => (this.ingredientes = ing.data));
-    console.log(this.ingredientes);
     axios
       .get("http://localhost:55537/api/Produto")
       .then(produto => (this.todosProds = produto.data));
@@ -239,14 +229,19 @@ export default {
 </script>
 
 <style>
-#formulario {
-  border-radius: 3px solid black;
-  margin: 20px 5% 0px 5%;
-}
-#fundo1 {
-  background-color: rgba(133, 131, 131, 0.76);
+body{
   width: 100%;
   height: 100%;
+    background-color: rgb(133, 131, 131);
+}
+#formulario {
+  /* border: 3px solid black; */
+  margin: 20px 5% 0px 5%;
+}
+.fundo1 {
+  /* background-color: rgba(133, 131, 131, 0.76); */
+  width: 85vw;
+  height: auto;
   position: absolute;
   display: flex;
 }
@@ -269,8 +264,8 @@ export default {
 }
 .tabela-st {
   position: absolute;
-  margin: 30px 0px 40px 10px;
-  width: 77%;
+  margin: 75px 0px 40px 10px;
+  width: 89%;
   border-collapse: collapse;
 }
 .tabela-st tr:focus-within {
@@ -304,6 +299,7 @@ td {
 #ingredientes {
   position: absolute;
 }
+
 .cbx {
   position: relative;
   margin: 10px 0px 0px 10px;
@@ -312,15 +308,21 @@ td {
   background: rgb(34, 34, 34);
   color: rgba(255, 255, 255, 0.822);
   border-radius: 6px;
+  font-size: 14px;
+  padding: 2px;
+  cursor: pointer;
 }
 #cbxFiltro {
   position: absolute;
-  margin: 0px 0px 15px 20px;
-  border: 2px rgba(83, 83, 83, 0.658) solid;
-  height: auto;
+  margin: 39px 0px 15px 70px;
+  border: 1px rgb(0, 0, 0) solid;
+  border-left:none;
+  height: 40px;
+  width: 120px;
   color: white;
   background: rgb(34, 34, 34);
-  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
 }
 .inputFormulario {
   margin: 10px 0px 0px 0px;
@@ -334,6 +336,13 @@ td {
   background-color: #1f2023;
   color: white;
   border: 3px rgba(83, 83, 83, 0.658) solid;
+  -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button:hover{
+  transform: scale(1.03);
 }
 
 /* d */
@@ -424,12 +433,18 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #fil {
-  margin: 0px 0px 0px 10px;
-  font-size: 15px;
-  font-weight: bold;
+  line-height: 35px;
+  text-align: center;
+  position: absolute;
+  margin: 39px 0px 0px 10px;
+  border: 1px rgb(0, 0, 0) solid;
+  height: 40px;
+  width: 60px;
+  color: white;
+  background: rgb(34, 34, 34);
+  outline: none;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: rgb(0, 0, 0);
 }
 /*TROCA A COR DA PLACEHOLDER*/
 ::-webkit-input-placeholder {

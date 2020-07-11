@@ -1,6 +1,7 @@
 <template>
-  <div id="princ">
-    <h4>INGREDIENTES</h4>
+  <div class="fundo1">
+    <div id="form-ing">
+      <div class="divs">
     <div class="meu-box">
       <input type="text" class="inputz" placeholder="Nome do Ingrediente" v-model="nome" />
       <label id="label-Ing">Nome do Ingrediente</label>
@@ -10,7 +11,7 @@
       <label id="label-qtd">Quantidade</label>
     </div>
 
-    <label>Categoria</label>
+    <label class="label">Categoria</label>
     <br />
     <select v-model="idCatIng" class="cbx">
       <option value="0" select disabled>Escolha a categoria</option>
@@ -18,13 +19,15 @@
     </select>
     <br />
     <button @click="salvar" class="button">Salvar</button>
-    <table border="1" class="tabela-st">
+      </div>
+      <div class="divs">
+    <table border="1" class="tabela-st" id="tabelinha">
       <thead>
         <tr>
           <th>Nome</th>
           <th>Categoria</th>
           <th>Estoque</th>
-          <th></th>
+          <th class="lixoo"></th>
         </tr>
       </thead>
       <tbody>
@@ -38,6 +41,8 @@
         </tr>
       </tbody>
     </table>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -132,9 +137,80 @@ export default {
   width: 40%;
 }
 
+#tabelinha{
+  width: 60%;
+  margin:10px;
+}
+
+#label-Ing {
+  text-align: center;
+  font-weight: 700;
+  border-radius: 2px;
+  border: none;
+  width: 130px;
+  height: 14px;
+  margin: 0px 0px 0px 5px;
+  position: absolute;
+  background-color: #1f2023;
+  color: rgb(255, 255, 255);
+  top: 17%;
+  bottom: 0;
+  left: 3%;
+  right: 0;
+  transition: 0.5s;
+  opacity: 0.5;
+}
+
+.inputz:focus + #label-Ing {
+  /* margin: 10px; */
+  z-index: 3;
+  color: rgb(255, 255, 255);
+  top: -2%;
+  left: 3%;
+  transition: 0.5s;
+  opacity: 1;
+}
+
+#label-qtd {
+  text-align: center;
+  font-weight: 700;
+  border-radius: 2px;
+  border: none;
+  width: 70px;
+  height: 14px;
+  margin: 0px 0px 0px 5px;
+  position: absolute;
+  background-color: #1f2023;
+  color: rgb(255, 255, 255);
+  top: 17%;
+  bottom: 0;
+  left: 3%;
+  right: 0;
+  transition: 0.5s;
+  opacity: 0.5;
+}
+
+.inputz:focus + #label-qtd {
+  /* margin: 10px; */
+   z-index: 3;
+  color: rgb(255, 255, 255);
+  top: -2%;
+  left: 3%;
+  transition: 0.5s;
+  opacity: 1;
+}
 
 #imgLixo{
-  margin: 0px 0px 0px 160px;
   padding: 2px;
+}
+
+#form-ing{
+  margin: 20px 5% 0px 5%;
+  width: 85vw;
+  display: flex;
+}
+
+.label{
+  font-size: 18px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <div class="scrollbar" id="style-14">
+    <div>
       <!-- <img src="../imagens/transferir.jpg" id="imgFundo" /> -->
       <div id="menu">
         <div id="certo">
@@ -54,12 +54,12 @@
           </div>
         </transition>
       </div>
-      <div class="modal">
-        <div id="cadastrin" v-if="visualizarCadastro">
+      <div class="modal" v-if="visualizarCadastro">
+        <div id="cadastrin">
           <TelaCadastro />
         </div>
       </div>
-
+</div>
       <!-- <div id="sombra-menu"></div> -->
 
       <div v-if="visualizarCardapio">
@@ -71,8 +71,6 @@
       <div v-if="visualizarSobre">
         <TelaSobre />
       </div>
-    </div>
-    <!-- <div id="menu-rodape"></div> -->
   </div>
 </template>
 
@@ -233,8 +231,7 @@ body,html {
   font-weight: 600;
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
-  overflow: hidden;
-  overflow-y: scroll;
+    overflow: auto;
 }
 
 .bounce-enter-active {
@@ -435,6 +432,7 @@ body,html {
   margin: 0.2% 0px 0px 0px;
   width: 65px;
   height: 65px;
+  cursor: pointer;
 }
 /* #menu-rodape {
   margin: 872px 0px 0px 0px;
