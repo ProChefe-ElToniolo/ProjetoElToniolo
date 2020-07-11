@@ -1,45 +1,44 @@
 <template>
   <div class="fundo1">
     <div id="form-ing">
-      
-    <h4>INGREDIENTES</h4>
-    <div class="meu-box">
-      <input type="text" class="inputz" placeholder="Nome do Ingrediente" v-model="nome" />
-      <label id="label-Ing">Nome do Ingrediente</label>
-    </div>
-     <div class="meu-box">
-      <input type="text" class="inputz" placeholder="Quantidade" v-model="estoque" />
-      <label id="label-qtd">Quantidade</label>
-    </div>
+      <h4>INGREDIENTES</h4>
+      <div class="meu-box">
+        <input type="text" class="inputz" placeholder="Nome do Ingrediente" v-model="nome" />
+        <label id="label-Ing">Nome do Ingrediente</label>
+      </div>
+      <div class="meu-box">
+        <input type="text" class="inputz" placeholder="Quantidade" v-model="estoque" />
+        <label id="label-qtd">Quantidade</label>
+      </div>
 
-    <label>Categoria</label>
-    <br />
-    <select v-model="idCatIng" class="cbx">
-      <option value="0" select disabled>Escolha a categoria</option>
-      <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
-    </select>
-    <br />
-    <button @click="salvar" class="button">Salvar</button>
-    <table border="1" class="tabela-st">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Categoria</th>
-          <th>Estoque</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(ing, index) in ingredientes" :key="index" @click="selecionar(ing.id)">
-          <td>{{ing.nome}}</td>
-          <td>{{ing.nomeCategoria}}</td>
-          <td>{{ing.estoque}}</td>
-          <td @click="excluir(ing.id)">
-            <img id="imgLixo" src="../imagens/lixo.png" alt />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <label>Categoria</label>
+      <br />
+      <select v-model="idCatIng" class="cbx">
+        <option value="0" select disabled>Escolha a categoria</option>
+        <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
+      </select>
+      <br />
+      <button @click="salvar" class="button">Salvar</button>
+      <table border="1" class="tabela-st">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Estoque</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(ing, index) in ingredientes" :key="index" @click="selecionar(ing.id)">
+            <td>{{ing.nome}}</td>
+            <td>{{ing.nomeCategoria}}</td>
+            <td>{{ing.estoque}}</td>
+            <td @click="excluir(ing.id)">
+              <img id="imgLixo" src="../imagens/lixo.png" alt />
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -66,22 +65,26 @@ export default {
           this.existe = true;
         }
       });
-      if (this.existe) {
-        alert("entrouAlterar");
-        axios.put(
-          "http://localhost:55537/api/Ingrediente/" + this.ingEscolhido.id,
-          {
+      if (this.nome != "" && this.estoque != "" && this.idCatIng != 0) {
+        if (this.existe) {
+          alert("entrouAlterar");
+          axios.put(
+            "http://localhost:55537/api/Ingrediente/" + this.ingEscolhido.id,
+            {
+              nome: this.nome,
+              id_categoria: this.idCatIng,
+              estoque: this.estoque
+            }
+          );
+        } else {
+          axios.post("http://localhost:55537/api/Ingrediente", {
             nome: this.nome,
             id_categoria: this.idCatIng,
             estoque: this.estoque
-          }
-        )
-      } else {
-        axios.post("http://localhost:55537/api/Ingrediente", {
-          nome: this.nome,
-          id_categoria: this.idCatIng,
-          estoque: this.estoque
-        });
+          });
+        }
+      }else{
+        alert('Preenche tudo')
       }
       this.existe = false;
     },
@@ -97,9 +100,7 @@ export default {
       this.estoque = this.ingEscolhido.estoque;
     },
     excluir: function(idIng) {
-      axios.delete(
-        "http://localhost:55537/api/Ingrediente/" + idIng
-      );
+      axios.delete("http://localhost:55537/api/Ingrediente/" + idIng);
       // this.pedidosEntregador.splice(this.pedidosEntregador.indexOf(id), 1);
     }
   },
@@ -135,12 +136,11 @@ export default {
   width: 40%;
 }
 
-
-#imgLixo{
+#imgLixo {
   margin: 0px 0px 0px 160px;
   padding: 2px;
 }
-#form-ing{
+#form-ing {
   border: 3px solid black;
   margin: 20px 5% 0px 5%;
 }
