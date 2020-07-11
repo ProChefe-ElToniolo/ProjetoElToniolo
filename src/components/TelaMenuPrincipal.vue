@@ -231,7 +231,7 @@ body,html {
   font-weight: 600;
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
-    overflow: auto;
+  overflow: auto;
 }
 
 .bounce-enter-active {

@@ -14,7 +14,7 @@
         placeholder="Descrição"
       ></textarea>
       <div class="meu-box">
-        <input type="number" class="inputz"  v-model="preco" placeholder="Preço" />
+        <input type="number" class="inputz" v-model="preco" placeholder="Preço" />
         <label for="nomeCompleto" class="label-preco">Preço</label>
       </div>
       <select v-model="idCat" class="cbx">
@@ -86,79 +86,96 @@ export default {
       todosProds: [],
       medidas: [],
       ingredientes: [],
-      idExcluir: ""
+      idExcluir: "",
+      nomeUtilizado: false
     };
   },
   methods: {
     IrParaTelaMenuAdmin: function() {
       this.$router.push("/ViewTelaMenuAdmin");
     },
+    carregaVetor() {
+      alert("Cadastrado com sucesso!");
+      this.prods.push({
+        id: this.idExcluir,
+        nome: this.nome,
+        descricao: this.descricao,
+        preco: this.preco,
+        medida_tamanho: this.medida,
+        id_categoria: this.idCat,
+        categoriaProd: this.categorias.filter(u => u.id == this.idCat)[0].nome,
+        imagem: this.imagem
+      });
+    },
     salvar: function() {
       this.prods.filter(e => {
         if (e.id == this.ProdSelecionado.id && this.ProdSelecionado[1] != "") {
           this.existe = true;
         }
+        if (this.nome == e.nome) {
+          this.nomeUtilizado = true;
+        }
       });
-      if (this.existe) {
-        axios.put(
-          "http://localhost:55537/api/Produto/" + this.ProdSelecionado.id,
-          {
-            nome: this.nome,
-            descricao: this.descricao,
-            preco: this.preco,
-            medida_tamanho: this.medida,
-            id_categoria: this.idCat,
-            imagem: this.imagem
-          }
-        );
-      } else if (
-        this.nome != null &&
-        this.preco != null &&
-        this.medida != 0 &&
-        this.idCat != 0
-      ) {
-        axios
-          .post("http://localhost:55537/api/Produto", {
-            nome: this.nome,
-            descricao: this.descricao,
-            preco: this.preco,
-            medida_tamanho: this.medida,
-            id_categoria: this.idCat,
-            imagem: this.imagem
-          })
-          .then(res => (this.idExcluir = res.data));
-        setTimeout(function() {
-          alert("Cadastrado com sucesso!");
-          this.prods.push({
-            id: this.idExcluir,
-            nome: this.nome,
-            descricao: this.descricao,
-            preco: this.preco,
-            medida_tamanho: this.medida,
-            id_categoria: this.idCat,
-            categoriaProd: this.categorias.filter(u => u.id == this.idCat)[0]
-              .nome,
-            imagem: this.imagem
-          });
-          this.ingSelecionados.forEach(e => {
-            alert(this.idExcluir);
-            axios.post("http://localhost:55537/api/Produto_Ingrediente", {
-              id_produto: this.idExcluir,
-              id_ingrediente: e
-            });
-          });
-        }, 2000);
+      if (this.nomeUtilizado) {
+        alert("Nome já utilizado");
       } else {
-        alert("Preencha todos os campos!");
+        if (this.existe) {
+          axios.put(
+            "http://localhost:55537/api/Produto/" + this.ProdSelecionado.id,
+            {
+              nome: this.nome,
+              descricao: this.descricao,
+              preco: this.preco,
+              medida_tamanho: this.medida,
+              id_categoria: this.idCat,
+              imagem: this.imagem
+            }
+          );
+          this.prods.filter(u => {
+            if (u.id == this.ProdSelecionado.id) {
+              (u.nome = this.nome),
+                (u.descricao = this.descricao),
+                (u.preco = this.preco),
+                (u.medida_tamanho = this.medida),
+                (u.id_categoria = this.idCat),
+                (u.imagem = this.imagem);
+            }
+          });
+        } else if (
+          this.nome != null &&
+          this.preco != null &&
+          this.medida != 0 &&
+          this.idCat != 0
+        ) {
+          axios
+            .post("http://localhost:55537/api/Produto", {
+              nome: this.nome,
+              descricao: this.descricao,
+              preco: this.preco,
+              medida_tamanho: this.medida,
+              id_categoria: this.idCat,
+              imagem: this.imagem
+            })
+            .then(res => (this.idExcluir = res.data), this.carregaVetor());
+          setTimeout(() => {
+            alert(this.idExcluir);
+            this.ingSelecionados.forEach(e => {
+              axios.post("http://localhost:55537/api/Produto_Ingrediente", {
+                id_produto: this.idExcluir,
+                id_ingrediente: e
+              });
+            });
+          }, 2000);
+        } else {
+          alert("Preencha todos os campos!");
+        }
+        this.existe = false;
+        this.limpa();
       }
-      this.existe = false;
-      this.limpa();
     },
     addIng: function(ingId) {
-      alert(ingId);
       var cb = document.getElementById("cbIng");
       var ja = this.ingSelecionados.indexOf(ingId);
-      alert(ja);
       if (cb.checked && ja == -1) {
         this.ingSelecionados.push(ingId);
       } else {

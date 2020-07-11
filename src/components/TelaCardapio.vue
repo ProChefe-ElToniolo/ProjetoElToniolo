@@ -110,6 +110,8 @@ export default {
   width: 1220px;
   text-align: center;
   display: flex;
+  position: absolute;
+
 }
 
 #caixa {
