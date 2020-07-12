@@ -15,10 +15,11 @@
     <button class="butao" id="botãoCadastrar" @click="salvarCadastro">CADASTRAR</button>
     <br/>
     <span id="correto" v-if="mostrarSucesso">Cadastrado com sucesso!</span>
-    <span id="pren" v-if="preencherCorreto">Preencha os dados corretamente</span>
+    <span class="span" v-if="preencherCorreto">Preencha os dados corretamente</span>
+    <span class="span" v-if="mesmoNome">Esse telefone já existe!</span>
     </div>
     <div class="partes" >
-    <button class="butao" id="botãoVoltar" @click="voltarMenu">x</button>
+    <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
     <input id="cepI" class="geral" type="text" @change="buscarCep" v-mask="'#####-###'" v-on:keyup.13="buscar" placeholder="CEP" v-model="cep"/>
     <br />
     <input id="cidadeI" class="geral" type="text" placeholder="Cidade" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="20" v-model="cidade" />
@@ -56,12 +57,14 @@ export default {
       checkbox: false,
       endereco: [],
       mostrarSucesso: false,
-      preencherCorreto: false
+      preencherCorreto: false,
+      mesmoNome: false,
+      clientes: []
     };
   },
   methods: {
     voltarMenu: function() {
-      this.$router.push("/");
+      
     },
     mostrarSenha: function(){
       var senha = document.getElementById("senha")
@@ -85,8 +88,14 @@ export default {
     },
     salvarCadastro: function() {
       this.preencherCorreto = false
-        if (
-          this.nome != "" &&
+      var telefone = this.telefone.replace(/\D/g,'')
+      this.clientes.filter(c => {
+        if(c.telefone == telefone){
+           this.mesmoNome = true 
+           location.reload()
+        }
+      })
+        if(this.nome != "" &&
           this.telefone != "" &&
           this.email != "" &&
           this.senha != "" &&
@@ -96,9 +105,9 @@ export default {
           this.logradouro != "" &&
           this.bairro != "" &&
           this.numero != "" &&
-          this.uf != "" 
-        ) {
-          axios
+          this.uf != "" && 
+          this.mesmoNome == false){
+            axios
             .post("http://localhost:55537/api/Cliente", {
               nome: this.nome,
               telefone: this.telefone.replace(/\D/g,''),
@@ -128,12 +137,16 @@ export default {
             this.numero = "",
             this.uf = "",
             this.complemento = ""
-
             this.mostrarSucesso = true
-        } else{
-            this.preencherCorreto = true
+        }
+        else{
+          this.preencherCorreto = true
         }
       }
+    }, mounted(){
+      axios
+        .get("http://localhost:55537/api/Cliente")
+        .then(cliente => this.clientes = cliente.data)
     }
   }
 </script>
@@ -166,7 +179,7 @@ body {
   color: white;
 }
 
-#pren{
+.span{
   margin-left: 12.5%;
   color: rgb(185, 23, 23);
   font-weight: 100;

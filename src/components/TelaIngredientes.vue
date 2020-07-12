@@ -69,7 +69,6 @@ export default {
         }
       });
       if (this.existe) {
-        alert("entrouAlterar");
         axios.put(
           "http://localhost:55537/api/Ingrediente/" + this.ingEscolhido.id,
           {
@@ -78,7 +77,7 @@ export default {
             estoque: this.estoque
           }
         )
-      } else {
+      }else {
         axios.post("http://localhost:55537/api/Ingrediente", {
           nome: this.nome,
           id_categoria: this.idCatIng,
@@ -93,7 +92,6 @@ export default {
           this.ingEscolhido = u;
         }
       });
-      console.log(this.ingEscolhido);
       this.nome = this.ingEscolhido.nome;
       this.idCatIng = this.ingEscolhido.id_categoria;
       this.estoque = this.ingEscolhido.estoque;
@@ -112,7 +110,6 @@ export default {
     axios
       .get("http://localhost:55537/api/Categoria")
       .then(cat => (this.categorias = cat.data));
-    console.log(this.categorias);
   }
 };
 </script>

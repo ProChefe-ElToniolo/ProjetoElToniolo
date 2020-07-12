@@ -9,6 +9,7 @@
         </div>
       </div>
       <div class="Prod" v-if="mostrarProds">
+        <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
         <div v-for="prod in produtosSelecionados" :key="prod" id="prod">
           <h4>{{prod.nome}}</h4>
         </div>
@@ -45,7 +46,6 @@ export default {
   },
   methods: {
     listar: function(catSelect) {
-      alert("eu");
       if (this.mostrarProds == false) {
         this.mostrarProds = true;
         this.catsPrincipal = false;
@@ -60,13 +60,15 @@ export default {
       });
     },
     carrega: function() {
-      console.log(this.produtos);
       var aux = [];
       this.produtos.filter(u => {
         aux.push(u.categoriaProd);
       });
       this.exibirCats = [...new Set(aux)];
-      console.log(this.exibirCats);
+    }, 
+    voltarMenu:function(){
+      this.mostrarProds = false
+      this.catsPrincipal = true
     }
   },
   mounted() {
@@ -214,5 +216,27 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   display: flex;
+}
+
+.butao{
+  border-radius: 5px;
+  margin: 1% 1% 1% 12.5%;
+  background-color: rgb(141, 141, 141);
+  border: 2px solid rgb(49, 49, 49);
+  outline: none;
+  cursor: pointer;
+  padding: 1%;
+  -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+#botãoVoltar{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 2px;
+  position: absolute;
+  top: -20px;
+  right: -20px;
 }
 </style>

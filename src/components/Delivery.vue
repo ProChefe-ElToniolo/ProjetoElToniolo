@@ -1,7 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div></div>
-=======
   <div class="topo">
     <label>Faça seu pedido</label>
     <div id="tamanho" v-if="escolherTamanho">
@@ -21,7 +18,6 @@
       </div>
     </div> -->
   </div>
->>>>>>> af58690c73e30f26dcec6bdc970a3f030f763e6a
 </template>
 
 <script>
