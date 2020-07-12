@@ -29,6 +29,7 @@
       <button class="button" @click="salvar">Salvar</button>
       <br />
       <label v-if="CredenciaisIncorretas">Credenciais Incorretas!</label>
+      <br>
       <label v-if="nomeUtilizado">Esse nome já está sendo utilizado!</label>
       <br />
       <div id="fil">FILTROS:</div>
@@ -99,7 +100,6 @@ export default {
       this.$router.push("/ViewTelaMenuAdmin");
     },
     carregaVetor() {
-      alert("Cadastrado com sucesso!");
       this.prods.push({
         id: this.idExcluir,
         nome: this.nome,
@@ -112,6 +112,7 @@ export default {
       });
     },
     salvar: function() {
+      this.nomeUtilizado = false
       this.prods.filter(e => {
         if (e.id == this.ProdSelecionado.id && this.ProdSelecionado[1] != "") {
           this.existe = true;
@@ -216,6 +217,8 @@ export default {
       this.medida = 0;
       this.idCat = 0;
       this.imagem = "";
+      var check = document.getElementById("cbIng")
+      check.value = false
     },
     filtro: function() {
       this.prods = this.todosProds;

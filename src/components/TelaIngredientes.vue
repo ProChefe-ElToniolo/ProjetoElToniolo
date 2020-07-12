@@ -2,46 +2,49 @@
   <div class="fundo1">
     <div id="form-ing">
       <div class="divs">
-    <div class="meu-box">
-      <input type="text" class="inputz" placeholder="Nome do Ingrediente" v-model="nome" />
-      <label id="label-Ing">Nome do Ingrediente</label>
-    </div>
-     <div class="meu-box">
-      <input type="text" class="inputz" placeholder="Quantidade" v-model="estoque" />
-      <label id="label-qtd">Quantidade</label>
-    </div>
+        <div class="meu-box">
+          <input type="text" class="inputz" placeholder="Nome do Ingrediente" v-model="nome" />
+          <label id="label-Ing">Nome do Ingrediente</label>
+        </div>
+        <div class="meu-box">
+          <input type="text" class="inputz" placeholder="Quantidade" v-model="estoque" />
+          <label id="label-qtd">Quantidade</label>
+        </div>
 
-    <label class="label">Categoria</label>
-    <br />
-    <select v-model="idCatIng" class="cbx">
-      <option value="0" select disabled>Escolha a categoria</option>
-      <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
-    </select>
-    <br />
-    <button @click="salvar" class="button">Salvar</button>
+        <label class="label">Categoria</label>
+        <br />
+        <select v-model="idCatIng" class="cbx">
+          <option value="0" select disabled>Escolha a categoria</option>
+          <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
+        </select>
+        <br />
+        <button @click="salvar" class="button">Salvar</button>
+        <label v-if="nomeUtilizado">Esse nome já está sendo utilizado!</label>
+        <br />
+        <label v-if="CredenciaisIncorretas">Credenciais Incorretas!</label>
       </div>
       <div class="divs">
-    <table border="1" class="tabela-st" id="tabelinha">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Categoria</th>
-          <th>Estoque</th>
-          <th class="lixoo"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(ing, index) in ingredientes" :key="index" @click="selecionar(ing.id)">
-          <td>{{ing.nome}}</td>
-          <td>{{ing.nomeCategoria}}</td>
-          <td>{{ing.estoque}}</td>
-          <td @click="excluir(ing.id)">
-            <img id="imgLixo" src="../imagens/lixo.png" alt />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
+        <table border="1" class="tabela-st" id="tabelinha">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Categoria</th>
+              <th>Estoque</th>
+              <th class="lixoo"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(ing, index) in ings" :key="index" @click="selecionar(ing.id)">
+              <td>{{ing.nome}}</td>
+              <td>{{ing.nomeCategoria}}</td>
+              <td>{{ing.estoque}}</td>
+              <td @click="excluir(ing.id)">
+                <img id="imgLixo" src="../imagens/lixo.png" alt />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -52,42 +55,73 @@ export default {
   data: function() {
     return {
       ingredientes: [],
+      ings: [],
       categorias: [],
       nome: "",
       estoque: "",
       idCatIng: 0,
       idExclur: "",
       ingEscolhido: [],
-      existe: false
+      existe: false,
+      nomeUtilizado: false,
+      CredenciaisIncorretas: false
     };
   },
   methods: {
     salvar: function() {
-      this.ingredientes.filter(e => {
+      this.nomeUtilizado = false
+      this.ings.filter(e => {
         if (e.id == this.ingEscolhido.id) {
           this.existe = true;
         }
+        if (this.nome == e.nome) {
+          this.nomeUtilizado = true;
+        }
       });
-      if (this.existe) {
-        axios.put(
-          "http://localhost:55537/api/Ingrediente/" + this.ingEscolhido.id,
-          {
-            nome: this.nome,
-            id_categoria: this.idCatIng,
-            estoque: this.estoque
+      if (this.nomeUtilizado) {
+        this.nomeUtilizado = true
+      } else {
+        if (this.nome != "" && this.estoque != "" && this.idCatIng != 0) {
+          if (this.existe) {
+            axios.put(
+              "http://localhost:55537/api/Ingrediente/" + this.ingEscolhido.id,
+              {
+                nome: this.nome,
+                id_categoria: this.idCatIng,
+                estoque: this.estoque
+              }
+            );
+            this.ings.filter(u => {
+              if (u.id == this.ingEscolhido.id) {
+                (u.nome = this.nome),
+                  (u.id_categoria = this.idCatIng),
+                  (u.estoque = this.estoque);
+              }
+            });
+          } else {
+            axios
+              .post("http://localhost:55537/api/Ingrediente", {
+                nome: this.nome,
+                id_categoria: this.ingEscolhido.nomeCategoria,
+                estoque: this.estoque
+              })
+              .then(resp => {
+                this.ings.push({
+                  id: resp.data,
+                  nome: this.nome,
+                  nomeCategoria: this.nomeCategoria,
+                  estoque: this.estoque
+                });
+              });
           }
-        )
-      }else {
-        axios.post("http://localhost:55537/api/Ingrediente", {
-          nome: this.nome,
-          id_categoria: this.idCatIng,
-          estoque: this.estoque
-        });
+        } else {
+          this.CredenciaisIncorretas = true
+        }
+        this.existe = false;
       }
-      this.existe = false;
     },
     selecionar: function(id) {
-      this.ingredientes.filter(u => {
+      this.ings.filter(u => {
         if (u.id == id) {
           this.ingEscolhido = u;
         }
@@ -96,17 +130,29 @@ export default {
       this.idCatIng = this.ingEscolhido.id_categoria;
       this.estoque = this.ingEscolhido.estoque;
     },
+    limpar: function() {
+      this.nome = "";
+      this.idCatIng = 0;
+      this.estoque = "";
+    },
     excluir: function(idIng) {
-      axios.delete(
-        "http://localhost:55537/api/Ingrediente/" + idIng
-      );
-      // this.pedidosEntregador.splice(this.pedidosEntregador.indexOf(id), 1);
+      axios.delete("http://localhost:55537/api/Ingrediente/" + idIng);
+      this.ings.splice(this.ings.indexOf(idIng), 1);
+      this.limpa();
+    },
+    carregaVetor: function() {
+      setTimeout(() => {
+        this.ings = this.ingredientes;
+      }, 100);
     }
   },
   mounted() {
     axios
       .get("http://localhost:55537/api/Ingrediente")
-      .then(ingrediente => (this.ingredientes = ingrediente.data));
+      .then(
+        ingrediente => (this.ingredientes = ingrediente.data),
+        this.carregaVetor()
+      );
     axios
       .get("http://localhost:55537/api/Categoria")
       .then(cat => (this.categorias = cat.data));
@@ -134,9 +180,9 @@ export default {
   width: 40%;
 }
 
-#tabelinha{
+#tabelinha {
   width: 60%;
-  margin:10px;
+  margin: 10px;
 }
 
 #label-Ing {
@@ -189,7 +235,7 @@ export default {
 
 .inputz:focus + #label-qtd {
   /* margin: 10px; */
-   z-index: 3;
+  z-index: 3;
   color: rgb(255, 255, 255);
   top: -2%;
   left: 3%;
@@ -197,17 +243,17 @@ export default {
   opacity: 1;
 }
 
-#imgLixo{
+#imgLixo {
   padding: 2px;
 }
 
-#form-ing{
+#form-ing {
   margin: 20px 5% 0px 5%;
   width: 85vw;
   display: flex;
 }
 
-.label{
+.label {
   font-size: 18px;
 }
 </style>

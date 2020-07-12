@@ -35,6 +35,8 @@
       <br />
       <span v-if="mostrarCadastroU">Usuário cadastrado com sucesso!</span>
       <span v-if="preencherCertoUsuario">Preencha corretamente!</span>
+      <span v-if="utilizaNomeTipoUsuario">Esse nome de tipo de usuário já está sendo utilizado!</span>
+      <span v-if="utilizaNomeUsuario">Esse nome de usuário já está sendo utilizado!</span>
     </div>
   </div>
 </template>
@@ -55,7 +57,9 @@ export default {
       mostrarCadastroTP: false,
       preencherCertoUsuario: false,
       preencherCertoTP: false,
-      checkbox: false
+      checkbox: false,
+      utilizaNomeTipoUsuario: false,
+      utilizaNomeUsuario: false
     };
   },
   methods: {
@@ -72,7 +76,17 @@ export default {
     },
     cadastrarTipoUsuario: function() {
       this.preencherCertoTP = false;
-      if (this.nome != "") {
+      this.utilizaNomeTipoUsuario = false
+      this.utilizaNomeUsuario = false
+      this.tipoUsuario.filter(t => {
+        if(this.nome == t.nome){
+            this.utilizaNomeTipoUsuario = true
+        }
+      })
+      if(this.utilizaNome){
+        this.utilizaNomeTipoUsuario = true
+      }
+      else if (this.nome != "" && this.utilizaNomeTipoUsuario == false) {
         axios
           .post("http://localhost:55537/api/TipoUsuario", {
             nome: this.nome
@@ -87,8 +101,19 @@ export default {
       }
     },
     cadastrarUsuario: function() {
-      this.preencherCertoUsuario = false;
-      if (
+      this.utilizaNomeUsuario = false
+      this.preencherCertoUsuario = false
+      this.utilizaNomeTipoUsuario = false
+      this.user.filter(u => {
+        if(u.nome == this.nomeUsuario){
+          this.utilizaNomeUsuario = true
+        }
+      })
+      if(this.utilizaNomeUsuario){
+        this.utilizaNomeUsuario = true
+      }
+
+      else if(
         this.nomeUsuario != "" &&
         this.email != "" &&
         this.senha != "" &&

@@ -32,6 +32,10 @@
             <img src="../imagens/pedidos.png" class="img-li" />
             Pedidos
           </li>
+          <li @click="VoltarMenu" id="liBotaoVoltar">
+            <img src="../imagens/iconeVoltarSA.png" class="img-li" id="botaoVoltar"/>
+             Voltar
+          </li>
         </ul>
       </nav>
   </div>
@@ -126,6 +130,9 @@ export default {
       this.usuarioVisualizar = false;
       this.entregadorVisualizar = false;
       this.pedidosVisualizar = false;
+    },
+    VoltarMenu:function(){
+      this.$router.push("/")
     }
   }
 };
@@ -227,5 +234,12 @@ export default {
 }
 input:focus::-webkit-input-placeholder {
    color: transparent;
+}
+#botaoVoltar{
+  width: 28px;
+  height: 30px;
+}
+#liBotaoVoltar{
+  line-height: 50px;
 }
 </style>
