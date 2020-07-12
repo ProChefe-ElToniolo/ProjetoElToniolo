@@ -19,6 +19,9 @@
         </select>
         <br />
         <button @click="salvar" class="button">Salvar</button>
+        <label v-if="nomeUtilizado">Esse nome já está sendo utilizado!</label>
+        <br />
+        <label v-if="CredenciaisIncorretas">Credenciais Incorretas!</label>
       </div>
       <div class="divs">
         <table border="1" class="tabela-st" id="tabelinha">
@@ -60,11 +63,13 @@ export default {
       idExclur: "",
       ingEscolhido: [],
       existe: false,
-      nomeUtilizado: false
+      nomeUtilizado: false,
+      CredenciaisIncorretas: false
     };
   },
   methods: {
     salvar: function() {
+      this.nomeUtilizado = false
       this.ings.filter(e => {
         if (e.id == this.ingEscolhido.id) {
           this.existe = true;
@@ -74,7 +79,7 @@ export default {
         }
       });
       if (this.nomeUtilizado) {
-        alert("Preenche tudo");
+        this.nomeUtilizado = true
       } else {
         if (this.nome != "" && this.estoque != "" && this.idCatIng != 0) {
           if (this.existe) {
@@ -110,7 +115,7 @@ export default {
               });
           }
         } else {
-          alert("Preenche tudo");
+          this.CredenciaisIncorretas = true
         }
         this.existe = false;
       }
@@ -121,7 +126,6 @@ export default {
           this.ingEscolhido = u;
         }
       });
-      console.log(this.ingEscolhido);
       this.nome = this.ingEscolhido.nome;
       this.idCatIng = this.ingEscolhido.id_categoria;
       this.estoque = this.ingEscolhido.estoque;
@@ -138,7 +142,6 @@ export default {
     },
     carregaVetor: function() {
       setTimeout(() => {
-        console.log(this.ingredientes);
         this.ings = this.ingredientes;
       }, 100);
     }

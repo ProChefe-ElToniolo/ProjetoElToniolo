@@ -45,7 +45,10 @@
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
               <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha" />
               <br />
-              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox" />
+              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"/>
+              <label id="labelMostrarSenha">Mostrar Senha</label>
+              <br />
+              <label v-if="senhaIncorreta" id="labelSenhaIncorreta">Credenciais Incorretas!</label>
               <br />
               <button id="botao-entrar" @click="entrar">Entrar</button>
               <br />
@@ -107,7 +110,7 @@ export default {
       open: false,
       checkbox: false,
       logCorreto: false,
-      senhaIncorreta: false
+      senhaIncorreta: false,
     };
   },
   methods: {
@@ -121,7 +124,6 @@ export default {
     entrar: function() {
       this.clientes.filter(c => {
         if (c.email == this.email && c.senha == this.senha) {
-          alert("Logado como Cliente");
           this.logado = true;
           this.NomePessoaLogada = c.nome;
           this.ocultarMenuLogin = true;
@@ -134,19 +136,17 @@ export default {
       });
       this.usuarios.filter(u => {
         if (u.email == this.email && u.senha.trim() == this.senha.trim()) {
-          alert("Logado como Admin");
           sessionStorage.setItem("usuarioLogado", JSON.stringify(u));
           this.$router.push("/ViewTelaMenuAdmin");
           this.logCorreto = true;
         }
       });
       if (this.senha == "" || this.email == "") {
-        alert("Digite algo!");
+        this.senhaIncorreta = true;
       } else {
         this.senhaIncorreta = true;
         (this.email = ""), (this.senha = "");
       }
-      console.log(this.senhaIncorreta);
     },
     mostrarSenha: function() {
       var senha = document.getElementById("senha");
@@ -610,12 +610,15 @@ body,html {
 }
 
 #labelSenhaIncorreta {
-  color: red;
-  background-color: green;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.555);;
   cursor: pointer;
-  position: absolute;
   width: 130px;
   border: 2px solid yellow;
-  margin: 10px 0 0 40px;
+  margin: 10px 0 0 0;
+}
+
+#labelMostrarSenha{
+  color: white;
 }
 </style>

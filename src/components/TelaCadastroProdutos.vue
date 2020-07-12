@@ -23,10 +23,14 @@
       </select>
       <select v-model="medida" class="cbx">
         <option value="0" selected disabled>Unidade de Medida</option>
-        <option :value="med.id" v-for="med in medidas" :key="med.id">{{med.nome}}</option>
+        <option v-for="med in medidas" :key="med.id" :value="med.id">{{med.nome}}</option>
       </select>
       <br />
       <button class="button" @click="salvar">Salvar</button>
+      <br />
+      <label v-if="CredenciaisIncorretas">Credenciais Incorretas!</label>
+      <br>
+      <label v-if="nomeUtilizado">Esse nome já está sendo utilizado!</label>
       <br />
       <div id="fil">FILTROS:</div>
       <select id="cbxFiltro" @change="filtro(filtrarCat)" v-model="filtrarCat">
@@ -87,7 +91,8 @@ export default {
       medidas: [],
       ingredientes: [],
       idExcluir: "",
-      nomeUtilizado: false
+      nomeUtilizado: false,
+      CredenciaisIncorretas: false
     };
   },
   methods: {
@@ -95,7 +100,6 @@ export default {
       this.$router.push("/ViewTelaMenuAdmin");
     },
     carregaVetor() {
-      alert("Cadastrado com sucesso!");
       this.prods.push({
         id: this.idExcluir,
         nome: this.nome,
@@ -108,6 +112,7 @@ export default {
       });
     },
     salvar: function() {
+      this.nomeUtilizado = false
       this.prods.filter(e => {
         if (e.id == this.ProdSelecionado.id && this.ProdSelecionado[1] != "") {
           this.existe = true;
@@ -117,7 +122,7 @@ export default {
         }
       });
       if (this.nomeUtilizado) {
-        alert("Nome já utilizado");
+        this.nomeUtilizado = true
       } else {
         if (this.existe) {
           axios.put(
@@ -158,7 +163,6 @@ export default {
             })
             .then(res => (this.idExcluir = res.data), this.carregaVetor());
           setTimeout(() => {
-            alert(this.idExcluir);
             this.ingSelecionados.forEach(e => {
               axios.post("http://localhost:55537/api/Produto_Ingrediente", {
                 id_produto: this.idExcluir,
@@ -167,7 +171,7 @@ export default {
             });
           }, 2000);
         } else {
-          alert("Preencha todos os campos!");
+          this.CredenciaisIncorretas = true
         }
         this.existe = false;
         this.limpa();
@@ -213,6 +217,8 @@ export default {
       this.medida = 0;
       this.idCat = 0;
       this.imagem = "";
+      var check = document.getElementById("cbIng")
+      check.value = false
     },
     filtro: function() {
       this.prods = this.todosProds;
