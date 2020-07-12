@@ -1,7 +1,7 @@
 <template>
   <div id="cima">
     <div id="form-entregador">
-      <h1>Bem Vindo a Tela de Entregador</h1>
+      <h1>Entregador:</h1>
       <select v-model="nomeEntregador" @change="SelecionarPedido(nomeEntregador)" class="cbx">
         <option value="0" selected disabled>Entregador</option>
         <option v-for="user in listarEntregador" :key="user.id">{{user.nome}}</option>
@@ -118,7 +118,6 @@ export default {
   display: flex;
 }
 #form-entregador {
-  border: 3px solid black;
   margin: 20px 5% 0px 5%;
   width: 85vw;
 }
