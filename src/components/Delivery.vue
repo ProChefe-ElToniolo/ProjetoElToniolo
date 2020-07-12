@@ -17,27 +17,19 @@
           </div>
         </div>
       </div>
-      <div v-if="escolherSabores == false">
-        <div class="scroll">
-          <div v-for="sabor in sabores" :key="sabor.id" id="sab">
-            <div class="cb-pizza">
-              <button class="button-ex" @click="exSabor(sabor.id, sabor.nome)">-</button>
-              <button class="button-add" @click="addSabor(sabor.id, sabor.nome)">+</button>
-              {{sabor.nome}}
-              <br />
-              <br />
-              R$ {{sabor.preco}}
-            </div>
+      <div v-if="escolherSabores == false" class="scroll">
+        <div v-for="sabor in sabores" :key="sabor.id" id="sab">
+          <div class="cb-pizza">
+            <button class="button-ex" @click="exSabor(sabor.id, sabor.nome)">-</button>
+            <button class="button-add" @click="addSabor(sabor.id, sabor.nome)">+</button>
+            {{sabor.nome}}
+            <br />
+            <br />
+            R$ {{sabor.preco}}
           </div>
         </div>
-        <button>Pedir mais pizzas</button>
-        <button @click="outros()">Outros produtos</button>
-        <button @click="finalizar()">Finalizar</button>
-      </div>
-
-      <!-- outros produtos -->
-      <div v-if="outrosProdutos == false">
-        <div class="scroll">
+        <!-- outros produtos -->
+        <div v-if="outrosProdutos == false">
           <div v-for="prod in outrosProds" :key="prod.id" id="sab">
             <div class="cb-pizza">
               <button class="button-ex" @click="exProd(prod.id, prod.nome)">-</button>
@@ -50,18 +42,24 @@
           </div>
         </div>
       </div>
-      <div id="carrinho">
-        <h2>Acompanhe seu pedido!</h2>
-        <div id="separa"></div>
-        <div id="itens" v-for="item in itens" :key="item">
-          <label>{{item}}</label>
-          <div v-for="sabor in saboresEscolhidos" :key="sabor">
-            <label>{{sabor}}</label>
-          </div>
-          <br />
-        </div>
-        <div>{{valorFinal}}</div>
+      <div v-if="escolherSabores == false" id="bots">
+        <button>Pedir mais pizzas</button>
+        <button @click="outros()">Outros produtos</button>
+        <button @click="finalizar()">Finalizar</button>
       </div>
+    </div>
+
+    <div id="carrinho">
+      <h2>Acompanhe seu pedido!</h2>
+      <div id="separa"></div>
+      <div id="itens" v-for="item in itens" :key="item">
+        <label>{{item}}</label>
+        <div v-for="sabor in saboresEscolhidos" :key="sabor">
+          <label>{{sabor}}</label>
+        </div>
+        <br />
+      </div>
+      <div>{{valorFinal}}</div>
     </div>
   </div>
 </template>
@@ -79,10 +77,12 @@ export default {
       outrosProdutos: true,
       aparecer: false,
       todoSabores: [],
+      mesmoSabor: 0,
       outrosProds: [],
       saboresEscolhidos: [],
       todosProdutos: [],
       valorPedido: [],
+      soma: 0,
       escolhidos: [],
       valorFinal: 0,
       itens: []
@@ -90,6 +90,7 @@ export default {
   },
   methods: {
     mudar: function(nome) {
+      this.filtrar(nome);
       this.escolherTamanho = false;
       this.itens.push(nome);
       this.escolherSabores = false;
@@ -108,10 +109,10 @@ export default {
         this.outrosProdutos = false;
       }
     },
-    filtrar: function() {
+    filtrar: function(nomeCat) {
       setTimeout(() => {
         this.todoSabores.filter(u => {
-          if (u.categoriaProd == "Pizzas") {
+          if (u.categoriaProd == "Pizzas" && u.nomeMedida == nomeCat) {
             this.sabores.push(u);
           }
         });
@@ -129,20 +130,28 @@ export default {
     },
     valor: function() {
       var aux = 0;
-      var soma = 0;
+      var repetido = [...new Set(this.escolhidos)];
+      console.log(repetido)
       this.todoSabores.forEach(e => {
-        if (e.id == this.escolhidos[aux]) {
-          soma += e.preco;
+        if (e.id == repetido[aux]) {
+          if (this.valorFinal < e.preco) {
+            this.valorFinal = e.preco;
+          }
           aux++;
         }
       });
-      if (this.escolhidos.length) {
-        this.valorFinal = soma / this.escolhidos.length;
-      }
       console.log(this.valorFinal);
     },
     addSabor: function(sabor, nome) {
-      var nomeSabor = nome.replace("Pizza de", "").trim();
+      var nomeSabor = nome
+        .replace("Pizza de", "")
+        .replace("Pizza ", "")
+        .trim();
+      this.saboresEscolhidos.forEach(e => {
+        if (e == nomeSabor) {
+          this.mesmoSabor = 1;
+        }
+      });
       if (this.itens == "Exagerada") {
         if (this.saboresEscolhidos.length < 4) {
           this.saboresEscolhidos.push(nomeSabor);
@@ -150,7 +159,6 @@ export default {
           console.log(this.escolhidos);
           if (this.saboresEscolhidos.length == 4) {
             this.aparecer = true;
-            this.valor();
           }
         }
       } else if (this.itens == "Grande") {
@@ -159,7 +167,6 @@ export default {
           this.escolhidos.push(sabor);
           if (this.saboresEscolhidos.length == 3) {
             this.aparecer = true;
-            this.valor(this.escolhidos);
           }
         }
       } else if (this.itens == "Media") {
@@ -168,7 +175,6 @@ export default {
           this.escolhidos.push(sabor);
           if (this.saboresEscolhidos.length == 2) {
             this.aparecer = true;
-            this.valor(this.escolhidos);
           }
         }
       } else if (this.itens == "Pequena") {
@@ -177,13 +183,12 @@ export default {
           this.escolhidos.push(sabor);
           if (this.saboresEscolhidos.length == 1) {
             this.aparecer = true;
-            this.valor(this.escolhidos);
           }
         }
       }
     },
     exSabor: function(sabor, nome) {
-      this.valorFinal = 0
+      this.valorFinal = 0;
       var nomeSabor = nome.replace("Pizza de", "").trim();
       if (this.saboresEscolhidos.length > 0) {
         this.escolhidos.forEach(u => {
@@ -210,7 +215,6 @@ export default {
     axios
       .get("http://localhost:55537/api/Produto")
       .then(prod => (this.todoSabores = prod.data));
-    this.filtrar();
     this.carregaOutros();
   }
 };
@@ -251,7 +255,7 @@ body {
   position: fixed;
   background: rgba(87, 87, 87, 0.534);
   border-radius: 15px;
-  margin: -350px 0px 0px 65%;
+  margin: 95px 0px 0px 65%;
 }
 #separa {
   margin: 0px 0px 0px 5%;
@@ -305,7 +309,12 @@ body {
   outline: none;
 }
 .scroll {
-  overflow-x: hidden;
-  overflow-y: scroll;
+  margin: 90px 0px 0px 250px;
+  height: 450px;
+  width: 400px;
+  overflow: auto;
+}
+#bots {
+  margin: 0px 0px 0px 225px;
 }
 </style>

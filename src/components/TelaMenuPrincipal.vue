@@ -45,7 +45,7 @@
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
               <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha" />
               <br />
-              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"/>
+              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox" />
               <label id="labelMostrarSenha">Mostrar Senha</label>
               <br />
               <label v-if="senhaIncorreta" id="labelSenhaIncorreta">Credenciais Incorretas!</label>
@@ -62,18 +62,18 @@
           <TelaCadastro />
         </div>
       </div>
-</div>
-      <!-- <div id="sombra-menu"></div> -->
+    </div>
+    <!-- <div id="sombra-menu"></div> -->
 
-      <div v-if="visualizarCardapio">
-        <TelaCardapio />
-      </div>
-      <div v-if="visualizarPedidos">
-        <Delivery />
-      </div>
-      <div v-if="visualizarSobre">
-        <TelaSobre />
-      </div>
+    <div v-if="visualizarCardapio">
+      <TelaCardapio />
+    </div>
+    <div v-if="visualizarPedidos">
+      <Delivery />
+    </div>
+    <div v-if="visualizarSobre">
+      <TelaSobre />
+    </div>
   </div>
 </template>
 
@@ -82,7 +82,7 @@ const axios = require("axios");
 import TelaCardapio from "../components/TelaCardapio.vue";
 import TelaCadastro from "../components/TelaCadastro.vue";
 import TelaSobre from "../components/Sobre.vue";
-import Delivery from "../components/Delivery.vue"
+import Delivery from "../components/Delivery.vue";
 
 export default {
   components: {
@@ -97,6 +97,7 @@ export default {
       senha: "",
       clientes: [],
       usuarios: [],
+      log: [],
       ocultarMenuLogin: true,
       logado: false,
       NomePessoaLogada: "",
@@ -110,7 +111,7 @@ export default {
       open: false,
       checkbox: false,
       logCorreto: false,
-      senhaIncorreta: false,
+      senhaIncorreta: false
     };
   },
   methods: {
@@ -162,6 +163,7 @@ export default {
       this.visualizarPedidos = false;
     },
     sair: function() {
+      sessionStorage.removeItem("usuarioLogado");
       this.NomePessoaLogada = "";
       this.ocultarBotaoLogin = true;
       this.logado = false;
@@ -178,16 +180,23 @@ export default {
       this.visualizarPedidos = true;
       this.open = false;
     },
-    Perfil: function() {
-      // if(){
-      // }
-    },
     Login: function() {
       this.$router.push("/ViewTelaLogin");
     },
     Cadastro: function() {
       this.visualizarCadastro = true;
       this.logar();
+    },
+    verLog: function() {
+      this.log = sessionStorage.getItem("usuarioLogado");
+      if (this.log != null) {
+        this.logado = true;
+        this.NomePessoaLogada = this.log.nome;
+        this.ocultarMenuLogin = true;
+        this.ocultarBotaoLogin = false;
+        this.botaoSair = true;
+        this.logCorreto = true;
+      }
     },
     Admin: function() {
       this.$router.push("/ViewTelaMenuAdmin");
@@ -215,12 +224,14 @@ export default {
     axios
       .get("http://localhost:55537/api/Usuario")
       .then(usuario => (this.usuarios = usuario.data));
+    this.verLog();
   }
 };
 </script>
 
 <style>
-body,html {
+body,
+html {
   height: 100%;
   width: 100%;
   padding: 0px;
@@ -386,7 +397,7 @@ body,html {
   width: 120%;
   height: 70px;
   -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+  transition-duration: 0.4s;
   cursor: pointer;
 }
 
@@ -460,7 +471,6 @@ body,html {
   background-color: rgb(141, 141, 141);
   border: 2px solid rgba(0, 0, 0, 0.671);
   outline: none;
-  
 }
 
 #botao-entrar {
@@ -611,14 +621,14 @@ body,html {
 
 #labelSenhaIncorreta {
   color: white;
-  background-color: rgba(255, 255, 255, 0.555);;
+  background-color: rgba(255, 255, 255, 0.555);
   cursor: pointer;
   width: 130px;
   border: 2px solid yellow;
   margin: 10px 0 0 0;
 }
 
-#labelMostrarSenha{
+#labelMostrarSenha {
   color: white;
 }
 </style>
