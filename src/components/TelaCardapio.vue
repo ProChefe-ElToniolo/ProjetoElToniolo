@@ -164,8 +164,8 @@ export default {
 }
 .Cats {
   position: absolute;
-  margin: 0px 0px 0px 14.4%;
-  width: auto;
+  margin: 70px 0px 0px 3%;
+  width: 1000px;
   flex-wrap: wrap;
   align-items: center;
   display: flex;

@@ -33,7 +33,7 @@
           >FAZER LOGIN OU CADASTRAR-SE</button>
           <!-- CLICAR ABRE O PERFIL -->
           <button id="perfil" v-if="logado">
-            <img src="../imagens/comercial.png" id="userlogo" @click="Perfil" />
+            <img src="../imagens/comercial.png" id="userlogo"/>
             <label id="labelLogado">{{NomePessoaLogada}}</label>
           </button>
           <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
@@ -188,7 +188,8 @@ export default {
       this.logar();
     },
     verLog: function() {
-      this.log = sessionStorage.getItem("usuarioLogado");
+      var clie = sessionStorage.getItem("usuarioLogado");
+      this.log.push(JSON.parse(clie))
       if (this.log != null) {
         this.logado = true;
         this.NomePessoaLogada = this.log.nome;

@@ -76,6 +76,11 @@ export default {
         .delete("http://localhost:55537/api/Pedidos/" + id)
         .then(resp => console.log(resp.data));
       this.pedSelected.splice(index, 1);
+    },
+    carrega: function(){
+      setTimeout(() => {
+        this.pedSelected = this.pedidos
+      }, 300);
     }
   },
   mounted() {
@@ -94,6 +99,7 @@ export default {
     axios
       .get("http://localhost:55537/api/Itens_Pedido")
       .then(itensPedido => (this.itensPedidos = itensPedido));
+    this.carrega()
   }
 };
 </script>

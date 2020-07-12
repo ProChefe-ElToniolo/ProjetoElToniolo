@@ -29,7 +29,7 @@
           </div>
         </div>
         <!-- outros produtos -->
-        <div v-if="outrosProdutos == false">
+        <div v-if="outrosProdutos == false" class="scroll">
           <div v-for="prod in outrosProds" :key="prod.id" id="sab">
             <div class="cb-pizza">
               <button class="button-ex" @click="exProd(prod.id, prod.nome)">-</button>
@@ -42,10 +42,26 @@
           </div>
         </div>
       </div>
+      <div v-if="pagar == false" id="midt">
+        <label>Carrinho de compras</label>
+        <div v-for="item in itens" :key="item">
+          <br />
+          {{item}}
+          <br />
+          <div v-for="sab in saboresEscolhidos" :key="sab">{{sab}}</div>
+          <!-- {{nome cliente}}
+        {{rua}}
+        {{produtos}}
+          {{total}}-->
+        </div>
+        {{"Total: R$ "+ this.valorFinal}}
+        <button @click="pagamento">Pagar</button>
+      </div>
+
       <div v-if="escolherSabores == false" id="bots">
         <button>Pedir mais pizzas</button>
         <button @click="outros()">Outros produtos</button>
-        <button @click="finalizar()">Finalizar</button>
+        <button @click="finalizar()">Ir Finalizar</button>
       </div>
     </div>
 
@@ -54,9 +70,7 @@
       <div id="separa"></div>
       <div id="itens" v-for="item in itens" :key="item">
         <label>{{item}}</label>
-        <div v-for="sabor in saboresEscolhidos" :key="sabor">
-          <label>{{sabor}}</label>
-        </div>
+        <div v-for="sab in saboresEscolhidos" :key="sab">{{sab}}</div>
         <br />
       </div>
       <div>{{valorFinal}}</div>
@@ -71,18 +85,23 @@ export default {
     return {
       medidas: [],
       sabores: [],
+      cliente: [],
+      entregadores: [],
       escolherTamanho: true,
       imagens_tamanho: [],
+      saboresFinal: [],
       escolherSabores: true,
       outrosProdutos: true,
       aparecer: false,
       todoSabores: [],
       mesmoSabor: 0,
+      idPedido: 0,
       outrosProds: [],
       saboresEscolhidos: [],
       todosProdutos: [],
       valorPedido: [],
       soma: 0,
+      pagar: true,
       escolhidos: [],
       valorFinal: 0,
       itens: []
@@ -95,10 +114,41 @@ export default {
       this.itens.push(nome);
       this.escolherSabores = false;
     },
+    pagamento: function() {
+      var repetido = [...new Set(this.escolhidos)];
+      var entregador = this.entregadores[
+        Math.floor(Math.random() * this.entregadores.length)
+      ];
+      axios
+        .post("http://localhost:55537/api/Pedidos", {
+          id_cliente: this.cliente[0].id,
+          id_entregador: entregador,
+          processamento: false
+        })
+        .then(
+          res => (this.idPedido = res.data),
+          setTimeout(() => {
+            repetido.forEach(u => {
+              axios.post("http://localhost:55537/api/Itens_Pedido", {
+                id_produto: u,
+                id_pedido: this.idPedido,
+                quantidade: 1
+              });
+            });
+          }, 2000)
+        );
+    },
+    pagarPedido: function() {},
     finalizar: function() {
       this.valor();
       if (this.valorFinal != 0) {
+        var repetido = [...new Set(this.saboresEscolhidos)];
+        this.saboresEscolhidos = [];
+        this.saboresEscolhidos = repetido;
+        var cli = sessionStorage.getItem("usuarioLogado");
+        this.cliente.push(JSON.parse(cli));
         this.escolherSabores = true;
+        this.pagar = false;
       }
     },
     outros: function() {
@@ -116,7 +166,7 @@ export default {
             this.sabores.push(u);
           }
         });
-      }, 1000);
+      }, 300);
     },
     carregaOutros: function() {
       setTimeout(() => {
@@ -125,13 +175,14 @@ export default {
             this.outrosProds.push(u);
           }
         });
-      }, 1000);
+      }, 500);
       console.log(this.outrosProds);
     },
     valor: function() {
+      this.valorFinal = 50;
       var aux = 0;
       var repetido = [...new Set(this.escolhidos)];
-      console.log(repetido)
+      console.log(repetido);
       this.todoSabores.forEach(e => {
         if (e.id == repetido[aux]) {
           if (this.valorFinal < e.preco) {
@@ -186,6 +237,16 @@ export default {
           }
         }
       }
+      this.valor();
+    },
+    filtroEntregador(usuarios) {
+      setTimeout(() => {
+        usuarios.filter(u => {
+          if (u.tipo_usuario == 3) {
+            this.entregadores.push(u.id);
+          }
+        });
+      }, 1000);
     },
     exSabor: function(sabor, nome) {
       this.valorFinal = 0;
@@ -215,6 +276,10 @@ export default {
     axios
       .get("http://localhost:55537/api/Produto")
       .then(prod => (this.todoSabores = prod.data));
+    axios
+      .get("http://localhost:55537/api/Usuario")
+      .then(users => this.filtroEntregador(users.data));
+
     this.carregaOutros();
   }
 };
@@ -316,5 +381,11 @@ body {
 }
 #bots {
   margin: 0px 0px 0px 225px;
+}
+#midt {
+  border: 3px solid black;
+  margin: 180px 0px 0px 150px;
+  height: 350px;
+  width: 500px;
 }
 </style>
