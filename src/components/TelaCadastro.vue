@@ -10,7 +10,7 @@
     <input id="emailI" class="geral" type="text" placeholder="E-mail" maxlength="50" v-model="email"/>
     <br />
     <input class="geral" type="password" placeholder="Senha" maxlength="20" v-model="senha" id="senha" />
-    <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span class="checkbox">Exibir/Ocultar senha</span>
+    <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span class="checkbox">Exibir/Ocultar</span>
     <br />
     <button class="butao" id="botãoCadastrar" @click="salvarCadastro">CADASTRAR</button>
     <br/>
