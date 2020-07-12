@@ -105,13 +105,13 @@ export default {
 }
 
 .topo {
-  margin: 100px 0 0 0;
+  /* margin-top: 100px; */
+  width: 71.72%;
+  margin-left: 14.4%;
   height: auto;
-  width: 1220px;
   text-align: center;
   display: flex;
   position: absolute;
-
 }
 
 #caixa {
