@@ -196,4 +196,9 @@ export default {
   border: 3px solid black;
   margin: 20px 5% 0px 5%;
 }
+#form-cat{
+  border: 3px solid black;
+  margin: 20px 5% 0px 5%;
+  width: 85vw;
+}
 </style>

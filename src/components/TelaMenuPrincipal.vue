@@ -432,6 +432,7 @@ body,html {
   margin: 0.2% 0px 0px 0px;
   width: 65px;
   height: 65px;
+  cursor: pointer;
 }
 /* #menu-rodape {
   margin: 872px 0px 0px 0px;

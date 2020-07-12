@@ -191,6 +191,9 @@ export default {
   border: 1px rgba(56, 56, 56, 0.301) solid;
   margin: 1px 0px 2px 0px;
   width: 148px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 
 #slogan {

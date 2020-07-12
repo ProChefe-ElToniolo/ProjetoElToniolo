@@ -112,11 +112,12 @@ export default {
 #cima {
   width: 100%;
   height: 100%;
-  background-color: rgba(133, 131, 131, 0.76);
+  background-color: rgb(133, 131, 131);
   display: flex;
 }
 #form-entregador {
   border: 3px solid black;
   margin: 20px 5% 0px 5%;
+  width: 85vw;
 }
 </style> 

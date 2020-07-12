@@ -1,44 +1,47 @@
 <template>
   <div class="fundo1">
     <div id="form-ing">
-      <h4>INGREDIENTES</h4>
-      <div class="meu-box">
-        <input type="text" class="inputz" placeholder="Nome do Ingrediente" v-model="nome" />
-        <label id="label-Ing">Nome do Ingrediente</label>
-      </div>
-      <div class="meu-box">
-        <input type="text" class="inputz" placeholder="Quantidade" v-model="estoque" />
-        <label id="label-qtd">Quantidade</label>
-      </div>
+      <div class="divs">
+        <div class="meu-box">
+          <input type="text" class="inputz" placeholder="Nome do Ingrediente" v-model="nome" />
+          <label id="label-Ing">Nome do Ingrediente</label>
+        </div>
+        <div class="meu-box">
+          <input type="text" class="inputz" placeholder="Quantidade" v-model="estoque" />
+          <label id="label-qtd">Quantidade</label>
+        </div>
 
-      <label>Categoria</label>
-      <br />
-      <select v-model="idCatIng" class="cbx">
-        <option value="0" select disabled>Escolha a categoria</option>
-        <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
-      </select>
-      <br />
-      <button @click="salvar" class="button">Salvar</button>
-      <table border="1" class="tabela-st">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Categoria</th>
-            <th>Estoque</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(ing, index) in ingredientes" :key="index" @click="selecionar(ing.id)">
-            <td>{{ing.nome}}</td>
-            <td>{{ing.nomeCategoria}}</td>
-            <td>{{ing.estoque}}</td>
-            <td @click="excluir(ing.id)">
-              <img id="imgLixo" src="../imagens/lixo.png" alt />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <label class="label">Categoria</label>
+        <br />
+        <select v-model="idCatIng" class="cbx">
+          <option value="0" select disabled>Escolha a categoria</option>
+          <option :value="cat.id" v-for="cat in categorias" :key="cat.id">{{cat.nome}}</option>
+        </select>
+        <br />
+        <button @click="salvar" class="button">Salvar</button>
+      </div>
+      <div class="divs">
+        <table border="1" class="tabela-st" id="tabelinha">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Categoria</th>
+              <th>Estoque</th>
+              <th class="lixoo"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(ing, index) in ings" :key="index" @click="selecionar(ing.id)">
+              <td>{{ing.nome}}</td>
+              <td>{{ing.nomeCategoria}}</td>
+              <td>{{ing.estoque}}</td>
+              <td @click="excluir(ing.id)">
+                <img id="imgLixo" src="../imagens/lixo.png" alt />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -49,47 +52,71 @@ export default {
   data: function() {
     return {
       ingredientes: [],
+      ings: [],
       categorias: [],
       nome: "",
       estoque: "",
       idCatIng: 0,
       idExclur: "",
       ingEscolhido: [],
-      existe: false
+      existe: false,
+      nomeUtilizado: false
     };
   },
   methods: {
     salvar: function() {
-      this.ingredientes.filter(e => {
+      this.ings.filter(e => {
         if (e.id == this.ingEscolhido.id) {
           this.existe = true;
         }
-      });
-      if (this.nome != "" && this.estoque != "" && this.idCatIng != 0) {
-        if (this.existe) {
-          alert("entrouAlterar");
-          axios.put(
-            "http://localhost:55537/api/Ingrediente/" + this.ingEscolhido.id,
-            {
-              nome: this.nome,
-              id_categoria: this.idCatIng,
-              estoque: this.estoque
-            }
-          );
-        } else {
-          axios.post("http://localhost:55537/api/Ingrediente", {
-            nome: this.nome,
-            id_categoria: this.idCatIng,
-            estoque: this.estoque
-          });
+        if (this.nome == e.nome) {
+          this.nomeUtilizado = true;
         }
-      }else{
-        alert('Preenche tudo')
+      });
+      if (this.nomeUtilizado) {
+        alert("Preenche tudo");
+      } else {
+        if (this.nome != "" && this.estoque != "" && this.idCatIng != 0) {
+          if (this.existe) {
+            axios.put(
+              "http://localhost:55537/api/Ingrediente/" + this.ingEscolhido.id,
+              {
+                nome: this.nome,
+                id_categoria: this.idCatIng,
+                estoque: this.estoque
+              }
+            );
+            this.ings.filter(u => {
+              if (u.id == this.ingEscolhido.id) {
+                (u.nome = this.nome),
+                  (u.id_categoria = this.idCatIng),
+                  (u.estoque = this.estoque);
+              }
+            });
+          } else {
+            axios
+              .post("http://localhost:55537/api/Ingrediente", {
+                nome: this.nome,
+                id_categoria: this.ingEscolhido.nomeCategoria,
+                estoque: this.estoque
+              })
+              .then(resp => {
+                this.ings.push({
+                  id: resp.data,
+                  nome: this.nome,
+                  nomeCategoria: this.nomeCategoria,
+                  estoque: this.estoque
+                });
+              });
+          }
+        } else {
+          alert("Preenche tudo");
+        }
+        this.existe = false;
       }
-      this.existe = false;
     },
     selecionar: function(id) {
-      this.ingredientes.filter(u => {
+      this.ings.filter(u => {
         if (u.id == id) {
           this.ingEscolhido = u;
         }
@@ -99,19 +126,33 @@ export default {
       this.idCatIng = this.ingEscolhido.id_categoria;
       this.estoque = this.ingEscolhido.estoque;
     },
+    limpar: function() {
+      this.nome = "";
+      this.idCatIng = 0;
+      this.estoque = "";
+    },
     excluir: function(idIng) {
       axios.delete("http://localhost:55537/api/Ingrediente/" + idIng);
-      // this.pedidosEntregador.splice(this.pedidosEntregador.indexOf(id), 1);
+      this.ings.splice(this.ings.indexOf(idIng), 1);
+      this.limpa();
+    },
+    carregaVetor: function() {
+      setTimeout(() => {
+        console.log(this.ingredientes);
+        this.ings = this.ingredientes;
+      }, 100);
     }
   },
   mounted() {
     axios
       .get("http://localhost:55537/api/Ingrediente")
-      .then(ingrediente => (this.ingredientes = ingrediente.data));
+      .then(
+        ingrediente => (this.ingredientes = ingrediente.data),
+        this.carregaVetor()
+      );
     axios
       .get("http://localhost:55537/api/Categoria")
       .then(cat => (this.categorias = cat.data));
-    console.log(this.categorias);
   }
 };
 </script>
@@ -136,12 +177,80 @@ export default {
   width: 40%;
 }
 
+#tabelinha {
+  width: 60%;
+  margin: 10px;
+}
+
+#label-Ing {
+  text-align: center;
+  font-weight: 700;
+  border-radius: 2px;
+  border: none;
+  width: 130px;
+  height: 14px;
+  margin: 0px 0px 0px 5px;
+  position: absolute;
+  background-color: #1f2023;
+  color: rgb(255, 255, 255);
+  top: 17%;
+  bottom: 0;
+  left: 3%;
+  right: 0;
+  transition: 0.5s;
+  opacity: 0.5;
+}
+
+.inputz:focus + #label-Ing {
+  /* margin: 10px; */
+  z-index: 3;
+  color: rgb(255, 255, 255);
+  top: -2%;
+  left: 3%;
+  transition: 0.5s;
+  opacity: 1;
+}
+
+#label-qtd {
+  text-align: center;
+  font-weight: 700;
+  border-radius: 2px;
+  border: none;
+  width: 70px;
+  height: 14px;
+  margin: 0px 0px 0px 5px;
+  position: absolute;
+  background-color: #1f2023;
+  color: rgb(255, 255, 255);
+  top: 17%;
+  bottom: 0;
+  left: 3%;
+  right: 0;
+  transition: 0.5s;
+  opacity: 0.5;
+}
+
+.inputz:focus + #label-qtd {
+  /* margin: 10px; */
+  z-index: 3;
+  color: rgb(255, 255, 255);
+  top: -2%;
+  left: 3%;
+  transition: 0.5s;
+  opacity: 1;
+}
+
 #imgLixo {
-  margin: 0px 0px 0px 160px;
   padding: 2px;
 }
+
 #form-ing {
-  border: 3px solid black;
   margin: 20px 5% 0px 5%;
+  width: 85vw;
+  display: flex;
+}
+
+.label {
+  font-size: 18px;
 }
 </style>
