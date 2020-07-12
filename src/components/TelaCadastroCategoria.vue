@@ -16,6 +16,11 @@
       <button @click="SalvarCategoria" class="button" id="ta">Salvar Categoria</button>
       <br>
       <span v-if="verificado">Digite algo!</span>
+      <button @click="SalvarCategoria">Salvar Categoria</button>
+      <br />
+      <label v-if="nomeUtilizado">Esse nome já está sendo utilizado!</label>
+      <br />
+      <label v-if="utiliza"></label>
       <!-- v-bind:aparecer="true" -->
       <div id="decidir" v-if="aparecer">
         <button @click="decisao">OK</button>
@@ -61,11 +66,13 @@ export default {
       ingredientes: [],
       retornoId: 0,
       contador: 0,
-      nomeUtilizado: false
+      nomeUtilizado: false,
+      utiliza: false
     };
   },
   methods: {
     SalvarCategoria: function() {
+      this.nomeUtilizado = false
       this.alterar = false;
       this.nomeUtilizado = false;
       var txtCategoria = document.getElementById("txtCategoria");
@@ -79,7 +86,7 @@ export default {
         }
       });
       if (this.nomeUtilizado) {
-        alert("Digita outra coisa merda");
+        this.nomeUtilizado = true
       } else {
         if (alterar == 1) {
           axios.put(
@@ -137,7 +144,7 @@ export default {
       let vetorProdutoIngrediente = [].concat(this.produtos, this.ingredientes);
       vetorProdutoIngrediente.filter(p => {
         if (this.categoriasAlterar.id == p.id_categoria && this.contador == 0) {
-          alert("Existe um produto ou ingrediente que utiiza desta categoria");
+          this.utiliza = true
           this.contador++;
           this.aparecer = false;
         }

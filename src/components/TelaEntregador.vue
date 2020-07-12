@@ -6,6 +6,7 @@
         <option value="0" selected disabled>Entregador</option>
         <option v-for="user in listarEntregador" :key="user.id">{{user.nome}}</option>
       </select>
+      <label v-if="semPedidos">Esse entregador não possui pedidos!</label>
     <table border="5" style="cursor:pointer" class="tabela-st">
       <thead>
         <tr>
@@ -40,7 +41,8 @@ export default {
       pedidosEntregador: [],
       nomeEntregador: 0,
       entregadorSelecionado: [],
-      entregaCliente: 0
+      entregaCliente: 0,
+      semPedidos: false
     };
   },
   methods: {
@@ -62,7 +64,7 @@ export default {
       });
 
       if (this.pedidosEntregador == 0) {
-        alert("Esse entregador não possui pedidos!");
+        this.semPedidos = true
       }
     },
 
@@ -72,7 +74,6 @@ export default {
           this.entregaCliente = n.id_cliente;
         }
       });
-      console.log(this.entregaCliente);
       axios
         .put("http://localhost:55537/api/Pedidos/" + id, {
           id_cliente: this.entregaCliente,
@@ -81,6 +82,7 @@ export default {
         })
         .then(resp => console.log(resp.data));
       this.pedidosEntregador.splice(this.pedidosEntregador.indexOf(id), 1);
+      this.semPedidos = false
     },
 
     IrParaTelaMenuAdmin: function() {
