@@ -57,23 +57,25 @@
           </div>
         </transition>
       </div>
-      <div class="modal" v-if="visualizarCadastro">
+      <transition  name="anima">
+      <div class="modal" v-if="visualizarCadastro" >
         <div id="cadastrin">
-          <TelaCadastro />
+          <TelaCadastro v-if="visualizarCadastro" @chamou="fecharCadastro"/>
         </div>
+      </div>  
+      </transition>    
       </div>
-    </div>
-    <!-- <div id="sombra-menu"></div> -->
+      <!-- <div id="sombra-menu"></div> -->
 
-    <div v-if="visualizarCardapio">
-      <TelaCardapio />
-    </div>
-    <div v-if="visualizarPedidos">
-      <Delivery />
-    </div>
-    <div v-if="visualizarSobre">
-      <TelaSobre />
-    </div>
+      <div v-if="visualizarCardapio">
+        <TelaCardapio />
+      </div>
+      <div v-if="visualizarPedidos">
+        <Delivery />
+      </div>
+      <div v-if="visualizarSobre">
+        <TelaSobre />
+      </div>
   </div>
 </template>
 
@@ -113,6 +115,11 @@ export default {
       logCorreto: false,
       senhaIncorreta: false
     };
+  },
+  events:{
+    coisar(){
+      this.fecharCadastro();
+    },
   },
   methods: {
     logar: function() {
@@ -187,6 +194,9 @@ export default {
       this.visualizarCadastro = true;
       this.logar();
     },
+    fecharCadastro: function(){
+      this.visualizarCadastro = false;
+    },
     verLog: function() {
       var clie = sessionStorage.getItem("usuarioLogado");
       this.log.push(JSON.parse(clie))
@@ -246,6 +256,24 @@ html {
   overflow: auto;
 }
 
+.anima-enter-active{
+  animation: ala 1s;
+}
+.anima-leave-active{
+  animation: ala 0.5s reverse;
+}
+
+@keyframes ala {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 .bounce-enter-active {
   animation: bounce-in 0.5s;
 }
@@ -293,6 +321,8 @@ html {
   height: 75%;
   margin-top: 5%;
   background-color: rgb(15, 15, 15);
+  -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 
 #hamb {

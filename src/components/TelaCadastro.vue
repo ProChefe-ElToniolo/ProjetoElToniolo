@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     voltarMenu: function() {
-      
+      this.$emit('chamou')
     },
     mostrarSenha: function(){
       var senha = document.getElementById("senha")
