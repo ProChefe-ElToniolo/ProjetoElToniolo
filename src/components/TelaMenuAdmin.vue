@@ -3,8 +3,10 @@
     <div id="menu-lateral">
       <div id="slogan">
         <br>
-        <button id="botao-login" @click="voltarMenu">El Toniolo</button>
-        <img src="../imagens/chef.png" class="img-slogan" />
+        <div class="junto">
+        <button id="botao-login"  @click="voltarMenu">El Toniolo</button>
+        <img src="../imagens/chef.png" id="img-slogan"  />
+        </div>
       </div>
       <nav>
         <ul class="list-vertical">
@@ -137,11 +139,11 @@ export default {
   background-color: #1f2023;
   border: transparent;
   font-size: 18px;
-  font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   cursor: pointer;
   font-weight: bold;
   outline: transparent;
+ 
 }
 
 /* #container {
@@ -161,13 +163,24 @@ export default {
   position: absolute;
   opacity: 0.9;
 }
-.img-slogan {
+#img-slogan {
   transform: rotate(45deg);
   position: absolute;
   margin: -20px 0px 5px -4px;
   width: 32px;
   height: 32px;
+  
 }
+
+.junto{
+ -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+.junto:hover{
+  transform: scale(1.2);
+}
+
 .list-vertical {
   padding: 0px;
   list-style: none;

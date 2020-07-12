@@ -1,7 +1,7 @@
 <template>
   <div class="fundo1">
     <div id="form-pedidos">
-      <h1>Bem Vindo a Tela Pedidos</h1>
+      <h1>Pedidos:</h1>
       <select class="cbx" @change="selecionaTipo()" v-model="filtrarTipo">
         <option value="0" selected disabled>Selecione algum pedido</option>
         <option value="1">Todos</option>
@@ -9,7 +9,7 @@
         <option value="3">Abertos</option>
       </select>
 
-      <table cellpadding="5" id="tabelaPedidos">
+      <table cellpadding="5" id="tabelaPedidos" class="tabela-st">
         <thead>
           <tr>
             <th>Nome Cliente</th>
@@ -113,7 +113,6 @@ body {
 }
 
 #form-pedidos{
-  border: 3px solid black;
   margin: 20px 5% 0px 5%;
   width: 85vw;
 }

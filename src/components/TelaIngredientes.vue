@@ -138,8 +138,8 @@ export default {
 }
 
 #tabelinha{
-  width: 60%;
-  margin:10px;
+  width: 50%;
+  margin:10px 0 0 80px;
 }
 
 #label-Ing {
@@ -202,6 +202,11 @@ export default {
 
 #imgLixo{
   padding: 2px;
+}
+
+.lixoo{
+  text-align: center;
+  align-items: center;
 }
 
 #form-ing{

@@ -1,16 +1,21 @@
 <template>
   <div class="fundo1">
     <div id="form-cat">
-      <h1>Bem Vindo a Tela Cadastro Categoria</h1>
+      <h1>Cadastro de Categoria:</h1>      
+      <div class="meu-box" id="tlgd">
       <input
         type="text"
         placeholder="Digite o nome da Categoria"
         v-mask="'AAAAAAAAAAA'"
+        class="inputz"
         id="txtCategoria"
         v-model="nome"
       />
+      <label for="nomeCompleto" class="label-cad">Digite o nome da Categoria</label>
+      </div>
+      <button @click="SalvarCategoria" class="button" id="ta">Salvar Categoria</button>
+      <br>
       <span v-if="verificado">Digite algo!</span>
-      <button @click="SalvarCategoria">Salvar Categoria</button>
       <!-- v-bind:aparecer="true" -->
       <div id="decidir" v-if="aparecer">
         <button @click="decisao">OK</button>
@@ -193,12 +198,45 @@ export default {
   margin: 0px 0px 0px 0px;
 }
 #form-cat {
-  border: 3px solid black;
-  margin: 20px 5% 0px 5%;
-}
-#form-cat{
-  border: 3px solid black;
   margin: 20px 5% 0px 5%;
   width: 85vw;
+}
+.label-cad{
+  text-align: center;
+  font-weight: 700;
+  border-radius: 2px;
+  border: none;
+  width: 160px;
+  height: 14px;
+  margin: 0px 0px 0px 5px;
+  position: absolute;
+  background-color: #1f2023;
+  color: rgb(255, 255, 255);
+  top: 17%;
+  bottom: 0;
+  left: 2%;
+  right: 0;
+  transition: 0.5s;
+  opacity: 0.5;
+}
+
+.inputz:focus + .label-cad {
+  /* margin: 10px; */
+  z-index: 3;
+  color: rgb(255, 255, 255);
+  top: -0%;
+  left: 2%;
+  transition: 0.5s;
+  opacity: 1;
+}
+
+#tlgd{
+  width:fit-content;
+  margin: 0;
+}
+
+#ta{
+  width: fit-content;
+  margin: 10px;
 }
 </style>
