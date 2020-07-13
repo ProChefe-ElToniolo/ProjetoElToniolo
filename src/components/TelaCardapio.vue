@@ -8,14 +8,16 @@
         </div>
       </div>
     </div>
-    <div class="Prod" v-if="mostrarProds">
-      <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
-      <div v-for="prod in produtosSelecionados" :key="prod" id="prod">
-        <h4 id="mid">{{prod.nome}}</h4>
-        <br />
-        <h4 id="mid">Descrição: {{prod.descricao}}</h4>
-        <br />
-        <h4 id="mid">R${{prod.preco}}</h4>
+    <div id="marg">
+      <div class="Prod" v-if="mostrarProds">
+        <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
+        <div v-for="prod in produtosSelecionados" :key="prod" id="prod">
+          <h4 id="mid">{{prod.nome}}</h4>
+          <br />
+          <h4 id="mid">Descrição: {{prod.descricao}}</h4>
+          <br />
+          <h4 id="mid">R${{prod.preco}}</h4>
+        </div>
       </div>
     </div>
     <!-- <select class="cbx"> 
@@ -203,7 +205,7 @@ export default {
   height: 300px;
   border: 1px solid white;
   color: white;
-  margin: 40px 5px 0px 0px;
+  margin: 40px 15px 0px 0px;
   text-align: center;
   cursor: pointer;
   border-top-left-radius: 20px;
@@ -248,5 +250,8 @@ export default {
   line-height: 20px;
   width: 100%;
   height: 100%;
+}
+#marg{
+  margin: 100px;
 }
 </style>
