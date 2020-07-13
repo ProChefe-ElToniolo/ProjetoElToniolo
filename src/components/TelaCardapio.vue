@@ -1,5 +1,6 @@
 <template>
   <div class="topo">
+    
       <div class="Cats" v-if="catsPrincipal">
         <div v-for="cat in exibirCats" :key="cat" id="caixona">
           <img src="../imagens/produto.jpg" id="img-prod" @click="listar(cat)" />
@@ -9,11 +10,12 @@
         </div>
       </div>
       <div class="Prod" v-if="mostrarProds">
-        <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
+        <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>        
         <div v-for="prod in produtosSelecionados" :key="prod" id="prod">
-          <h4>{{prod.nome}}</h4>
+          <img src="../imagens/produto.jpg" id="sono"/>
+          <h4 class="label4">{{prod.nome}}</h4>
         </div>
-    </div>
+    </div>    
     <!-- <select class="cbx"> 
       <option >Todos Produtos</option>
       <option v-for="(prod,index) in carreProd" :key="index">{{prod[index].nome}}</option>
@@ -98,6 +100,10 @@ export default {
   margin-left: 14.4%;
   z-index: 1000;
 }
+
+/* #princi{
+  
+} */
 
 #teste1 {
   border: 2px solid black;
@@ -193,25 +199,43 @@ export default {
 }
 #prod {
   width: 250px;
-  font-size: 11px;
+  font-size: 18px;
   text-align: center;
-  background-color: black;
+  align-items: center;
+  background-color: rgb(43, 43, 43);
   height: 300px;
   border: 1px solid white;
   color: white;
   margin: 40px 5px 0px 0px;
-  text-align: center;
   cursor: pointer;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-radius: 20px;
   display: flex;
   line-height: 20px;
+  justify-content: center;
 }
+
+#sono{
+  margin-top: -75px;
+  width: 249px;
+  height: 150px;
+  position: absolute;
+   border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.label4{
+  text-align: center;
+  height: fit-content;
+  width: fit-content;
+  position: relative;
+  z-index: 100;
+  font-weight: bold;
+  padding-top: 1px;
+}
+
 .Prod {
   position: absolute;
-  margin: 0px 0px 0px 40px;
+  margin: 100px 0px 0px 40px;
   width: 100%;
   flex-wrap: wrap;
   align-items: center;
