@@ -1,18 +1,22 @@
 <template>
   <div class="topo">
-      <div class="Cats" v-if="catsPrincipal">
-        <div v-for="cat in exibirCats" :key="cat" id="caixona">
-          <img src="../imagens/produto.jpg" id="img-prod" @click="listar(cat)" />
-          <div id="descricao">
-            <label id="legenda">{{cat}}</label>
-          </div>
+    <div class="Cats" v-if="catsPrincipal">
+      <div v-for="cat in exibirCats" :key="cat" id="caixona">
+        <img src="../imagens/produto.jpg" id="img-prod" @click="listar(cat)" />
+        <div id="descricao">
+          <label id="legenda">{{cat}}</label>
         </div>
       </div>
-      <div class="Prod" v-if="mostrarProds">
-        <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
-        <div v-for="prod in produtosSelecionados" :key="prod" id="prod">
-          <h4>{{prod.nome}}</h4>
-        </div>
+    </div>
+    <div class="Prod" v-if="mostrarProds">
+      <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
+      <div v-for="prod in produtosSelecionados" :key="prod" id="prod">
+        <h4 id="mid">{{prod.nome}}</h4>
+        <br />
+        <h4 id="mid">Descrição: {{prod.descricao}}</h4>
+        <br />
+        <h4 id="mid">R${{prod.preco}}</h4>
+      </div>
     </div>
     <!-- <select class="cbx"> 
       <option >Todos Produtos</option>
@@ -65,10 +69,10 @@ export default {
         aux.push(u.categoriaProd);
       });
       this.exibirCats = [...new Set(aux)];
-    }, 
-    voltarMenu:function(){
-      this.mostrarProds = false
-      this.catsPrincipal = true
+    },
+    voltarMenu: function() {
+      this.mostrarProds = false;
+      this.catsPrincipal = true;
     }
   },
   mounted() {
@@ -207,18 +211,19 @@ export default {
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   display: flex;
-  line-height: 20px;
+  text-align: center;
 }
 .Prod {
   position: absolute;
   margin: 0px 0px 0px 40px;
   width: 100%;
+  line-height: 20px;
   flex-wrap: wrap;
   align-items: center;
   display: flex;
 }
 
-.butao{
+.butao {
   border-radius: 5px;
   margin: 1% 1% 1% 12.5%;
   background-color: rgb(141, 141, 141);
@@ -227,10 +232,10 @@ export default {
   cursor: pointer;
   padding: 1%;
   -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+  transition-duration: 0.4s;
 }
 
-#botãoVoltar{
+#botãoVoltar {
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -238,5 +243,10 @@ export default {
   position: absolute;
   top: -20px;
   right: -20px;
+}
+#mid {
+  line-height: 20px;
+  width: 100%;
+  height: 100%;
 }
 </style>
