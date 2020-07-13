@@ -29,7 +29,7 @@
       <button class="button" @click="salvar">Salvar</button>
       <br />
       <label v-if="CredenciaisIncorretas">Credenciais Incorretas!</label>
-      <br>
+      <br />
       <label v-if="nomeUtilizado">Esse nome já está sendo utilizado!</label>
       <br />
       <div id="fil">FILTROS:</div>
@@ -112,7 +112,7 @@ export default {
       });
     },
     salvar: function() {
-      this.nomeUtilizado = false
+      this.nomeUtilizado = false;
       this.prods.filter(e => {
         if (e.id == this.ProdSelecionado.id && this.ProdSelecionado[1] != "") {
           this.existe = true;
@@ -122,7 +122,7 @@ export default {
         }
       });
       if (this.nomeUtilizado) {
-        this.nomeUtilizado = true
+        this.nomeUtilizado = true;
       } else {
         if (this.existe) {
           axios.put(
@@ -171,7 +171,7 @@ export default {
             });
           }, 2000);
         } else {
-          this.CredenciaisIncorretas = true
+          this.CredenciaisIncorretas = true;
         }
         this.existe = false;
         this.limpa();
@@ -217,9 +217,9 @@ export default {
       this.medida = 0;
       this.idCat = 0;
       this.imagem = "";
-      var cb = document.getElementsByClassName("cbIng")
+      var cb = document.getElementsByClassName("cbIng");
       for (let index = 0; index < cb.length; index++) {
-          cb[index].checked = false
+        cb[index].checked = false;
       }
     },
     filtro: function() {
@@ -254,10 +254,10 @@ export default {
 </script>
 
 <style>
-body{
+body {
   width: 100%;
   height: 100%;
-    background-color: rgb(133, 131, 131);
+  background-color: rgb(133, 131, 131);
 }
 #formulario {
   /* border: 3px solid black; */
@@ -341,7 +341,7 @@ td {
   position: absolute;
   margin: 39px 0px 15px 70px;
   border: 1px rgb(0, 0, 0) solid;
-  border-left:none;
+  border-left: none;
   height: 40px;
   width: 120px;
   color: white;
@@ -362,11 +362,11 @@ td {
   color: white;
   border: 3px rgba(83, 83, 83, 0.658) solid;
   -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+  transition-duration: 0.4s;
   cursor: pointer;
 }
 
-.button:hover{
+.button:hover {
   transform: scale(1.03);
 }
 

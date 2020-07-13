@@ -63,12 +63,9 @@ export default {
     };
   },
   methods: {
-<<<<<<< HEAD
-=======
     voltarMenu: function() {
       this.$emit('chamou')
     },
->>>>>>> 4f9c3a0205d3761f46c381408c841e7ab0a1a171
     mostrarSenha: function(){
       var senha = document.getElementById("senha")
       if(this.checkbox == true){
