@@ -32,8 +32,6 @@
         <div v-if="outrosProdutos == false" class="scroll">
           <div v-for="prod in outrosProds" :key="prod.id" id="sab">
             <div class="cb-pizza">
-              <button class="button-ex" @click="exProd(prod.id, prod.nome)">-</button>
-              <button class="button-add" @click="addProd(prod.id, prod.nome)">+</button>
               {{prod.nome}}
               <br />
               <br />
@@ -44,8 +42,8 @@
       </div>
       <transition name="transi">
       <div v-if="pagar == false" id="midt">
-        <img src="../imagens/logopizza.png" id="imgg">
-        <div>Carrinho de compras</div>
+        <img src="../imagens/supermercado.png" id="imgg">
+        <div id="carrinhor">Carrinho de compras</div>
         <div v-for="item in itens" :key="item">
           <br />
           {{item}}
@@ -159,6 +157,7 @@ export default {
       console.log(this.escolhidos);
       if (this.escolhidos.length > 0) {
         this.valor();
+        this.carregaOutros();
         this.escolherSabores = true;
         this.outrosProdutos = false;
       }
@@ -173,13 +172,14 @@ export default {
       }, 300);
     },
     carregaOutros: function() {
+      console.log(this.todoSabores); 
       setTimeout(() => {
         this.todoSabores.filter(u => {
-          if (u.categoriaProd != "Pizzas") {
+          if(u.categoriaProd != "Pizzas"){
             this.outrosProds.push(u);
           }
         });
-      }, 500);
+      }, 300);
       console.log(this.outrosProds);
     },
     valor: function() {
@@ -325,14 +325,12 @@ export default {
     axios
       .get("http://localhost:55537/api/Medida")
       .then(med => (this.medidas = med.data));
-    axios
-      .get("http://localhost:55537/api/Produto")
-      .then(prod => (this.todoSabores = prod.data));
+    axios.get("http://localhost:55537/api/Produto").then(
+      prod => (this.todoSabores = prod.data),this.carregaOutros()
+    );
     axios
       .get("http://localhost:55537/api/Usuario")
       .then(users => this.filtroEntregador(users.data));
-
-    this.carregaOutros();
   }
 };
 </script>
@@ -342,6 +340,11 @@ html,
 body {
   width: 100%;
   height: 100%;
+}
+
+#carrinhor{
+  margin-top: 10px;
+  font-weight: bold;
 }
 
 #butt{
@@ -500,11 +503,6 @@ body {
   position: absolute;
   top: 190px;
   left: 170px;
-  border-radius:50%;
-  -webkit-box-shadow: 0px 7px 10px rgb(0, 0, 0);
-  -moz-box-shadow: 0px 7px 10px rgb(0, 0, 0);
-  box-shadow: 0px 7px 10px rgb(0, 0, 0);
-  rotate: 5px;
 }
 
 .transi-enter-active{

@@ -17,9 +17,10 @@
     <span id="correto" v-if="mostrarSucesso">Cadastrado com sucesso!</span>
     <span class="span" v-if="preencherCorreto">Preencha os dados corretamente</span>
     <span class="span" v-if="mesmoNome">Esse telefone já existe!</span>
+    <span class="span" v-if="mesmoEmail">Esse e-mail já é utilizado!</span>
     </div>
     <div class="partes" >
-    <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
+    <button class="butao" id="botãoVoltar">X</button>
     <input id="cepI" class="geral" type="text" @change="buscarCep" v-mask="'#####-###'" v-on:keyup.13="buscar" placeholder="CEP" v-model="cep"/>
     <br />
     <input id="cidadeI" class="geral" type="text" placeholder="Cidade" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="20" v-model="cidade" />
@@ -59,7 +60,8 @@ export default {
       mostrarSucesso: false,
       preencherCorreto: false,
       mesmoNome: false,
-      clientes: []
+      clientes: [],
+      mesmoEmail: false
     };
   },
   methods: {
@@ -87,12 +89,17 @@ export default {
       }
     },
     salvarCadastro: function() {
+      this.mesmoEmail = false
+      this.mesmoNome = false
       this.preencherCorreto = false
+      var email = this.email
       var telefone = this.telefone.replace(/\D/g,'')
       this.clientes.filter(c => {
         if(c.telefone == telefone){
            this.mesmoNome = true 
-           location.reload()
+        }
+        if(c.email == email){
+          this.mesmoEmail = true
         }
       })
         if(this.nome != "" &&
@@ -106,7 +113,8 @@ export default {
           this.bairro != "" &&
           this.numero != "" &&
           this.uf != "" && 
-          this.mesmoNome == false){
+          this.mesmoNome == false &&
+          this.mesmoEmail == false){
             axios
             .post("http://localhost:55537/api/Cliente", {
               nome: this.nome,
@@ -140,7 +148,9 @@ export default {
             this.mostrarSucesso = true
         }
         else{
-          this.preencherCorreto = true
+          if(this.mesmoNome == false && this.mesmoEmail == false ){
+             this.preencherCorreto = true
+          }
         }
       }
     }, mounted(){

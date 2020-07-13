@@ -62,7 +62,7 @@
     </div>
     <div id="listIng">
       <div class="cb" :value="ing.id" v-for="ing in ingredientes" :key="ing.id">
-        <input type="checkbox" id="cbIng" @change="addIng(ing.id)" />
+        <input type="checkbox" class="cbIng" @change="addIng(ing.id)" />
         <label id="ing">{{ing.nome}}</label>
       </div>
     </div>
@@ -217,8 +217,10 @@ export default {
       this.medida = 0;
       this.idCat = 0;
       this.imagem = "";
-      var check = document.getElementById("cbIng")
-      check.value = false
+      var cb = document.getElementsByClassName("cbIng")
+      for (let index = 0; index < cb.length; index++) {
+          cb[index].checked = false
+      }
     },
     filtro: function() {
       this.prods = this.todosProds;
@@ -446,7 +448,7 @@ input[type="number"]::-webkit-outer-spin-button {
   left: 3%;
   transition: 0.2s;
 }
-#cbIng {
+.cbIng {
   width: auto;
   font-size: 14px;
   margin: 8px 0px 0px 10px;
