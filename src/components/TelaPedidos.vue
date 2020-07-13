@@ -8,15 +8,14 @@
         <option value="2">Processados</option>
         <option value="3">Abertos</option>
       </select>
-
       <table cellpadding="5" id="tabelaPedidos" class="tabela-st">
         <thead>
           <tr>
-            <th>Nome Cliente</th>
+            <th>ID do Cliente</th>
             <th>ID Pedido</th>
             <th>Processamento</th>
-            <th>Produto</th>
-            <th>Excluir</th>
+            <!-- <th>Produto</th> -->
+            <th>Processar</th>
           </tr>
         </thead>
         <tbody>
@@ -24,9 +23,9 @@
             <td>{{ped.id_cliente}}</td>
             <td>{{ped.id}}</td>
             <td>{{ped.processamento}}</td>
-            <td>produto</td>
+            <!-- <td>produto</td> -->
             <td @click="Excluir(ped.id, index)" style="cursor:pointer" align="center">
-              <img id="lixo" src="../imagens/lixo.png" />
+              <img id="lixo" src="../imagens/lista.png" />
             </td>
           </tr>
         </tbody>
@@ -82,10 +81,19 @@ export default {
         });
       }
     },
-
     Excluir: function(id, index) {
+      var pedi = [];
+      this.pedSelected.filter(u => {
+        if (u.id == id) {
+          pedi.push(u);
+        }
+      });
       axios
-        .delete("http://localhost:55537/api/Pedidos/" + id)
+        .put("http://localhost:55537/api/Pedidos/" + id, {
+          id_entregador: pedi[0].id_entregador,
+          id_cliente: pedi[0].id_cliente,
+          processamento: true
+        })
         .then(resp => console.log(resp.data));
       this.pedSelected.splice(index, 1);
     },
@@ -105,7 +113,7 @@ export default {
       .then(pedido => (this.pedidos = pedido.data));
 
     axios
-      .get("http://localhost:55537/api/Usuario")
+      .get("http://localhost:55537/api/Cliente")
       .then(cliente => (this.clientes = cliente.data));
 
     axios

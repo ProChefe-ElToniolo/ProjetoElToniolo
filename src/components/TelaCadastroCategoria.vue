@@ -16,7 +16,6 @@
       <button @click="SalvarCategoria" class="button" id="ta">Salvar Categoria</button>
       <br>
       <span v-if="verificado">Digite algo!</span>
-      <button @click="SalvarCategoria">Salvar Categoria</button>
       <br />
       <label v-if="nomeUtilizado">Esse nome já está sendo utilizado!</label>
       <br />

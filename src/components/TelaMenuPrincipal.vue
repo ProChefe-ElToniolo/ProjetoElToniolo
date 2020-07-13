@@ -235,7 +235,7 @@ export default {
     axios
       .get("http://localhost:55537/api/Usuario")
       .then(usuario => (this.usuarios = usuario.data));
-    this.verLog();
+    // this.verLog();
   }
 };
 </script>
