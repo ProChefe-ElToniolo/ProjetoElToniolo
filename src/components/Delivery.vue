@@ -40,8 +40,10 @@
           </div>
         </div>
       </div>
+      <transition name="transi">
       <div v-if="pagar == false" id="midt">
-        <label>Carrinho de compras</label>
+        <img src="../imagens/supermercado.png" id="imgg">
+        <div id="carrinhor">Carrinho de compras</div>
         <div v-for="item in itens" :key="item">
           <br />
           {{item}}
@@ -52,14 +54,16 @@
         {{produtos}}
           {{total}}-->
         </div>
-        {{"Total: R$ "+ this.valorFinal}}
-        <button @click="pagamento">Pagar</button>
+        <div class="totales">
+          {{"Total: R$ "+ this.valorFinal}}
+        <button class="but" id="btn-pagar" @click="pagamento">Pagar</button>
+        </div>
       </div>
-
+      </transition>
       <div v-if="escolherSabores == false" id="bots">
-        <button>Pedir mais pizzas</button>
-        <button @click="outros()">Outros produtos</button>
-        <button @click="finalizar()">Ir Finalizar</button>
+        <button id="butt" class="but">Pedir mais pizzas</button>
+        <button class="but" @click="outros()">Outros produtos</button>
+        <button class="but" @click="finalizar()">Ir Finalizar</button>
       </div>
     </div>
 
@@ -337,6 +341,40 @@ body {
   width: 100%;
   height: 100%;
 }
+
+#carrinhor{
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+#butt{
+  margin-left: 40px;
+}
+
+.but{
+  border-radius: 5px;
+  margin: 10px;
+  background-color: rgb(71, 71, 71);
+  border: 2px solid rgb(49, 49, 49);
+  outline: none;
+  cursor: pointer;
+  padding: 1%;
+  color: white;
+  -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+
+.but:hover{  
+  background-color: rgb(26, 26, 26);
+  transform: scale(1.05);
+}
+
+#btn-pagar{
+  padding: 5px;
+}
+
+
+
 #tamanho {
   position: relative;
   height: 300px;
@@ -361,12 +399,20 @@ body {
   border-radius: 15px;
 }
 #carrinho {
-  height: 500px;
+  height: 475px;
   width: 275px;
   position: fixed;
-  background: rgba(87, 87, 87, 0.534);
-  border-radius: 15px;
-  margin: 95px 0px 0px 65%;
+  background: rgb(104, 104, 104);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  border: 2px solid black;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  /* margin: 95px 0px 0px 65%; */
+  top: 95px;
+  right: 0px;
+  -webkit-box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
+  box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
 }
 #separa {
   margin: 0px 0px 0px 5%;
@@ -375,9 +421,10 @@ body {
   background: rgba(27, 27, 27, 0.534);
 }
 #itens {
+  font-size: 16px ;
   margin: 10px 0px 0px 5%;
   width: 90%;
-  height: 80%;
+  height: 75%;
 }
 
 .cb-pizza {
@@ -427,11 +474,48 @@ body {
 }
 #bots {
   margin: 0px 0px 0px 225px;
+  text-align: left;
 }
 #midt {
-  border: 3px solid black;
+  font-size: 20px;
   margin: 180px 0px 0px 150px;
   height: 350px;
   width: 500px;
+  text-align: center;
+  background: rgb(104, 104, 104);
+  border-radius: 15px; 
+  border: 2px solid black;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
+  box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.77);
 }
+
+.totales{
+  position: absolute;
+  bottom: 0px;
+  left: 320px;
+}
+
+#imgg{
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: 190px;
+  left: 170px;
+}
+
+.transi-enter-active{
+  animation: tete 0.3s;
+}
+
+@keyframes tete{
+  0% {
+    transform: translate3d(0, -80px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    }
+}
+
 </style>

@@ -24,7 +24,7 @@
             </ul>
           </nav>
           <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
-
+          
           <img src="../imagens/logopizza.png" id="logo" @click="Reset" />
           <button
             id="botao-logar"
@@ -445,7 +445,7 @@ html {
   color: white;
   border: none;
   font-size: 14px;
-  padding: 0px 14px 0px 60px;
+  padding: 0px 14px 0px 14px;
   text-align: right;
   margin: 0px 0px 0px 60%;
   outline: none;

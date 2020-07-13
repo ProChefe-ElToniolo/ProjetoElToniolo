@@ -50,6 +50,7 @@
       <span v-if="preencherCertoUsuario">Preencha corretamente!</span>
       <span v-if="utilizaNomeTipoUsuario">Esse nome de tipo de usuário já está sendo utilizado!</span>
       <span v-if="utilizaNomeUsuario">Esse nome de usuário já está sendo utilizado!</span>
+      <span v-if="mesmoEmail">Esse e-mail já é utilizado!</span>
       </div>
     </div>
   </div>
@@ -73,7 +74,8 @@ export default {
       preencherCertoTP: false,
       checkbox: false,
       utilizaNomeTipoUsuario: false,
-      utilizaNomeUsuario: false
+      utilizaNomeUsuario: false,
+      mesmoEmail: false
     };
   },
   methods: {
@@ -115,23 +117,30 @@ export default {
       }
     },
     cadastrarUsuario: function() {
+      this.mesmoEmail = false
       this.utilizaNomeUsuario = false
       this.preencherCertoUsuario = false
       this.utilizaNomeTipoUsuario = false
+      this.mostrarCadastroU = false
+      var email = this.email
       this.user.filter(u => {
         if(u.nome == this.nomeUsuario){
           this.utilizaNomeUsuario = true
         }
+        if(u.email == email){
+          this.mesmoEmail = true
+        }
       })
-      if(this.utilizaNomeUsuario){
-        this.utilizaNomeUsuario = true
-      }
-
-      else if(
+      // if(this.utilizaNomeUsuario){
+        // this.utilizaNomeUsuario = true
+      // } 
+      if(
         this.nomeUsuario != "" &&
         this.email != "" &&
         this.senha != "" &&
-        this.idTpUser != 0
+        this.idTpUser != 0 &&
+        this.mesmoEmail == false &&
+        this.utilizaNomeUsuario == false
       ) {
         axios
           .post("http://localhost:55537/api/Usuario", {
@@ -149,7 +158,9 @@ export default {
         this.idTpUser = 0;
         this.mostrarCadastroU = true;
       } else {
-        this.preencherCertoUsuario = true;
+        if(this.mesmoEmail == false && this.utilizaNomeUsuario == false){
+          this.preencherCertoUsuario = true;
+        }
       }
     }
   },

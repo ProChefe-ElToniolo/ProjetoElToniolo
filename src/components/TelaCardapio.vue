@@ -10,8 +10,10 @@
     </div>
     <div id="marg">
       <div class="Prod" v-if="mostrarProds">
-        <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
+        <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>        
         <div v-for="prod in produtosSelecionados" :key="prod" id="prod">
+          <img src="../imagens/produto.jpg" id="sono"/>
+          <h4 class="label4">{{prod.nome}}</h4>
           <h4 id="mid">{{prod.nome}}</h4>
           <br />
           <h4 id="mid">Descrição: {{prod.descricao}}</h4>
@@ -104,6 +106,10 @@ export default {
   margin-left: 14.4%;
   z-index: 1000;
 }
+
+/* #princi{
+  
+} */
 
 #teste1 {
   border: 2px solid black;
@@ -199,25 +205,43 @@ export default {
 }
 #prod {
   width: 250px;
-  font-size: 11px;
+  font-size: 18px;
   text-align: center;
-  background-color: black;
+  align-items: center;
+  background-color: rgb(43, 43, 43);
   height: 300px;
   border: 1px solid white;
   color: white;
-  margin: 40px 15px 0px 0px;
-  text-align: center;
+  margin: 40px 5px 0px 0px;
   cursor: pointer;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-radius: 20px;
   display: flex;
-  text-align: center;
+  line-height: 20px;
+  justify-content: center;
 }
+
+#sono{
+  margin-top: -75px;
+  width: 249px;
+  height: 150px;
+  position: absolute;
+   border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.label4{
+  text-align: center;
+  height: fit-content;
+  width: fit-content;
+  position: relative;
+  z-index: 100;
+  font-weight: bold;
+  padding-top: 1px;
+}
+
 .Prod {
   position: absolute;
-  margin: 0px 0px 0px 40px;
+  margin: 100px 0px 0px 40px;
   width: 100%;
   line-height: 20px;
   flex-wrap: wrap;
