@@ -46,7 +46,8 @@ export default {
       clientes: [],
       pedSelected: [],
       pedSelectTable: [],
-      itensPedidos: []
+      itensPedidos: [],
+      prodped: []
     };
   },
   methods: {
@@ -55,20 +56,39 @@ export default {
         this.pedSelected = [];
         this.pedidos.filter(p => {
           if (p.processamento == true) {
-            this.pedSelected.push(p);
-          }
+            this.pedSelected.push(p);           
+            for (let index = 0; index < this.pedSelected.length; index++)
+                if(this.pedSelected.id == this.itensPedidos.id_pedido){
+                  this.prodped.push(index)                  
+                  console.log("oi");
+                }
+            }
+            console.log(this.prodped);
         });
-      } else if (this.filtrarTipo == 3) {
+      } 
+      else if (this.filtrarTipo == 3) {
         this.pedSelected = [];
         this.pedidos.filter(p => {
           if (p.processamento == false) {
             this.pedSelected.push(p);
+            this.itensPedidos.filter(i => {
+                if (i.id_pedido == this.pedSelected.id) {
+                  this.prodped = i.id_produto
+                }
+            })
           }
         });
-      } else if (this.filtrarTipo == 1) {
+      } 
+      else if (this.filtrarTipo == 1) {
         this.pedSelected = [];
         this.pedSelected = this.pedidos;
+        this.itensPedidos.filter(i => {
+                if (i.id_pedido == this.pedSelected.id) {
+                  this.prodped = i.id_produto
+                }
+            })
       }
+      
     },
 
     Excluir: function(id, index) {

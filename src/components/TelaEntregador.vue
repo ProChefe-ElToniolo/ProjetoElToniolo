@@ -19,8 +19,8 @@
         <tr v-for="(ped, index) in pedidosEntregador" :key="index">
           <td>{{entregadorSelecionado.nome}}</td>
           <td>{{ped.processamento}}</td>
-          <td>
-            <input type="checkbox" @click="pedidoFinalizado(ped.id)" id="cbx" />
+          <td @click="pedidoFinalizado(ped.id)">
+            <img src="../imagens/lixo.png" id="botaoLixo">
           </td>
         </tr>
       </tbody>
@@ -47,8 +47,8 @@ export default {
   },
   methods: {
     SelecionarPedido: function(nome) {
-      this.pedidosEntregador.splice(0, this.pedidosEntregador.length);
-
+      // this.pedidosEntregador.splice(0, this.pedidosEntregador.length);
+      this.pedidosEntregador = []
       this.usuariosEntregador.filter(u => {
         if (u.nome == nome) {
           this.entregadorSelecionado = u;
@@ -58,8 +58,10 @@ export default {
         if (
           p.id_entregador == this.entregadorSelecionado.id &&
           p.processamento == false
-        ) {
+        ) {         
           this.pedidosEntregador.push(p);
+          console.log(this.pedidosEntregador);
+          this.semPedidos = false
         }
       });
 
@@ -81,7 +83,8 @@ export default {
           processamento: true
         })
         .then(resp => console.log(resp.data));
-      this.pedidosEntregador.splice(this.pedidosEntregador.indexOf(id), 1);
+      this.pedidosEntregador.splice(this.pedidosEntregador.indexOf(id, 1));
+      console.log(this.pedidosEntregador);
       this.semPedidos = false
     },
 
@@ -120,5 +123,8 @@ export default {
 #form-entregador {
   margin: 20px 5% 0px 5%;
   width: 85vw;
+}
+#botaoLixo{
+  margin: 0 0 0 0;
 }
 </style> 

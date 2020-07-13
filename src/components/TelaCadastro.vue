@@ -19,7 +19,7 @@
     <span class="span" v-if="mesmoNome">Esse telefone já existe!</span>
     </div>
     <div class="partes" >
-    <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
+    <button class="butao" id="botãoVoltar">X</button>
     <input id="cepI" class="geral" type="text" @change="buscarCep" v-mask="'#####-###'" v-on:keyup.13="buscar" placeholder="CEP" v-model="cep"/>
     <br />
     <input id="cidadeI" class="geral" type="text" placeholder="Cidade" onkeypress="return event.charCode >96 && event.charCode <= 255 || event.charCode == 32 || event.charCode > 57 && event.charCode<=90" maxlength="20" v-model="cidade" />
@@ -63,9 +63,6 @@ export default {
     };
   },
   methods: {
-    voltarMenu: function() {
-      
-    },
     mostrarSenha: function(){
       var senha = document.getElementById("senha")
       if(this.checkbox == true){

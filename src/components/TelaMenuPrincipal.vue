@@ -36,7 +36,7 @@
             <img src="../imagens/comercial.png" id="userlogo" @click="Perfil" />
             <label id="labelLogado">{{NomePessoaLogada}}</label>
           </button>
-          <button @click="sair" v-if="botaoSair" id="botaoSair">Sair</button>
+          <button v-if="botaoSair" id="botaoSair">Sair</button>
         </div>
         <transition name="bounce">
           <div class="modal" v-if="ocultarMenuLogin == false">
@@ -206,7 +206,7 @@ export default {
       } else {
         this.open = false;
       }
-    }
+    },
   },
   mounted() {
     axios
