@@ -17,6 +17,7 @@
     <span id="correto" v-if="mostrarSucesso">Cadastrado com sucesso!</span>
     <span class="span" v-if="preencherCorreto">Preencha os dados corretamente</span>
     <span class="span" v-if="mesmoNome">Esse telefone já existe!</span>
+    <span class="span" v-if="mesmoEmail">Esse e-mail já é utilizado!</span>
     </div>
     <div class="partes" >
     <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
@@ -59,7 +60,8 @@ export default {
       mostrarSucesso: false,
       preencherCorreto: false,
       mesmoNome: false,
-      clientes: []
+      clientes: [],
+      mesmoEmail: false
     };
   },
   methods: {
@@ -87,12 +89,17 @@ export default {
       }
     },
     salvarCadastro: function() {
+      this.mesmoEmail = false
+      this.mesmoNome = false
       this.preencherCorreto = false
+      var email = this.email
       var telefone = this.telefone.replace(/\D/g,'')
       this.clientes.filter(c => {
         if(c.telefone == telefone){
            this.mesmoNome = true 
-           location.reload()
+        }
+        if(c.email == email){
+          this.mesmoEmail = true
         }
       })
         if(this.nome != "" &&
@@ -106,7 +113,8 @@ export default {
           this.bairro != "" &&
           this.numero != "" &&
           this.uf != "" && 
-          this.mesmoNome == false){
+          this.mesmoNome == false &&
+          this.mesmoEmail == false){
             axios
             .post("http://localhost:55537/api/Cliente", {
               nome: this.nome,
@@ -140,7 +148,9 @@ export default {
             this.mostrarSucesso = true
         }
         else{
-          this.preencherCorreto = true
+          if(this.mesmoNome == false && this.mesmoEmail == false ){
+             this.preencherCorreto = true
+          }
         }
       }
     }, mounted(){
