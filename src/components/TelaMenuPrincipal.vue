@@ -33,7 +33,7 @@
           >FAZER LOGIN OU CADASTRAR-SE</button>
           <!-- CLICAR ABRE O PERFIL -->
           <button id="perfil" v-if="logado">
-            <img src="../imagens/comercial.png" id="userlogo" @click="Perfil" />
+            <img src="../imagens/comercial.png" id="userlogo"/>
             <label id="labelLogado">{{NomePessoaLogada}}</label>
           </button>
           <button v-if="botaoSair" id="botaoSair">Sair</button>
@@ -45,7 +45,7 @@
               <input type="text" placeholder="E-mail" class="inputs" v-model="email" />
               <input type="password" placeholder="Senha" class="inputs" v-model="senha" id="senha" />
               <br />
-              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"/>
+              <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox" />
               <label id="labelMostrarSenha">Mostrar Senha</label>
               <br />
               <label v-if="senhaIncorreta" id="labelSenhaIncorreta">Credenciais Incorretas!</label>
@@ -57,12 +57,14 @@
           </div>
         </transition>
       </div>
-      <div class="modal" v-if="visualizarCadastro">
+      <transition  name="anima">
+      <div class="modal" v-if="visualizarCadastro" >
         <div id="cadastrin">
-          <TelaCadastro />
+          <TelaCadastro v-if="visualizarCadastro" @chamou="fecharCadastro"/>
         </div>
+      </div>  
+      </transition>    
       </div>
-</div>
       <!-- <div id="sombra-menu"></div> -->
 
       <div v-if="visualizarCardapio">
@@ -82,7 +84,7 @@ const axios = require("axios");
 import TelaCardapio from "../components/TelaCardapio.vue";
 import TelaCadastro from "../components/TelaCadastro.vue";
 import TelaSobre from "../components/Sobre.vue";
-import Delivery from "../components/Delivery.vue"
+import Delivery from "../components/Delivery.vue";
 
 export default {
   components: {
@@ -97,6 +99,7 @@ export default {
       senha: "",
       clientes: [],
       usuarios: [],
+      log: [],
       ocultarMenuLogin: true,
       logado: false,
       NomePessoaLogada: "",
@@ -110,8 +113,13 @@ export default {
       open: false,
       checkbox: false,
       logCorreto: false,
-      senhaIncorreta: false,
+      senhaIncorreta: false
     };
+  },
+  events:{
+    coisar(){
+      this.fecharCadastro();
+    },
   },
   methods: {
     logar: function() {
@@ -162,6 +170,7 @@ export default {
       this.visualizarPedidos = false;
     },
     sair: function() {
+      sessionStorage.removeItem("usuarioLogado");
       this.NomePessoaLogada = "";
       this.ocultarBotaoLogin = true;
       this.logado = false;
@@ -178,16 +187,27 @@ export default {
       this.visualizarPedidos = true;
       this.open = false;
     },
-    Perfil: function() {
-      // if(){
-      // }
-    },
     Login: function() {
       this.$router.push("/ViewTelaLogin");
     },
     Cadastro: function() {
       this.visualizarCadastro = true;
       this.logar();
+    },
+    fecharCadastro: function(){
+      this.visualizarCadastro = false;
+    },
+    verLog: function() {
+      var clie = sessionStorage.getItem("usuarioLogado");
+      this.log.push(JSON.parse(clie))
+      if (this.log != null) {
+        this.logado = true;
+        this.NomePessoaLogada = this.log.nome;
+        this.ocultarMenuLogin = true;
+        this.ocultarBotaoLogin = false;
+        this.botaoSair = true;
+        this.logCorreto = true;
+      }
     },
     Admin: function() {
       this.$router.push("/ViewTelaMenuAdmin");
@@ -215,12 +235,14 @@ export default {
     axios
       .get("http://localhost:55537/api/Usuario")
       .then(usuario => (this.usuarios = usuario.data));
+    this.verLog();
   }
 };
 </script>
 
 <style>
-body,html {
+body,
+html {
   height: 100%;
   width: 100%;
   padding: 0px;
@@ -232,6 +254,24 @@ body,html {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
   overflow: auto;
+}
+
+.anima-enter-active{
+  animation: ala 1s;
+}
+.anima-leave-active{
+  animation: ala 0.5s reverse;
+}
+
+@keyframes ala {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .bounce-enter-active {
@@ -281,6 +321,8 @@ body,html {
   height: 75%;
   margin-top: 5%;
   background-color: rgb(15, 15, 15);
+  -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 
 #hamb {
@@ -386,7 +428,7 @@ body,html {
   width: 120%;
   height: 70px;
   -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+  transition-duration: 0.4s;
   cursor: pointer;
 }
 
@@ -460,7 +502,6 @@ body,html {
   background-color: rgb(141, 141, 141);
   border: 2px solid rgba(0, 0, 0, 0.671);
   outline: none;
-  
 }
 
 #botao-entrar {
@@ -611,14 +652,14 @@ body,html {
 
 #labelSenhaIncorreta {
   color: white;
-  background-color: rgba(255, 255, 255, 0.555);;
+  background-color: rgba(255, 255, 255, 0.555);
   cursor: pointer;
   width: 130px;
   border: 2px solid yellow;
   margin: 10px 0 0 0;
 }
 
-#labelMostrarSenha{
+#labelMostrarSenha {
   color: white;
 }
 </style>

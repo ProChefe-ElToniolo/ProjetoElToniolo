@@ -10,7 +10,7 @@
     <input id="emailI" class="geral" type="text" placeholder="E-mail" maxlength="50" v-model="email"/>
     <br />
     <input class="geral" type="password" placeholder="Senha" maxlength="20" v-model="senha" id="senha" />
-    <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span class="checkbox">Exibir/Ocultar senha</span>
+    <input type="checkbox" v-model="checkbox" @change="mostrarSenha" id="checkbox"><span class="checkbox">Exibir/Ocultar</span>
     <br />
     <button class="butao" id="botãoCadastrar" @click="salvarCadastro">CADASTRAR</button>
     <br/>
@@ -63,6 +63,12 @@ export default {
     };
   },
   methods: {
+<<<<<<< HEAD
+=======
+    voltarMenu: function() {
+      this.$emit('chamou')
+    },
+>>>>>>> 4f9c3a0205d3761f46c381408c841e7ab0a1a171
     mostrarSenha: function(){
       var senha = document.getElementById("senha")
       if(this.checkbox == true){

@@ -32,6 +32,8 @@
         <div v-if="outrosProdutos == false" class="scroll">
           <div v-for="prod in outrosProds" :key="prod.id" id="sab">
             <div class="cb-pizza">
+              <button class="button-ex" @click="exProd(prod.id, prod.nome)">-</button>
+              <button class="button-add" @click="addProd(prod.id, prod.nome)">+</button>
               {{prod.nome}}
               <br />
               <br />
@@ -46,14 +48,12 @@
           <br />
           {{item}}
           <br />
-          <div v-for="sab in saboresEscolhidos" :key="sab">{{sab}}</div>
           <!-- {{nome cliente}}
         {{rua}}
         {{produtos}}
           {{total}}-->
         </div>
         {{"Total: R$ "+ this.valorFinal}}
-        <button @click="pagamento">Pagar</button>
       </div>
 
       <div v-if="escolherSabores == false" id="bots">
@@ -68,7 +68,6 @@
       <div id="separa"></div>
       <div id="itens" v-for="item in itens" :key="item">
         <label>{{item}}</label>
-        <div v-for="sab in saboresEscolhidos" :key="sab">{{sab}}</div>
         <br />
       </div>
       <div>{{valorFinal}}</div>
@@ -83,17 +82,13 @@ export default {
     return {
       medidas: [],
       sabores: [],
-      cliente: [],
-      entregadores: [],
       escolherTamanho: true,
       imagens_tamanho: [],
-      saboresFinal: [],
       escolherSabores: true,
       outrosProdutos: true,
       aparecer: false,
       todoSabores: [],
       mesmoSabor: 0,
-      idPedido: 0,
       outrosProds: [],
       saboresEscolhidos: [],
       todosProdutos: [],
@@ -112,39 +107,13 @@ export default {
       this.itens.push(nome);
       this.escolherSabores = false;
     },
-    pagamento: function() {
-      var repetido = [...new Set(this.escolhidos)];
-      var entregador = this.entregadores[
-        Math.floor(Math.random() * this.entregadores.length)
-      ];
-      axios
-        .post("http://localhost:55537/api/Pedidos", {
-          id_cliente: this.cliente[0].id,
-          id_entregador: entregador,
-          processamento: false
-        })
-        .then(
-          res => (this.idPedido = res.data),
-          setTimeout(() => {
-            repetido.forEach(u => {
-              axios.post("http://localhost:55537/api/Itens_Pedido", {
-                id_produto: u,
-                id_pedido: this.idPedido,
-                quantidade: 1
-              });
-            });
-          }, 2000)
-        );
-    },
     pagarPedido: function() {},
     finalizar: function() {
       this.valor();
       if (this.valorFinal != 0) {
         var repetido = [...new Set(this.saboresEscolhidos)];
-        this.saboresEscolhidos = [];
-        this.saboresEscolhidos = repetido;
-        var cli = sessionStorage.getItem("usuarioLogado");
-        this.cliente.push(JSON.parse(cli));
+        this.saboresEscolhidos = []
+        this.saboresEscolhidos = repetido
         this.escolherSabores = true;
         this.pagar = false;
       }
@@ -153,7 +122,6 @@ export default {
       console.log(this.escolhidos);
       if (this.escolhidos.length > 0) {
         this.valor();
-        this.carregaOutros();
         this.escolherSabores = true;
         this.outrosProdutos = false;
       }
@@ -168,78 +136,28 @@ export default {
       }, 300);
     },
     carregaOutros: function() {
-      console.log(this.todoSabores); 
       setTimeout(() => {
         this.todoSabores.filter(u => {
-          if(u.categoriaProd != "Pizzas"){
+          if (u.categoriaProd != "Pizzas") {
             this.outrosProds.push(u);
           }
         });
-      }, 300);
+      }, 500);
       console.log(this.outrosProds);
     },
     valor: function() {
-      console.log(this.itens);
-      if (this.itens == "Exagerada") {
-        this.valorFinal = 50;
-        var aux = 0;
-        var repetido = [...new Set(this.escolhidos)];
-        console.log(repetido);
-        this.todoSabores.forEach(e => {
-          if (e.id == repetido[aux]) {
-            if (this.valorFinal < e.preco) {
-              this.valorFinal = e.preco;
-            }
-            aux++;
+      var aux = 0;
+      var repetido = [...new Set(this.escolhidos)];
+      console.log(repetido);
+      this.todoSabores.forEach(e => {
+        if (e.id == repetido[aux]) {
+          if (this.valorFinal < e.preco) {
+            this.valorFinal = e.preco;
           }
-        });
-        console.log(this.valorFinal);
-      }
-      if (this.itens == "Grande") {
-        this.valorFinal = 40;
-        var aux1 = 0;
-        var repetido1 = [...new Set(this.escolhidos)];
-        console.log(repetido1);
-        this.todoSabores.forEach(e => {
-          if (e.id == repetido1[aux1]) {
-            if (this.valorFinal < e.preco) {
-              this.valorFinal = e.preco;
-            }
-            aux1++;
-          }
-        });
-        console.log(this.valorFinal);
-      }
-      if (this.itens == "Media") {
-        this.valorFinal = 35;
-        var aux2 = 0;
-        var repetido2 = [...new Set(this.escolhidos)];
-        console.log(repetido2);
-        this.todoSabores.forEach(e => {
-          if (e.id == repetido2[aux2]) {
-            if (this.valorFinal < e.preco) {
-              this.valorFinal = e.preco;
-            }
-            aux2++;
-          }
-        });
-        console.log(this.valorFinal);
-      }
-      if (this.itens == "Pequena") {
-        this.valorFinal = 25;
-        var aux3 = 0;
-        var repetido3 = [...new Set(this.escolhidos)];
-        console.log(repetido3);
-        this.todoSabores.forEach(e => {
-          if (e.id == repetido3[aux3]) {
-            if (this.valorFinal < e.preco) {
-              this.valorFinal = e.preco;
-            }
-            aux3++;
-          }
-        });
-        console.log(this.valorFinal);
-      }
+          aux++;
+        }
+      });
+      console.log(this.valorFinal);
     },
     addSabor: function(sabor, nome) {
       var nomeSabor = nome
@@ -285,16 +203,6 @@ export default {
           }
         }
       }
-      this.valor();
-    },
-    filtroEntregador(usuarios) {
-      setTimeout(() => {
-        usuarios.filter(u => {
-          if (u.tipo_usuario == 3) {
-            this.entregadores.push(u.id);
-          }
-        });
-      }, 1000);
     },
     exSabor: function(sabor, nome) {
       this.valorFinal = 0;
@@ -321,12 +229,10 @@ export default {
     axios
       .get("http://localhost:55537/api/Medida")
       .then(med => (this.medidas = med.data));
-    axios.get("http://localhost:55537/api/Produto").then(
-      prod => (this.todoSabores = prod.data),this.carregaOutros()
-    );
     axios
-      .get("http://localhost:55537/api/Usuario")
-      .then(users => this.filtroEntregador(users.data));
+      .get("http://localhost:55537/api/Produto")
+      .then(prod => (this.todoSabores = prod.data));
+    this.carregaOutros();
   }
 };
 </script>

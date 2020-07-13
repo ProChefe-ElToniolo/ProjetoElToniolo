@@ -22,7 +22,7 @@
             <a href="https://twitter.com/ElToniolo" title="Twitter"><img id="iconeTwitter" src="https://img.icons8.com/android/24/000000/twitter.png"/></a>
             <a href="https://www.instagram.com/pizzariaeltoniolo/" title="Instagram"><img id="iconeInstagram" src="https://img.icons8.com/android/24/000000/instagram.png"/></a>
         </div>
-        <button @click="irDelivery" id="pedido">FAÇA SEU PEDIDO!</button>
+        <button id="pedido">FAÇA SEU PEDIDO NA<br>TELA DELIVERY</button>
         <div id="Sobre" v-if="telaPedidos">
             <TelaPedidos/>
         </div>
@@ -54,7 +54,8 @@ html, body{
 }
 
 #contato{
-  width: 30%;
+  margin: 150px;
+  width: 60%;
   height: 100%;
   text-align: center;
   border: 2px solid black;
