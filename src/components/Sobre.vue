@@ -22,11 +22,11 @@
             <a href="https://twitter.com/ElToniolo" title="Twitter"><img id="iconeTwitter" src="https://img.icons8.com/android/24/000000/twitter.png"/></a>
             <a href="https://www.instagram.com/pizzariaeltoniolo/" title="Instagram"><img id="iconeInstagram" src="https://img.icons8.com/android/24/000000/instagram.png"/></a>
         </div>
-        <button id="pedido">FAÇA SEU PEDIDO NA<br>TELA DELIVERY</button>
         <div id="Sobre" v-if="telaPedidos">
             <TelaPedidos/>
         </div>
         </div>
+        <button id="pedido">FAÇA SEU PEDIDO NA<br>TELA DELIVERY!</button>
       </div>
 </template>
 <script>
@@ -54,7 +54,7 @@ html, body{
 }
 
 #contato{
-  margin: 150px;
+  margin: 150px 0px 0px 0px;
   width: 60%;
   height: 100%;
   text-align: center;
@@ -81,11 +81,18 @@ html, body{
 }
 
 #pedido{
+  position: absolute;
+  margin: 150px 0px 0px 566px;
+  width: 200px;
+  height: 305px;
   color: black;
   background-color:rgb(203, 133, 31);
   border: none;
   border-radius: 2px;
   outline: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
 }
 

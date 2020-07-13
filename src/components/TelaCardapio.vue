@@ -8,15 +8,17 @@
         </div>
       </div>
     </div>
+
     <div id="marg">
       <div class="Prod" v-if="mostrarProds">
         <button class="butao" id="botãoVoltar" @click="voltarMenu">X</button>
         <div v-for="prod in produtosSelecionados" :key="prod" id="prod">
-          <h4 id="mid">{{prod.nome}}</h4>
-          <br />
-          <h4 id="mid">Descrição: {{prod.descricao}}</h4>
-          <br />
-          <h4 id="mid">R${{prod.preco}}</h4>
+          <img src="../imagens/produto.jpg" id="sono" />
+          <div id="tx">
+            <h6 id="mid">{{prod.nome}}: {{prod.nomeMedida}}</h6>
+            <h6 id="mid" v-if="prod.descricao != Null">Descrição: {{prod.descricao}}</h6>
+            <h6 id="mid">R${{prod.preco}}</h6>
+          </div>
         </div>
       </div>
     </div>
@@ -104,6 +106,10 @@ export default {
   margin-left: 14.4%;
   z-index: 1000;
 }
+
+/* #princi{
+  
+} */
 
 #teste1 {
   border: 2px solid black;
@@ -199,22 +205,40 @@ export default {
 }
 #prod {
   width: 250px;
-  font-size: 11px;
+  font-size: 18px;
   text-align: center;
-  background-color: black;
+  align-items: center;
+  background-color: rgb(43, 43, 43);
   height: 300px;
   border: 1px solid white;
   color: white;
-  margin: 40px 15px 0px 0px;
-  text-align: center;
+  margin: 40px 5px 0px 0px;
   cursor: pointer;
+  border-radius: 20px;
+  display: flex;
+  line-height: 20px;
+  justify-content: center;
+}
+
+#sono {
+  margin-top: -75px;
+  width: 249px;
+  height: 150px;
+  position: absolute;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  display: flex;
-  text-align: center;
 }
+
+.label4 {
+  text-align: center;
+  height: fit-content;
+  width: fit-content;
+  position: relative;
+  z-index: 100;
+  font-weight: bold;
+  padding-top: 1px;
+}
+
 .Prod {
   position: absolute;
   margin: 0px 0px 0px 40px;
@@ -247,11 +271,12 @@ export default {
   right: -20px;
 }
 #mid {
-  line-height: 20px;
-  width: 100%;
-  height: 100%;
+  margin: 10px;
 }
-#marg{
+#marg {
   margin: 100px;
+}
+#tx {
+  margin: 130px 0 0 0;
 }
 </style>

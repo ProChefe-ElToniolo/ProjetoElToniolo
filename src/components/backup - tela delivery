@@ -48,7 +48,7 @@
           <img src="../imagens/supermercado.png" id="imgg" />
           <div id="carrinhor">Carrinho de compras</div>
           <div v-for="item in itens" :key="item">
-            <div id="pizz">Pizza:</div>
+          <div id="pizz">Pizza: </div>
             <br />
             {{item}}
             <br />
@@ -58,8 +58,10 @@
         {{produtos}}
             {{total}}-->
             <div id="separa"></div>
-            <div id="pizz">Outros:</div>
-            <div v-for="out in outrosP" :key="out">{{out}}</div>
+               <div id="pizz">Outros: </div>
+            <div v-for="out in outrosP" :key="out">
+              {{out}}
+            </div>
           </div>
           <div class="totales">
             {{"Total: R$ "+ this.valorFinal}}
@@ -91,9 +93,7 @@
         <br />
         <div id="separa"></div>
         <div v-for="out in outrosP" :key="out">{{out}}</div>
-      </div>
-      <div>
-        <label for>R$ {{valorFinal}}</label>
+        <div>{{valorFinal}}</div>
       </div>
     </div>
   </div>
@@ -126,7 +126,6 @@ export default {
       valorPedido: [],
       soma: 0,
       pagar: true,
-      auxilia: [],
       escolhidos: [],
       valorFinal: 0,
       itens: []
@@ -134,11 +133,6 @@ export default {
   },
   methods: {
     mudar: function(nome) {
-      if (this.saboresEscolhidos.lenght > 0) {
-        this.auxilia.push(this.saboresEscolhidos);
-        console.log(this.saboresEscolhidos);
-        console.log(this.auxilia);
-      }
       this.filtrar(nome);
       this.escolherTamanho = false;
       this.itens.push(nome);
@@ -148,12 +142,13 @@ export default {
       this.escolherSabores = false;
       this.outrosProdutos = true;
     },
-    maisPizza: function() {
-      if (this.saboresEscolhidos.length > 0) {
+    maisPizza: function(){
+      console.log(this.saboresEscolhidos)
+      if(this.saboresEscolhidos.length > 0){
         this.escolherTamanho = true;
         this.escolherSabores = true;
-      } else {
-        alert("Escolha ao menos 1 sabor para está pizza!");
+      }else{
+        alert("Escolha ao menos 1 sabor para está pizza!")
       }
     },
     pagamento: function() {
@@ -162,7 +157,7 @@ export default {
         Math.floor(Math.random() * this.entregadores.length)
       ];
       var repetido2 = [...new Set(this.outrosPagar)];
-      var junta = repetido.concat(repetido2);
+      var junta = repetido.concat(repetido2)
       axios
         .post("http://localhost:55537/api/Pedidos", {
           id_cliente: this.cliente[0].id,
@@ -183,8 +178,8 @@ export default {
         );
       alert("Pago com sucesso!");
       this.pagar = true;
-      this.outrosP = [];
-      this.outrosPagar = [];
+      this.outrosP = []
+      this.outrosPagar = []
       this.escolherTamanho = true;
       this.itens = [];
       this.saboresEscolhidos = [];
@@ -601,7 +596,7 @@ body {
     transform: translate3d(0, 0, 0);
   }
 }
-#pizz {
+#pizz{
   margin: 0px;
 }
 </style>

@@ -24,7 +24,7 @@
             </ul>
           </nav>
           <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
-
+          
           <img src="../imagens/logopizza.png" id="logo" @click="Reset" />
           <button
             id="botao-logar"
@@ -200,9 +200,9 @@ export default {
     verLog: function() {
       var clie = sessionStorage.getItem("usuarioLogado");
       this.log.push(JSON.parse(clie))
-      if (this.log != null) {
-        this.logado = true;
+      if (clie != null) {
         this.NomePessoaLogada = this.log.nome;
+        this.logado = true;
         this.ocultarMenuLogin = true;
         this.ocultarBotaoLogin = false;
         this.botaoSair = true;
@@ -235,7 +235,7 @@ export default {
     axios
       .get("http://localhost:55537/api/Usuario")
       .then(usuario => (this.usuarios = usuario.data));
-    this.verLog();
+    // this.verLog();
   }
 };
 </script>
@@ -445,7 +445,7 @@ html {
   color: white;
   border: none;
   font-size: 14px;
-  padding: 0px 14px 0px 60px;
+  padding: 0px 14px 0px 14px;
   text-align: right;
   margin: 0px 0px 0px 60%;
   outline: none;

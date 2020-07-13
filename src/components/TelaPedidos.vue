@@ -8,15 +8,14 @@
         <option value="2">Processados</option>
         <option value="3">Abertos</option>
       </select>
-
       <table cellpadding="5" id="tabelaPedidos" class="tabela-st">
         <thead>
           <tr>
-            <th>Nome Cliente</th>
+            <th>ID do Cliente</th>
             <th>ID Pedido</th>
             <th>Processamento</th>
-            <th>Produto</th>
-            <th>Excluir</th>
+            <!-- <th>Produto</th> -->
+            <th>Processar</th>
           </tr>
         </thead>
         <tbody>
@@ -24,9 +23,9 @@
             <td>{{ped.id_cliente}}</td>
             <td>{{ped.id}}</td>
             <td>{{ped.processamento}}</td>
-            <td>produto</td>
+            <!-- <td>produto</td> -->
             <td @click="Excluir(ped.id, index)" style="cursor:pointer" align="center">
-              <img id="lixo" src="../imagens/lixo.png" />
+              <img id="lixo" src="../imagens/lista.png" />
             </td>
           </tr>
         </tbody>
@@ -56,50 +55,51 @@ export default {
         this.pedSelected = [];
         this.pedidos.filter(p => {
           if (p.processamento == true) {
-            this.pedSelected.push(p);           
-            for (let index = 0; index < this.pedSelected.length; index++)
-                if(this.pedSelected.id == this.itensPedidos.id_pedido){
-                  this.prodped.push(index)                  
-                  console.log("oi");
-                }
-            }
-            console.log(this.prodped);
+            this.pedSelected.push(p);
+          }
+          console.log(this.prodped);
         });
-      } 
-      else if (this.filtrarTipo == 3) {
+      } else if (this.filtrarTipo == 3) {
         this.pedSelected = [];
         this.pedidos.filter(p => {
           if (p.processamento == false) {
             this.pedSelected.push(p);
             this.itensPedidos.filter(i => {
-                if (i.id_pedido == this.pedSelected.id) {
-                  this.prodped = i.id_produto
-                }
-            })
+              if (i.id_pedido == this.pedSelected.id) {
+                this.prodped = i.id_produto;
+              }
+            });
           }
         });
-      } 
-      else if (this.filtrarTipo == 1) {
+      } else if (this.filtrarTipo == 1) {
         this.pedSelected = [];
         this.pedSelected = this.pedidos;
         this.itensPedidos.filter(i => {
-                if (i.id_pedido == this.pedSelected.id) {
-                  this.prodped = i.id_produto
-                }
-            })
+          if (i.id_pedido == this.pedSelected.id) {
+            this.prodped = i.id_produto;
+          }
+        });
       }
-      
     },
-
     Excluir: function(id, index) {
+      var pedi = [];
+      this.pedSelected.filter(u => {
+        if (u.id == id) {
+          pedi.push(u);
+        }
+      });
       axios
-        .delete("http://localhost:55537/api/Pedidos/" + id)
+        .put("http://localhost:55537/api/Pedidos/" + id, {
+          id_entregador: pedi[0].id_entregador,
+          id_cliente: pedi[0].id_cliente,
+          processamento: true
+        })
         .then(resp => console.log(resp.data));
       this.pedSelected.splice(index, 1);
     },
-    carrega: function(){
+    carrega: function() {
       setTimeout(() => {
-        this.pedSelected = this.pedidos
+        this.pedSelected = this.pedidos;
       }, 300);
     }
   },
@@ -113,13 +113,13 @@ export default {
       .then(pedido => (this.pedidos = pedido.data));
 
     axios
-      .get("http://localhost:55537/api/Usuario")
+      .get("http://localhost:55537/api/Cliente")
       .then(cliente => (this.clientes = cliente.data));
 
     axios
       .get("http://localhost:55537/api/Itens_Pedido")
       .then(itensPedido => (this.itensPedidos = itensPedido));
-    this.carrega()
+    this.carrega();
   }
 };
 </script>
@@ -138,7 +138,7 @@ body {
   margin: 0px 0px 0px 5px;
 }
 
-#form-pedidos{
+#form-pedidos {
   margin: 20px 5% 0px 5%;
   width: 85vw;
 }
