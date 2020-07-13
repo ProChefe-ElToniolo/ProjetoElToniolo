@@ -18,7 +18,7 @@
         </div>
       </div>
       <div v-if="escolherSabores == false" class="scroll">
-        <div v-for="sabor in sabores" :key="sabor.id" id="sab">
+        <div v-for="sabor in sabores" :key="sabor.id" class="sabi">
           <div class="cb-pizza">
             <button class="button-ex" @click="exSabor(sabor.id, sabor.nome)">-</button>
             <button class="button-add" @click="addSabor(sabor.id, sabor.nome)">+</button>
@@ -30,7 +30,7 @@
         </div>
         <!-- outros produtos -->
         <div v-if="outrosProdutos == false" class="scroll">
-          <div v-for="prod in outrosProds" :key="prod.id" id="sab">
+          <div v-for="prod in outrosProds" :key="prod.id" class="sabi">
             <div class="cb-pizza">
               {{prod.nome}}
               <br />
@@ -175,7 +175,7 @@ export default {
             this.outrosProds.push(u);
           }
         });
-      }, 300);
+      }, 500);
       console.log(this.outrosProds);
     },
     valor: function() {

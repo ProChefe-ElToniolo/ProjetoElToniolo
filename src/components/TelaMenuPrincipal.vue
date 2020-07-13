@@ -200,9 +200,9 @@ export default {
     verLog: function() {
       var clie = sessionStorage.getItem("usuarioLogado");
       this.log.push(JSON.parse(clie))
-      if (this.log != null) {
-        this.logado = true;
+      if (clie != null) {
         this.NomePessoaLogada = this.log.nome;
+        this.logado = true;
         this.ocultarMenuLogin = true;
         this.ocultarBotaoLogin = false;
         this.botaoSair = true;
