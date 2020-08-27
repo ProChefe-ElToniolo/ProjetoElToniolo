@@ -6,9 +6,9 @@
         <!-- <p>História</p> -->
         <div id="contato">
             <p class="texto" id="titulo">Contato</p>
-            <p class="texto" >Horário de atendimento:
-                <ol class="texto" >Dias de semana: </ol>
-                <ol class="texto" >Finais de Semana e Feriados:</ol>
+            <p class="texto" >Horário de atendimento: 14:00 as 22:00
+                <ol class="texto" >Dias de semana: Terça a Domingo </ol>
+                <ol class="texto" >Finais de semana e Feriados</ol>
             </p>
             <p class="texto" >Email: eltoniolopizzaria@gmail.com</p>
             <i class="fa fa-envelope-o"></i>

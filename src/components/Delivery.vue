@@ -5,15 +5,19 @@
         <div id="caixa-tamanho">
           <div @click="mudar('Exagerada')" id="img-tamanho">
             <img src="../imagens/Exagerada.png" id="img-ings" />
+            <label class="qtdSabor">4 SABORES</label>
           </div>
           <div @click="mudar('Grande')" id="img-tamanho">
             <img src="../imagens/Grande.png" id="img-ings" />
+            <label class="qtdSabor">3 SABORES</label>
           </div>
           <div @click="mudar('Media')" id="img-tamanho">
             <img src="../imagens/Media.png" id="img-ings" />
+            <label class="qtdSabor">2 SABORES</label>
           </div>
           <div @click="mudar('Pequena')" id="img-tamanho">
             <img src="../imagens/Pequena.png" id="img-ings" />
+            <label class="qtdSabor">1 SABOR</label>
           </div>
         </div>
       </div>
@@ -603,5 +607,13 @@ body {
 }
 #pizz {
   margin: 0px;
+}
+.qtdSabor{
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  padding: 3px;
+
+  /* background: black;
+  color: white; */
 }
 </style>

@@ -10,7 +10,7 @@
       </div>
       <br />
       <button class="botao" id="btn-salvar" @click="cadastrarTipoUsuario">Salvar Tipo Usuário</button>
-      <button class="botao" id="btn-excluir" >Excluir Tipo Usuario</button>
+      <!-- <button class="botao" id="btn-excluir" >Excluir Tipo Usuario</button> -->
       <br />
       <span v-if="mostrarCadastroTP">Tipo Usuário cadastrado com sucesso!</span>
       <span v-if="preencherCertoTP">Preencha o campo!</span>

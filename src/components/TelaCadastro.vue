@@ -67,6 +67,7 @@ export default {
   methods: {
     voltarMenu: function() {
       this.$emit('chamou')
+      location.reload();
     },
     mostrarSenha: function(){
       var senha = document.getElementById("senha")

@@ -196,7 +196,6 @@ export default {
   margin: 10px;
   width: 100px;
   height: 100px;
-  background-color: cadetblue;
   border: 3px solid black;
 }
 

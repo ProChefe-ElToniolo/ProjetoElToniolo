@@ -11,7 +11,7 @@
                 <li @click="Cardapio">CARDÁPIO</li>
                 <li @click="Pedidos">DELIVERY</li>
                 <li @click="Sobre">SOBRE</li>
-                <li @click="Admin">ADMIN</li>
+                <!-- <li @click="Admin">ADMIN</li> -->
               </ul>
             </nav>
           </div>
@@ -20,23 +20,20 @@
               <li @click="Pedidos">DELIVERY</li>
               <li @click="Cardapio">CARDÁPIO</li>
               <li @click="Sobre">SOBRE</li>
-              <li @click="Admin">ADMIN</li>
             </ul>
           </nav>
-          <!-- <router-link to = "ViewTelaMenuAdmin" id="botaoIrParaMenuAdmin">IrParaMenuAdmin</router-link> -->
-          
+
           <img src="../imagens/logopizza.png" id="logo" @click="Reset" />
           <button
             id="botao-logar"
             @click="logar"
             v-if="ocultarBotaoLogin"
           >FAZER LOGIN OU CADASTRAR-SE</button>
-          <!-- CLICAR ABRE O PERFIL -->
           <button id="perfil" v-if="logado">
-            <img src="../imagens/comercial.png" id="userlogo"/>
+            <img src="../imagens/comercial.png" id="userlogo" />
             <label id="labelLogado">{{NomePessoaLogada}}</label>
           </button>
-          <button v-if="botaoSair" id="botaoSair">Sair</button>
+          <button v-if="botaoSair" id="botaoSair" @click="sair">Sair</button>
         </div>
         <transition name="bounce">
           <div class="modal" v-if="ocultarMenuLogin == false">
@@ -55,27 +52,35 @@
               <button @click="Cadastro" id="cadastrarse">Cadastre-se caso ainda não possua uma conta</button>
             </div>
           </div>
+          <div v-if="bagulho" class="qualquer">
+            <div>
+              <img class="imgs" src="../imagens/imgprincipal.png" />
+            </div>
+            <div>
+              <img class="imgs" src="../imagens/propagandaeditar.png" />
+            </div>
+          </div>
         </transition>
       </div>
-      <transition  name="anima">
-      <div class="modal" v-if="visualizarCadastro" >
-        <div id="cadastrin">
-          <TelaCadastro v-if="visualizarCadastro" @chamou="fecharCadastro"/>
+      <transition name="anima">
+        <div class="modal" v-if="visualizarCadastro">
+          <div id="cadastrin">
+            <TelaCadastro v-if="visualizarCadastro" @chamou="fecharCadastro" />
+          </div>
         </div>
-      </div>  
-      </transition>    
-      </div>
-      <!-- <div id="sombra-menu"></div> -->
+      </transition>
+    </div>
+    <!-- <div id="sombra-menu"></div> -->
 
-      <div v-if="visualizarCardapio">
-        <TelaCardapio />
-      </div>
-      <div v-if="visualizarPedidos">
-        <Delivery />
-      </div>
-      <div v-if="visualizarSobre">
-        <TelaSobre />
-      </div>
+    <div v-if="visualizarCardapio">
+      <TelaCardapio />
+    </div>
+    <div v-if="visualizarPedidos">
+      <Delivery />
+    </div>
+    <div v-if="visualizarSobre">
+      <TelaSobre />
+    </div>
   </div>
 </template>
 
@@ -100,6 +105,7 @@ export default {
       clientes: [],
       usuarios: [],
       log: [],
+      bagulho: true,
       ocultarMenuLogin: true,
       logado: false,
       NomePessoaLogada: "",
@@ -116,10 +122,10 @@ export default {
       senhaIncorreta: false
     };
   },
-  events:{
-    coisar(){
+  events: {
+    coisar() {
       this.fecharCadastro();
-    },
+    }
   },
   methods: {
     logar: function() {
@@ -168,6 +174,7 @@ export default {
       this.visualizarSobre = false;
       this.visualizarCardapio = false;
       this.visualizarPedidos = false;
+      this.bagulho = false;
     },
     sair: function() {
       sessionStorage.removeItem("usuarioLogado");
@@ -191,17 +198,18 @@ export default {
       this.$router.push("/ViewTelaLogin");
     },
     Cadastro: function() {
+      this.bagulho = false;
       this.visualizarCadastro = true;
       this.logar();
     },
-    fecharCadastro: function(){
+    fecharCadastro: function() {
       this.visualizarCadastro = false;
     },
     verLog: function() {
       var clie = sessionStorage.getItem("usuarioLogado");
-      this.log.push(JSON.parse(clie))
+      this.log.push(JSON.parse(clie));
       if (clie != null) {
-        this.NomePessoaLogada = this.log.nome;
+        this.NomePessoaLogada = this.log[0].nome;
         this.logado = true;
         this.ocultarMenuLogin = true;
         this.ocultarBotaoLogin = false;
@@ -226,7 +234,7 @@ export default {
       } else {
         this.open = false;
       }
-    },
+    }
   },
   mounted() {
     axios
@@ -235,7 +243,7 @@ export default {
     axios
       .get("http://localhost:55537/api/Usuario")
       .then(usuario => (this.usuarios = usuario.data));
-    // this.verLog();
+    this.verLog();
   }
 };
 </script>
@@ -256,10 +264,26 @@ html {
   overflow: auto;
 }
 
-.anima-enter-active{
+.imgs {
+  width: 525px;
+  height: 310px;
+  margin-left: 10px;
+  margin-top: 40px;
+  border: 2px solid black;
+  border-radius: 25px;
+}
+
+.qualquer {
+  display: flex;
+  margin-top: 150px;
+  width: 71.72%;
+  margin-left: 8.4%;
+}
+
+.anima-enter-active {
   animation: ala 1s;
 }
-.anima-leave-active{
+.anima-leave-active {
   animation: ala 0.5s reverse;
 }
 
@@ -322,7 +346,7 @@ html {
   margin-top: 5%;
   background-color: rgb(15, 15, 15);
   -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+  transition-duration: 0.4s;
 }
 
 #hamb {
@@ -612,20 +636,17 @@ html {
 #botaoSair {
   font-family: One Dot Condensed Bold, Arial Narrow, Arial, Helvetica,
     sans-serif;
-  letter-spacing: 0.05rem;
   font-weight: 700;
   position: absolute;
   border: none;
   outline: none;
   color: white;
   font-size: 18px;
-  padding-right: 3%;
-  padding-left: 3%;
-  text-align: right;
+  text-align:center;
   background-color: black;
-  margin: 0px 0px 0px 90%;
+  margin: 0px 0px 0px 89%;
   outline: none;
-  width: auto;
+  width: 80px;
   height: 70px;
   cursor: pointer;
 }
@@ -652,10 +673,9 @@ html {
 
 #labelSenhaIncorreta {
   color: white;
-  background-color: rgba(255, 255, 255, 0.555);
+  background-color: rgba(0, 0, 0, 0.555);
   cursor: pointer;
   width: 130px;
-  border: 2px solid yellow;
   margin: 10px 0 0 0;
 }
 
