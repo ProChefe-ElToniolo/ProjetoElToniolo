@@ -1,103 +1,6 @@
-USE [master]
-GO
-/****** Object:  Database [pro_chefe]    Script Date: 26/08/2020 22:41:17 ******/
-CREATE DATABASE [pro_chefe]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'pro_chefe', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\DATA\pro_chefe.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'pro_chefe_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.SQLEXPRESS\MSSQL\DATA\pro_chefe_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
-GO
-ALTER DATABASE [pro_chefe] SET COMPATIBILITY_LEVEL = 140
-GO
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [pro_chefe].[dbo].[sp_fulltext_database] @action = 'enable'
-end
-GO
-ALTER DATABASE [pro_chefe] SET ANSI_NULL_DEFAULT OFF 
-GO
-ALTER DATABASE [pro_chefe] SET ANSI_NULLS OFF 
-GO
-ALTER DATABASE [pro_chefe] SET ANSI_PADDING OFF 
-GO
-ALTER DATABASE [pro_chefe] SET ANSI_WARNINGS OFF 
-GO
-ALTER DATABASE [pro_chefe] SET ARITHABORT OFF 
-GO
-ALTER DATABASE [pro_chefe] SET AUTO_CLOSE OFF 
-GO
-ALTER DATABASE [pro_chefe] SET AUTO_SHRINK OFF 
-GO
-ALTER DATABASE [pro_chefe] SET AUTO_UPDATE_STATISTICS ON 
-GO
-ALTER DATABASE [pro_chefe] SET CURSOR_CLOSE_ON_COMMIT OFF 
-GO
-ALTER DATABASE [pro_chefe] SET CURSOR_DEFAULT  GLOBAL 
-GO
-ALTER DATABASE [pro_chefe] SET CONCAT_NULL_YIELDS_NULL OFF 
-GO
-ALTER DATABASE [pro_chefe] SET NUMERIC_ROUNDABORT OFF 
-GO
-ALTER DATABASE [pro_chefe] SET QUOTED_IDENTIFIER OFF 
-GO
-ALTER DATABASE [pro_chefe] SET RECURSIVE_TRIGGERS OFF 
-GO
-ALTER DATABASE [pro_chefe] SET  DISABLE_BROKER 
-GO
-ALTER DATABASE [pro_chefe] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
-GO
-ALTER DATABASE [pro_chefe] SET DATE_CORRELATION_OPTIMIZATION OFF 
-GO
-ALTER DATABASE [pro_chefe] SET TRUSTWORTHY OFF 
-GO
-ALTER DATABASE [pro_chefe] SET ALLOW_SNAPSHOT_ISOLATION OFF 
-GO
-ALTER DATABASE [pro_chefe] SET PARAMETERIZATION SIMPLE 
-GO
-ALTER DATABASE [pro_chefe] SET READ_COMMITTED_SNAPSHOT OFF 
-GO
-ALTER DATABASE [pro_chefe] SET HONOR_BROKER_PRIORITY OFF 
-GO
-ALTER DATABASE [pro_chefe] SET RECOVERY SIMPLE 
-GO
-ALTER DATABASE [pro_chefe] SET  MULTI_USER 
-GO
-ALTER DATABASE [pro_chefe] SET PAGE_VERIFY CHECKSUM  
-GO
-ALTER DATABASE [pro_chefe] SET DB_CHAINING OFF 
-GO
-ALTER DATABASE [pro_chefe] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
-GO
-ALTER DATABASE [pro_chefe] SET TARGET_RECOVERY_TIME = 60 SECONDS 
-GO
-ALTER DATABASE [pro_chefe] SET DELAYED_DURABILITY = DISABLED 
-GO
-ALTER DATABASE [pro_chefe] SET QUERY_STORE = OFF
-GO
 USE [pro_chefe]
 GO
-ALTER DATABASE SCOPED CONFIGURATION SET IDENTITY_CACHE = ON;
-GO
-ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
-GO
-ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
-GO
-ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
-GO
-ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
-GO
-ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
-GO
-ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
-GO
-ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
-GO
-ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
-GO
-USE [pro_chefe]
-GO
-/****** Object:  Table [dbo].[categoria]    Script Date: 26/08/2020 22:41:18 ******/
+/****** Object:  Table [dbo].[categoria]    Script Date: 27/08/2020 08:02:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -111,7 +14,7 @@ CREATE TABLE [dbo].[categoria](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cliente]    Script Date: 26/08/2020 22:41:19 ******/
+/****** Object:  Table [dbo].[cliente]    Script Date: 27/08/2020 08:02:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -136,7 +39,7 @@ CREATE TABLE [dbo].[cliente](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ingrediente]    Script Date: 26/08/2020 22:41:19 ******/
+/****** Object:  Table [dbo].[ingrediente]    Script Date: 27/08/2020 08:02:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -153,7 +56,7 @@ CREATE TABLE [dbo].[ingrediente](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[itens_pedido]    Script Date: 26/08/2020 22:41:19 ******/
+/****** Object:  Table [dbo].[itens_pedido]    Script Date: 27/08/2020 08:02:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -169,7 +72,7 @@ CREATE TABLE [dbo].[itens_pedido](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[medida]    Script Date: 26/08/2020 22:41:19 ******/
+/****** Object:  Table [dbo].[medida]    Script Date: 27/08/2020 08:02:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -184,7 +87,7 @@ CREATE TABLE [dbo].[medida](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[pedidos]    Script Date: 26/08/2020 22:41:19 ******/
+/****** Object:  Table [dbo].[pedidos]    Script Date: 27/08/2020 08:02:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -200,7 +103,7 @@ CREATE TABLE [dbo].[pedidos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[produto]    Script Date: 26/08/2020 22:41:19 ******/
+/****** Object:  Table [dbo].[produto]    Script Date: 27/08/2020 08:02:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -219,7 +122,7 @@ CREATE TABLE [dbo].[produto](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[produto_ingrediente]    Script Date: 26/08/2020 22:41:19 ******/
+/****** Object:  Table [dbo].[produto_ingrediente]    Script Date: 27/08/2020 08:02:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -235,7 +138,7 @@ CREATE TABLE [dbo].[produto_ingrediente](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tipo_usuario]    Script Date: 26/08/2020 22:41:19 ******/
+/****** Object:  Table [dbo].[tipo_usuario]    Script Date: 27/08/2020 08:02:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -249,7 +152,7 @@ CREATE TABLE [dbo].[tipo_usuario](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[usuario]    Script Date: 26/08/2020 22:41:19 ******/
+/****** Object:  Table [dbo].[usuario]    Script Date: 27/08/2020 08:02:03 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -265,6 +168,334 @@ CREATE TABLE [dbo].[usuario](
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[categoria] ON 
+GO
+INSERT [dbo].[categoria] ([id], [nome]) VALUES (1011, N'Pizzas')
+GO
+INSERT [dbo].[categoria] ([id], [nome]) VALUES (1012, N'Carne')
+GO
+INSERT [dbo].[categoria] ([id], [nome]) VALUES (1071, N'Bebidas')
+GO
+INSERT [dbo].[categoria] ([id], [nome]) VALUES (1072, N'Doces')
+GO
+INSERT [dbo].[categoria] ([id], [nome]) VALUES (1076, N'Alfaces')
+GO
+SET IDENTITY_INSERT [dbo].[categoria] OFF
+GO
+SET IDENTITY_INSERT [dbo].[cliente] ON 
+GO
+INSERT [dbo].[cliente] ([id], [nome], [telefone], [cpf], [cep], [logradouro], [numero], [complemento], [bairro], [uf], [cidade], [email], [senha]) VALUES (1, N'Hiago', N'47996218619', N'03156582905', N'89041450', N'Rua reinoldo althoff', N'280', N'casa', N'velha', N'sc', N'Blumenau', N'hiago@gmail.com', N'123')
+GO
+INSERT [dbo].[cliente] ([id], [nome], [telefone], [cpf], [cep], [logradouro], [numero], [complemento], [bairro], [uf], [cidade], [email], [senha]) VALUES (1030, N'Gabriel TP', N'32372472428', N'14820852589', N'89041450', N'Rua Reinoldo Althoff', N'280', N'casa', N'Velha', N'SC', N'Blumenau', N'gabrieltp@gmail.com', N'123')
+GO
+INSERT [dbo].[cliente] ([id], [nome], [telefone], [cpf], [cep], [logradouro], [numero], [complemento], [bairro], [uf], [cidade], [email], [senha]) VALUES (1031, N'Hiago Campregher', N'42429492094', N'03149409249', N'89041450', N'Rua Reinoldo Althoff', N'280', N'casa', N'Velha', N'SC', N'Blumenau', N'hiago@gmail.com', N'149-204')
+GO
+INSERT [dbo].[cliente] ([id], [nome], [telefone], [cpf], [cep], [logradouro], [numero], [complemento], [bairro], [uf], [cidade], [email], [senha]) VALUES (1032, N'Joao', N'37274897274', N'24209940', N'89041450', N'Rua Reinoldo Althoff', N'280', N'casa', N'Velha', N'SC', N'Blumenau', N'joao@gmail.com', N'123')
+GO
+INSERT [dbo].[cliente] ([id], [nome], [telefone], [cpf], [cep], [logradouro], [numero], [complemento], [bairro], [uf], [cidade], [email], [senha]) VALUES (1033, N'danilo', N'424242', N'42222222222', N'89041450', N'Rua Reinoldo Althoff', N'245', N'casa', N'Velha', N'SC', N'Blumenau', N'danilo@gmail.com', N'22222222222222222222')
+GO
+INSERT [dbo].[cliente] ([id], [nome], [telefone], [cpf], [cep], [logradouro], [numero], [complemento], [bairro], [uf], [cidade], [email], [senha]) VALUES (1034, N'cleber', N'48289040982', N'49802089428', N'89041450', N'Rua Reinoldo Althoff', N'242', N'casa', N'Velha', N'SC', N'Blumenau', N'cleber@gmail.com', N'123')
+GO
+INSERT [dbo].[cliente] ([id], [nome], [telefone], [cpf], [cep], [logradouro], [numero], [complemento], [bairro], [uf], [cidade], [email], [senha]) VALUES (1035, N'silmara', N'42424242', N'42222222222', N'89041450', N'Rua Reinoldo Althoff', N'242', N'casa', N'Velha', N'SC', N'Blumenau', N'sil', N'123')
+GO
+INSERT [dbo].[cliente] ([id], [nome], [telefone], [cpf], [cep], [logradouro], [numero], [complemento], [bairro], [uf], [cidade], [email], [senha]) VALUES (1036, N'Rosa', N'47242848284', N'4829492949', N'89041450', N'Rua Reinoldo Althoff', N'245', N'casa', N'Velha', N'SC', N'Blumenau', N'rosa@gmail.com', N'123')
+GO
+INSERT [dbo].[cliente] ([id], [nome], [telefone], [cpf], [cep], [logradouro], [numero], [complemento], [bairro], [uf], [cidade], [email], [senha]) VALUES (1037, N'danilo', N'42424322', N'3333333333', N'89041450', N'Rua Reinoldo Althoff', N'42', N'42', N'Velha', N'SC', N'Blumenau', N'dan432ilo@gmail.com', N'342')
+GO
+SET IDENTITY_INSERT [dbo].[cliente] OFF
+GO
+SET IDENTITY_INSERT [dbo].[ingrediente] ON 
+GO
+INSERT [dbo].[ingrediente] ([id], [nome], [estoque], [id_categoria], [id_medida]) VALUES (1007, N'Carne', 12, 1011, NULL)
+GO
+INSERT [dbo].[ingrediente] ([id], [nome], [estoque], [id_categoria], [id_medida]) VALUES (1016, N'Queijo', 12, 1011, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[ingrediente] OFF
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (0, 1079, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (0, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (0, 1087, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (0, 1094, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (0, 1139, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (5, 1079, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (5, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (12, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (13, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (14, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (15, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (16, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (17, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (18, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (23, 1079, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (24, 1088, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (25, 1088, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (26, 1144, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (26, 1145, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (27, 1144, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (28, 1150, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (28, 1151, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (29, 1088, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (29, 1094, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (30, 1094, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (31, 1094, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (31, 1133, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (32, 1079, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (32, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (32, 1087, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (32, 1088, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (33, 1087, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (33, 1139, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (34, 1087, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (34, 1088, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (34, 1094, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (34, 1133, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (34, 1138, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (34, 1139, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (36, 1094, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (36, 1133, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (37, 1087, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (37, 1139, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (38, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (39, 1080, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (39, 1138, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (39, 1139, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (40, 1088, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (40, 1133, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (40, 1135, 1)
+GO
+INSERT [dbo].[itens_pedido] ([id_pedido], [id_produto], [quantidade]) VALUES (40, 1139, 1)
+GO
+SET IDENTITY_INSERT [dbo].[medida] ON 
+GO
+INSERT [dbo].[medida] ([id], [nome], [qnt_sabores]) VALUES (1, N'Exagerada', 4)
+GO
+INSERT [dbo].[medida] ([id], [nome], [qnt_sabores]) VALUES (2, N'Grande', 2)
+GO
+INSERT [dbo].[medida] ([id], [nome], [qnt_sabores]) VALUES (3, N'Media', 1)
+GO
+INSERT [dbo].[medida] ([id], [nome], [qnt_sabores]) VALUES (4, N'600ml', NULL)
+GO
+INSERT [dbo].[medida] ([id], [nome], [qnt_sabores]) VALUES (5, N'1L', NULL)
+GO
+INSERT [dbo].[medida] ([id], [nome], [qnt_sabores]) VALUES (6, N'2L', NULL)
+GO
+INSERT [dbo].[medida] ([id], [nome], [qnt_sabores]) VALUES (7, N'Pequena', 3)
+GO
+SET IDENTITY_INSERT [dbo].[medida] OFF
+GO
+SET IDENTITY_INSERT [dbo].[pedidos] ON 
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (5, 1, 3, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (6, 1, 6, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (7, 1, 6, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (8, 1, 3, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (9, 1, 5, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (10, 1, 5, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (11, 1, 6, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (12, 1, 6, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (13, 1, 6, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (14, 1, 5, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (15, 1, 5, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (16, 1, 6, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (17, 1, 3, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (18, 1, 5, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (19, 1, 5, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (20, 1, 5, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (21, 1, 6, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (22, 1, 3, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (23, 1, 6, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (24, 1, 3, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (25, 1, 6, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (26, 1, 5, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (27, 1, 3, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (28, 1, 5, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (29, 1, 5, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (30, 1, 3, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (31, 1, 6, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (32, 1, 5, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (33, 1, 3, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (34, 1, 3, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (35, 1, 3, 1)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (39, 1, 3, 0)
+GO
+INSERT [dbo].[pedidos] ([id], [id_cliente], [id_entregador], [processamento]) VALUES (40, 1036, 3, 0)
+GO
+SET IDENTITY_INSERT [dbo].[pedidos] OFF
+GO
+SET IDENTITY_INSERT [dbo].[produto] ON 
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1079, N'Pizza de alho e óleo', N'MOLHO DE TOMATE, MUSSARELA, ALHO E AZEITE DE OLIVA', CAST(60.00 AS Decimal(18, 2)), 1011, N'', 1)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1080, N'Pizza de calabresa', N'MOLHO DE TOMATE, MUSSARELA E CALABRESA', CAST(60.00 AS Decimal(18, 2)), 1011, N'', 1)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1087, N'Pizza de milho', N'MOLHO DE TOMATE, MUSSARELA E MILHO', CAST(60.00 AS Decimal(18, 2)), 1011, N'', 1)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1088, N'Pizza de mussarela', N'MOLHO DE TOMATE E MUSSARELA (2 CAMADAS)', CAST(60.00 AS Decimal(18, 2)), 1011, N'', 1)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1094, N'Pizza de frango c/ catupiry', N'MOLHO DE TOMATE, MUSSARELA, FRANGO DESFIADO AO MOLHO DE CATUPIRY', CAST(60.00 AS Decimal(18, 2)), 1011, N'', 1)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1133, N'Pizza de doritos', N'MOLHO DE TOMATE, MUSSARELA, CALABRESA RALADA, PIMENTÃO VERDE E PIMENTA-CALABRESA', CAST(67.00 AS Decimal(18, 2)), 1011, N'', 1)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1135, N'Coca', NULL, CAST(12.00 AS Decimal(18, 2)), 1071, N'', 1)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1138, N'Pepsi', NULL, CAST(12.00 AS Decimal(18, 2)), 1071, NULL, 1)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1139, N'Sprite', NULL, CAST(10.00 AS Decimal(18, 2)), 1071, NULL, 1)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1140, N'Pizza de alho e óleo', N'MOLHO DE TOMATE, MUSSARELA, ALHO E AZEITE DE OLIVA', CAST(40.00 AS Decimal(18, 2)), 1011, N'', 2)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1141, N'Pizza de calabresa', N'MOLHO DE TOMATE, MUSSARELA E CALABRESA', CAST(40.00 AS Decimal(18, 2)), 1011, N'', 2)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1142, N'Pizza de milho', N'MOLHO DE TOMATE, MUSSARELA E MILHO', CAST(40.00 AS Decimal(18, 2)), 1011, N'', 2)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1143, N'Pizza de mussarela', N'MOLHO DE TOMATE E MUSSARELA (2 CAMADAS)', CAST(40.00 AS Decimal(18, 2)), 1011, N'', 2)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1144, N'Pizza de frango c/ catupiry', N'MOLHO DE TOMATE, MUSSARELA, FRANGO DESFIADO AO MOLHO DE CATUPIRY', CAST(40.00 AS Decimal(18, 2)), 1011, N'', 2)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1145, N'Pizza de doritos', N'MOLHO DE TOMATE, MUSSARELA, CALABRESA RALADA, PIMENTÃO VERDE E PIMENTA-CALABRESA', CAST(47.00 AS Decimal(18, 2)), 1011, N'', 2)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1146, N'Pizza de alho e óleo', N'MOLHO DE TOMATE, MUSSARELA, ALHO E AZEITE DE OLIVA', CAST(35.00 AS Decimal(18, 2)), 1011, N'', 3)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1147, N'Pizza de calabresa', N'MOLHO DE TOMATE, MUSSARELA E CALABRESA', CAST(35.00 AS Decimal(18, 2)), 1011, N'', 3)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1148, N'Pizza de milho', N'MOLHO DE TOMATE, MUSSARELA E MILHO', CAST(35.00 AS Decimal(18, 2)), 1011, N'', 3)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1149, N'Pizza de mussarela', N'MOLHO DE TOMATE E MUSSARELA (2 CAMADAS)', CAST(35.00 AS Decimal(18, 2)), 1011, N'', 3)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1150, N'Pizza de frango c/ catupiry', N'MOLHO DE TOMATE, MUSSARELA, FRANGO DESFIADO AO MOLHO DE CATUPIRY', CAST(35.00 AS Decimal(18, 2)), 1011, N'', 3)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1151, N'Pizza de doritos', N'MOLHO DE TOMATE, MUSSARELA, CALABRESA RALADA, PIMENTÃO VERDE E PIMENTA-CALABRESA', CAST(43.00 AS Decimal(18, 2)), 1011, N'', 3)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1152, N'Pizza de alho e óleo', N'MOLHO DE TOMATE, MUSSARELA, ALHO E AZEITE DE OLIVA', CAST(25.00 AS Decimal(18, 2)), 1011, N'', 7)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1153, N'Pizza de calabresa', N'MOLHO DE TOMATE, MUSSARELA E CALABRESA', CAST(25.00 AS Decimal(18, 2)), 1011, N'', 7)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1154, N'Pizza de milho', N'MOLHO DE TOMATE, MUSSARELA E MILHO', CAST(25.00 AS Decimal(18, 2)), 1011, N'', 7)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1155, N'Pizza de mussarela', N'MOLHO DE TOMATE E MUSSARELA (2 CAMADAS)', CAST(25.00 AS Decimal(18, 2)), 1011, N'', 7)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1156, N'Pizza de frango c/ catupiry', N'MOLHO DE TOMATE, MUSSARELA, FRANGO DESFIADO AO MOLHO DE CATUPIRY', CAST(25.00 AS Decimal(18, 2)), 1011, N'', 7)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1157, N'Pizza de doritos', N'MOLHO DE TOMATE, MUSSARELA, CALABRESA RALADA, PIMENTÃO VERDE E PIMENTA-CALABRESA', CAST(28.00 AS Decimal(18, 2)), 1011, N'', 7)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1160, N'Pizza teste', N'teste', CAST(42.00 AS Decimal(18, 2)), 1011, N'', 1)
+GO
+INSERT [dbo].[produto] ([id], [nome], [descricao], [preco], [id_categoria], [imagem], [medida_tamanho]) VALUES (1161, N'Pizza de teste', N'', CAST(42.00 AS Decimal(18, 2)), 1011, N'', 1)
+GO
+SET IDENTITY_INSERT [dbo].[produto] OFF
+GO
+INSERT [dbo].[produto_ingrediente] ([id_produto], [id_ingrediente], [preco_saida]) VALUES (1079, 1016, CAST(10.00 AS Decimal(18, 2)))
+GO
+INSERT [dbo].[produto_ingrediente] ([id_produto], [id_ingrediente], [preco_saida]) VALUES (1133, 1007, NULL)
+GO
+INSERT [dbo].[produto_ingrediente] ([id_produto], [id_ingrediente], [preco_saida]) VALUES (1133, 1016, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[tipo_usuario] ON 
+GO
+INSERT [dbo].[tipo_usuario] ([id], [nome]) VALUES (1, N'Administrador')
+GO
+INSERT [dbo].[tipo_usuario] ([id], [nome]) VALUES (2, N'Cliente')
+GO
+INSERT [dbo].[tipo_usuario] ([id], [nome]) VALUES (3, N'Entregador')
+GO
+SET IDENTITY_INSERT [dbo].[tipo_usuario] OFF
+GO
+SET IDENTITY_INSERT [dbo].[usuario] ON 
+GO
+INSERT [dbo].[usuario] ([id], [nome], [email], [senha], [tipo_usuario]) VALUES (2, N'Hiago Campregher', N'hiago_campregher@estudante.sc.senai.br', N'123     ', 1)
+GO
+INSERT [dbo].[usuario] ([id], [nome], [email], [senha], [tipo_usuario]) VALUES (3, N'Toniolo', N'toniolo', N'123     ', 3)
+GO
+INSERT [dbo].[usuario] ([id], [nome], [email], [senha], [tipo_usuario]) VALUES (4, N'Nathan', N'nathan', N'123     ', 2)
+GO
+INSERT [dbo].[usuario] ([id], [nome], [email], [senha], [tipo_usuario]) VALUES (5, N'Borba', N'borba', N'123     ', 3)
+GO
+INSERT [dbo].[usuario] ([id], [nome], [email], [senha], [tipo_usuario]) VALUES (6, N'silvio', N'silvio', N'123     ', 3)
+GO
+INSERT [dbo].[usuario] ([id], [nome], [email], [senha], [tipo_usuario]) VALUES (8, N'Willian', N'willian@gmail.com', N'123     ', 1)
+GO
+SET IDENTITY_INSERT [dbo].[usuario] OFF
 GO
 ALTER TABLE [dbo].[pedidos] ADD  CONSTRAINT [DF_delivery_processamento]  DEFAULT ((0)) FOR [processamento]
 GO
@@ -335,8 +566,4 @@ ALTER TABLE [dbo].[usuario]  WITH CHECK ADD  CONSTRAINT [FK_usuario_usuario] FOR
 REFERENCES [dbo].[usuario] ([id])
 GO
 ALTER TABLE [dbo].[usuario] CHECK CONSTRAINT [FK_usuario_usuario]
-GO
-USE [master]
-GO
-ALTER DATABASE [pro_chefe] SET  READ_WRITE 
 GO

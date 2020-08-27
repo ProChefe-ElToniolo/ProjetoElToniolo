@@ -144,7 +144,6 @@ export default {
           this.ocultarBotaoLogin = false;
           this.botaoSair = true;
           sessionStorage.setItem("usuarioLogado", JSON.stringify(c));
-          console.log(sessionStorage.getItem("usuarioLogado"));
           this.logCorreto = true;
         }
       });
